@@ -1,0 +1,927 @@
+// Supplement Product Database (6 items per category)
+const products = [
+  // Category 1: Proteins & Aminos
+  {
+    id: 'prot-1',
+    name: 'Whey Protein Isolate',
+    category: 'proteins',
+    price: 6500,
+    description: 'Premium fast-absorbing whey isolate. 25g protein, 0g sugar, and 5.5g BCAAs per serving.',
+    size: '2kg (4.4 lbs)',
+    rating: 4.8,
+    badge: 'Best Seller',
+    keywords: 'whey protein isolate powder ultra absorption muscle recovery lean gain fast absorbing raw gold standard'
+  },
+  {
+    id: 'prot-2',
+    name: 'Premium Creatine Monohydrate',
+    category: 'proteins',
+    price: 2200,
+    description: '100% pure micronized creatine. Boosts muscle strength, power output, and cell hydration.',
+    size: '250g (50 servings)',
+    rating: 4.9,
+    badge: 'Most Popular',
+    keywords: 'creatine monohydrate micronized muscle volume explosive power weight lifting raw pure strength'
+  },
+  {
+    id: 'prot-3',
+    name: 'Essential BCAA 2:1:1',
+    category: 'proteins',
+    price: 1800,
+    description: 'Branched-chain amino acids in a proven 2:1:1 ratio. Aids intra-workout endurance and muscle preservation.',
+    size: '300g (30 servings)',
+    rating: 4.6,
+    badge: 'Endurance',
+    keywords: 'bcaa essential amino acids recovery endurance intra-workout hydration muscle synthesis branch chain'
+  },
+  {
+    id: 'prot-4',
+    name: 'L-Glutamine Recovery Powder',
+    category: 'proteins',
+    price: 1500,
+    description: 'Pure micronized L-Glutamine. Promotes muscle tissue repair, gut health, and immune system support.',
+    size: '250g',
+    rating: 4.7,
+    badge: 'Recovery',
+    keywords: 'glutamine l-glutamine amino acid post workout muscle recovery soreness reduction gut health'
+  },
+  {
+    id: 'prot-5',
+    name: 'Hydrolyzed Collagen Peptides',
+    category: 'proteins',
+    price: 2800,
+    description: 'Type I & III grass-fed collagen. Promotes joint elasticity, skin health, hair strength, and nail growth.',
+    size: '300g',
+    rating: 4.5,
+    badge: 'Skin & Joints',
+    keywords: 'collagen peptides joint health skin glow hair nails protein anti aging hydrolyzed marine grass fed'
+  },
+  {
+    id: 'prot-6',
+    name: 'Organic Plant Protein Blend',
+    category: 'proteins',
+    price: 3200,
+    description: 'Premium vegan protein from pea, brown rice, and quinoa. Added digestive enzymes, soy & dairy free.',
+    size: '1kg (2.2 lbs)',
+    rating: 4.4,
+    badge: 'Vegan',
+    keywords: 'plant protein vegan organic pea brown rice quinoa dairy free lactose intolerant hypo allergenic green'
+  },
+
+  // Category 2: Pre-Workouts & Energy
+  {
+    id: 'energy-1',
+    name: 'High-Octane Pre-Workout',
+    category: 'energy',
+    price: 3500,
+    description: 'Extreme focus and energy formula. Loaded with 350mg Caffeine, Citrulline Malate, and Beta-Alanine.',
+    size: '300g (30 servings)',
+    rating: 4.8,
+    badge: 'Extreme Energy',
+    keywords: 'preworkout high octane caffeine citrulline beta alanine energy focus tingling pump power drive'
+  },
+  {
+    id: 'energy-2',
+    name: 'SPH Stim-Free Pump Formula',
+    category: 'energy',
+    price: 2900,
+    description: 'Premium nitric oxide booster for maximum vascularity and muscle fullness. Caffeine & stim free.',
+    size: '320g (40 servings)',
+    rating: 4.7,
+    badge: 'Stim-Free Pump',
+    keywords: 'pump formula stim free caffeine free vascularity nitric oxide blood flow muscle fullness arginine non stim'
+  },
+  {
+    id: 'energy-3',
+    name: 'Liquid L-Carnitine 3000',
+    category: 'energy',
+    price: 1600,
+    description: 'High-potency liquid L-Carnitine. Helps convert dietary fats into usable muscular energy.',
+    size: '450ml',
+    rating: 4.5,
+    badge: 'Fat Metabolism',
+    keywords: 'l-carnitine carnitine liquid fat burner metabolic energy shred lean definition stamina'
+  },
+  {
+    id: 'energy-4',
+    name: 'Beta-Alanine Endurance',
+    category: 'energy',
+    price: 1400,
+    description: 'Pure Beta-Alanine powder to delay muscle fatigue, buffer lactic acid, and increase high-intensity reps.',
+    size: '200g',
+    rating: 4.6,
+    badge: 'Endurance Boost',
+    keywords: 'beta alanine endurance stamina buffering lactic acid fatigue resistance pre workout'
+  },
+  {
+    id: 'energy-5',
+    name: 'Thermogenic Shred Burner',
+    category: 'energy',
+    price: 2400,
+    description: 'Advanced calorie-burning formula with Green Tea Extract, Caffeine, L-Tyrosine, and Cayenne Pepper.',
+    size: '60 capsules',
+    rating: 4.4,
+    badge: 'Weight Mgmt',
+    keywords: 'thermogenic fat burner shred weight loss calories caffeine appetite suppressant green tea extract'
+  },
+  {
+    id: 'energy-6',
+    name: 'Caffeine Boost Focus Cap',
+    category: 'energy',
+    price: 800,
+    description: 'Fast-acting anhydrous caffeine capsules. Ideal for a quick, zero-calorie energy spike.',
+    size: '100 tablets',
+    rating: 4.3,
+    badge: 'Quick Focus',
+    keywords: 'caffeine pills capsules energy focus alert metabolism coffee preworkout alternative'
+  },
+
+  // Category 3: Vitamins & Wellness
+  {
+    id: 'well-1',
+    name: 'Daily Multivitamin Active',
+    category: 'wellness',
+    price: 1200,
+    description: 'Complete daily spectrum of 25+ key vitamins & minerals, customized for active fitness lifestyles.',
+    size: '90 tablets',
+    rating: 4.7,
+    badge: 'Daily Essential',
+    keywords: 'multivitamin vitamins minerals health zinc iron magnesium vitality active daily wellness immune system'
+  },
+  {
+    id: 'well-2',
+    name: 'Triple Strength Fish Oil',
+    category: 'wellness',
+    price: 1500,
+    description: 'Enteric-coated capsules rich in EPA & DHA Omega-3 fatty acids. Promotes joint, heart, and brain health.',
+    size: '60 softgels',
+    rating: 4.8,
+    badge: 'Heart & Joint',
+    keywords: 'fish oil omega 3 fatty acids epa dha joint health cardiovascular cognitive brain support softgels'
+  },
+  {
+    id: 'well-3',
+    name: 'Joint Support Glucosamine',
+    category: 'wellness',
+    price: 1800,
+    description: 'Specialized formulation combining Glucosamine, Chondroitin, and MSM for cartridge protection and joint comfort.',
+    size: '120 tablets',
+    rating: 4.6,
+    badge: 'Joint Relief',
+    keywords: 'glucosamine chondroitin msm joint support stiffness recovery cartilage protection heavy lifting comfort'
+  },
+  {
+    id: 'well-4',
+    name: 'Vitamin D3 + K2 Complex',
+    category: 'wellness',
+    price: 950,
+    description: 'High-absorption formulation for bone density strength, calcium absorption, and cardiovascular health.',
+    size: '60 vegetable capsules',
+    rating: 4.9,
+    badge: 'Bone Strength',
+    keywords: 'vitamin d3 k2 calcium absorption bone health immunity hormonal support micro nutrients'
+  },
+  {
+    id: 'well-5',
+    name: 'Ashwagandha KSM-66',
+    category: 'wellness',
+    price: 1100,
+    description: 'Clinically studied organic root extract. Lowers stress hormones, improves sleep, and boosts vitality.',
+    size: '60 capsules',
+    rating: 4.8,
+    badge: 'Natural Herb',
+    keywords: 'ashwagandha ksm-66 cortisol stress relief test booster vitality sleep quality natural wellness adaptogen'
+  },
+  {
+    id: 'well-6',
+    name: 'ZMA Night Recovery',
+    category: 'wellness',
+    price: 1300,
+    description: 'Synergistic blend of Zinc, Magnesium, and Vitamin B6. Promotes deep sleep, recovery, and anabolic support.',
+    size: '90 capsules',
+    rating: 4.7,
+    badge: 'Deep Sleep',
+    keywords: 'zma zinc magnesium b6 deep sleep recovery muscle tissue growth night recovery'
+  }
+];
+
+// Cart State (loaded from localStorage or empty)
+let cart = JSON.parse(localStorage.getItem('sph_supplement_cart')) || [];
+
+// Category expanded state trackers
+const expandedSections = {
+  proteins: false,
+  energy: false,
+  wellness: false
+};
+
+// Current active search query
+let activeSearchQuery = '';
+
+// DOM Elements Initialization
+document.addEventListener('DOMContentLoaded', () => {
+  // Setup Lucide Icons
+  lucide.createIcons();
+
+  // Initialize UI Features
+  initTheme();
+  renderProducts();
+  setupEventListeners();
+  updateCartUI();
+});
+
+// Theme Logic
+function initTheme() {
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const savedTheme = localStorage.getItem('theme');
+  
+  if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+    document.documentElement.classList.add('dark');
+    updateThemeIcon(true);
+  } else {
+    document.documentElement.classList.remove('dark');
+    updateThemeIcon(false);
+  }
+}
+
+function toggleTheme() {
+  const isDark = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  updateThemeIcon(isDark);
+}
+
+function updateThemeIcon(isDark) {
+  const themeIcon = document.getElementById('theme-icon');
+  if (themeIcon) {
+    if (isDark) {
+      themeIcon.innerHTML = `<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>`; // Moon icon path
+    } else {
+      themeIcon.innerHTML = `<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>`; // Sun icon path
+    }
+  }
+}
+
+// Render product grids
+function renderProducts() {
+  const categoryGrids = {
+    proteins: document.getElementById('proteins-grid'),
+    energy: document.getElementById('energy-grid'),
+    wellness: document.getElementById('wellness-grid')
+  };
+
+  // Clear existing items in grids
+  Object.values(categoryGrids).forEach(grid => {
+    if (grid) grid.innerHTML = '';
+  });
+
+  products.forEach((product, idx) => {
+    const grid = categoryGrids[product.category];
+    if (!grid) return;
+
+    // Count how many products exist in this category before this one (to check index inside category)
+    const categoryProducts = products.filter(p => p.category === product.category);
+    const itemIdx = categoryProducts.findIndex(p => p.id === product.id);
+
+    // Create Card elements
+    const card = document.createElement('article');
+    card.className = `premium-card rounded-2xl overflow-hidden flex flex-col h-full opacity-100 transition-all duration-300`;
+    card.setAttribute('data-id', product.id);
+    card.setAttribute('data-name', product.name.toLowerCase());
+    card.setAttribute('data-keywords', product.keywords.toLowerCase());
+
+    // Define initial visible classes depending on expanded state & search queries
+    const isHiddenByDefault = itemIdx >= 3 && !expandedSections[product.category] && !activeSearchQuery;
+    if (isHiddenByDefault) {
+      card.classList.add('grid-item-hidden');
+    } else {
+      card.classList.add('grid-item-visible');
+    }
+
+    // Dynamic product rating stars
+    let starsHtml = '';
+    const fullStars = Math.floor(product.rating);
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        starsHtml += `<i data-lucide="star" class="w-2.5 h-2.5 sm:w-4 sm:h-4 fill-amber-500 text-amber-500"></i>`;
+      } else {
+        starsHtml += `<i data-lucide="star" class="w-2.5 h-2.5 sm:w-4 sm:h-4 text-zinc-400 dark:text-zinc-650"></i>`;
+      }
+    }
+
+    card.innerHTML = `
+      <!-- Product Image Placeholder Gap -->
+      <div class="aspect-[4/3] product-image-gap flex flex-col items-center justify-center p-4 sm:p-6 border-b border-zinc-200 dark:border-zinc-800 relative group">
+        <!-- Accent Glow background shape inside gap -->
+        <div class="absolute w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-emerald-500/10 dark:bg-emerald-500/5 blur-xl group-hover:scale-125 transition-transform duration-500"></div>
+        
+        <!-- Supplement Type Icon Graphic -->
+        <div class="z-10 w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-zinc-200/50 dark:bg-zinc-800/80 flex items-center justify-center border border-zinc-300 dark:border-zinc-700 text-emerald-600 dark:text-emerald-400 shadow-sm transition-transform duration-300 group-hover:scale-110">
+          ${getCategoryIcon(product.category)}
+        </div>
+        <span class="z-10 text-[7px] sm:text-[10px] tracking-widest text-zinc-500 dark:text-zinc-400 font-mono font-bold uppercase mt-2 sm:mt-4">IMAGE PLACEHOLDER</span>
+        
+        ${product.badge ? `
+          <div class="absolute top-2 left-2 bg-emerald-600 text-white dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-600/20 text-[7px] sm:text-[9px] font-bold px-1.5 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider font-display">
+            ${product.badge}
+          </div>
+        ` : ''}
+        
+        <div class="absolute top-2 right-2 text-zinc-500 dark:text-zinc-400 text-[7px] sm:text-xs font-semibold px-1 sm:px-2 py-0.5 rounded bg-zinc-200/70 dark:bg-zinc-800/75 border border-zinc-300/40 dark:border-zinc-700/40 font-mono">
+          ${product.size}
+        </div>
+      </div>
+      
+      <!-- Content -->
+      <div class="p-3 sm:p-5 flex-1 flex flex-col justify-between">
+        <div>
+          <!-- Star reviews -->
+          <div class="flex items-center gap-1 mb-1.5">
+            <div class="flex">${starsHtml}</div>
+            <span class="text-[9px] sm:text-xs text-zinc-500 dark:text-zinc-400 font-semibold font-mono">${product.rating}</span>
+          </div>
+          
+          <h3 class="card-title text-xs sm:text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1 sm:mb-2 font-display hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200 line-clamp-1">
+            ${product.name}
+          </h3>
+          
+          <p class="card-description text-zinc-600 dark:text-zinc-400 text-[9px] sm:text-xs leading-normal mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-none">
+            ${product.description}
+          </p>
+        </div>
+        
+        <div class="border-t border-zinc-150 dark:border-zinc-800/80 pt-2.5 sm:pt-4 mt-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4">
+          <div class="flex flex-col">
+            <span class="card-mrp-label text-[7px] sm:text-[9px] uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-bold">MRP (Incl. taxes)</span>
+            <span class="card-price text-sm sm:text-xl font-black text-zinc-900 dark:text-white font-display">₹${product.price.toLocaleString('en-IN')}</span>
+          </div>
+          
+          <button 
+            onclick="addToCart('${product.id}')"
+            class="w-full sm:w-auto flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-black font-bold text-[9px] sm:text-xs py-2 sm:py-2.5 px-2.5 sm:px-4 rounded-xl transition-all duration-200 active:scale-95 shadow-md shadow-emerald-600/10 dark:shadow-emerald-500/5 hover:-translate-y-0.5 cursor-pointer text-center"
+          >
+            <i data-lucide="shopping-cart" class="w-3 sm:w-3.5 h-3 sm:h-3.5"></i>
+            <span>Add to Cart</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  // Reset SVG icon parsing
+  lucide.createIcons();
+
+  // Show or hide categories depending on query search matching
+  updateCategoriesVisibility();
+  
+  // Re-adjust expandable buttons displays
+  updateExpandButtonsVisibility();
+}
+
+// Return matching SVG paths for supplement categories
+function getCategoryIcon(category) {
+  if (category === 'proteins') {
+    // Protein powder container / dumbbell representation
+    return `<svg class="w-5 h-5 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h12M6 6h12M3 10h18M3 14h18M8 6v12M16 6v12"/></svg>`;
+  } else if (category === 'energy') {
+    // Lightning bolt for energy / pre-workout
+    return `<svg class="w-5 h-5 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`;
+  } else {
+    // Pill capsule / leaf representation for vitamins
+    return `<svg class="w-5 h-5 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>`;
+  }
+}
+
+// Event Listeners setup
+function setupEventListeners() {
+  // Theme toggler buttons
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', toggleTheme);
+  }
+
+  // Header Search Input
+  const headerSearch = document.getElementById('header-search-input');
+  if (headerSearch) {
+    headerSearch.addEventListener('input', (e) => filterCatalog(e.target.value));
+  }
+
+  // Hero Search Input
+  const heroSearch = document.getElementById('hero-search-input');
+  if (heroSearch) {
+    heroSearch.addEventListener('input', (e) => {
+      filterCatalog(e.target.value);
+      // Synchronize desktop header search bar input
+      if (headerSearch) headerSearch.value = e.target.value;
+    });
+  }
+
+  // Mobile Menu Search Input
+  const mobileSearch = document.getElementById('mobile-search-input');
+  if (mobileSearch) {
+    mobileSearch.addEventListener('input', (e) => {
+      filterCatalog(e.target.value);
+      if (headerSearch) headerSearch.value = e.target.value;
+      if (heroSearch) heroSearch.value = e.target.value;
+    });
+  }
+
+  // Clear Search button header
+  const clearHeaderSearch = document.getElementById('header-search-clear');
+  if (clearHeaderSearch) {
+    clearHeaderSearch.addEventListener('click', () => {
+      if (headerSearch) headerSearch.value = '';
+      if (heroSearch) heroSearch.value = '';
+      if (mobileSearch) mobileSearch.value = '';
+      filterCatalog('');
+    });
+  }
+
+  // Reset Filters button on empty state
+  const resetFiltersBtn = document.getElementById('reset-filters-btn');
+  if (resetFiltersBtn) {
+    resetFiltersBtn.addEventListener('click', () => {
+      if (headerSearch) headerSearch.value = '';
+      if (heroSearch) heroSearch.value = '';
+      if (mobileSearch) mobileSearch.value = '';
+      filterCatalog('');
+    });
+  }
+
+  // Mobile Hamburger Toggle
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const mobileDrawer = document.getElementById('mobile-menu-drawer');
+  if (mobileToggle && mobileDrawer) {
+    mobileToggle.addEventListener('click', () => {
+      const isOpen = mobileDrawer.classList.contains('translate-x-0');
+      if (isOpen) {
+        mobileDrawer.classList.remove('translate-x-0');
+        mobileDrawer.classList.add('translate-x-full');
+        mobileToggle.innerHTML = `<i data-lucide="menu" class="w-6 h-6"></i>`;
+      } else {
+        mobileDrawer.classList.remove('translate-x-full');
+        mobileDrawer.classList.add('translate-x-0');
+        mobileToggle.innerHTML = `<i data-lucide="x" class="w-6 h-6"></i>`;
+      }
+      lucide.createIcons();
+    });
+  }
+
+  // Handle mobile drawer links clicking
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (mobileDrawer) {
+        mobileDrawer.classList.remove('translate-x-0');
+        mobileDrawer.classList.add('translate-x-full');
+      }
+      if (mobileToggle) {
+        mobileToggle.innerHTML = `<i data-lucide="menu" class="w-6 h-6"></i>`;
+        lucide.createIcons();
+      }
+    });
+  });
+
+  // Expand / Collapse buttons triggers
+  document.querySelectorAll('.view-more-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const section = btn.getAttribute('data-section');
+      toggleSectionExpansion(section);
+    });
+  });
+
+  // Cart Drawer triggers
+  const cartIconContainer = document.getElementById('cart-icon-container');
+  const closeCartBtn = document.getElementById('close-cart-btn');
+  const cartDrawerBackdrop = document.getElementById('cart-drawer-backdrop');
+  
+  if (cartIconContainer) {
+    cartIconContainer.addEventListener('click', openCart);
+  }
+  if (closeCartBtn) {
+    closeCartBtn.addEventListener('click', closeCart);
+  }
+  if (cartDrawerBackdrop) {
+    cartDrawerBackdrop.addEventListener('click', closeCart);
+  }
+
+  // Setup header sticky scroll styles
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    if (header) {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled-header');
+        header.classList.remove('bg-transparent', 'border-transparent');
+      } else {
+        header.classList.remove('scrolled-header');
+        header.classList.add('bg-transparent', 'border-transparent');
+      }
+    }
+  });
+}
+
+// Live Search logic
+function filterCatalog(query) {
+  activeSearchQuery = query.trim().toLowerCase();
+  
+  const clearHeaderSearch = document.getElementById('header-search-clear');
+  if (clearHeaderSearch) {
+    if (activeSearchQuery) {
+      clearHeaderSearch.classList.remove('hidden');
+    } else {
+      clearHeaderSearch.classList.add('hidden');
+    }
+  }
+
+  // Rerender grids based on new matching query search
+  renderProducts();
+}
+
+function updateCategoriesVisibility() {
+  const sections = {
+    proteins: document.getElementById('proteins-section'),
+    energy: document.getElementById('energy-section'),
+    wellness: document.getElementById('wellness-section')
+  };
+
+  let totalVisibleProducts = 0;
+
+  Object.entries(sections).forEach(([category, sectionElement]) => {
+    if (!sectionElement) return;
+
+    // Find all products in database matching category
+    const categoryProducts = products.filter(p => p.category === category);
+    
+    // Check which ones match search criteria
+    const matchingProducts = categoryProducts.filter(p => {
+      if (!activeSearchQuery) return true;
+      return p.name.toLowerCase().includes(activeSearchQuery) || 
+             p.description.toLowerCase().includes(activeSearchQuery) || 
+             p.keywords.toLowerCase().includes(activeSearchQuery);
+    });
+
+    // Count matching
+    totalVisibleProducts += matchingProducts.length;
+
+    // Toggle entire category element section block visibility
+    if (matchingProducts.length === 0) {
+      sectionElement.classList.add('hidden');
+    } else {
+      sectionElement.classList.remove('hidden');
+      
+      // Update display of matching cards inside category container
+      const cards = sectionElement.querySelectorAll('.premium-card');
+      cards.forEach(card => {
+        const id = card.getAttribute('data-id');
+        const prod = products.find(p => p.id === id);
+        const isMatch = matchingProducts.some(p => p.id === id);
+        
+        if (!isMatch) {
+          card.classList.add('hidden');
+          card.classList.remove('grid-item-visible', 'grid-item-hidden');
+        } else {
+          card.classList.remove('hidden');
+          
+          // Index of item among matches
+          const matchIdx = matchingProducts.findIndex(p => p.id === id);
+          
+          // If search query is active, ignore "View More" constraints and show all matches.
+          // Otherwise, apply default "View More" check logic.
+          if (activeSearchQuery) {
+            card.classList.add('grid-item-visible');
+            card.classList.remove('grid-item-hidden');
+          } else {
+            if (matchIdx < 3) {
+              card.classList.add('grid-item-visible');
+              card.classList.remove('grid-item-hidden');
+            } else if (expandedSections[category]) {
+              card.classList.add('grid-item-visible');
+              card.classList.remove('grid-item-hidden');
+            } else {
+              card.classList.add('grid-item-hidden');
+              card.classList.remove('grid-item-visible');
+            }
+          }
+        }
+      });
+    }
+  });
+
+  // If 0 total matches, show empty results alert view, else hide
+  const emptyState = document.getElementById('search-empty-state');
+  if (emptyState) {
+    if (totalVisibleProducts === 0) {
+      emptyState.classList.remove('hidden');
+    } else {
+      emptyState.classList.add('hidden');
+    }
+  }
+}
+
+// Update Expand Grid buttons
+function updateExpandButtonsVisibility() {
+  const categories = ['proteins', 'energy', 'wellness'];
+  
+  categories.forEach(cat => {
+    const btnWrapper = document.querySelector(`.view-more-btn[data-section="${cat}"]`)?.closest('.view-more-wrapper');
+    if (!btnWrapper) return;
+
+    // Under search query view: hide the expand buttons entirely since all results show
+    if (activeSearchQuery) {
+      btnWrapper.classList.add('hidden');
+      return;
+    }
+
+    // Get total items in category
+    const catItems = products.filter(p => p.category === cat);
+    if (catItems.length <= 3) {
+      btnWrapper.classList.add('hidden');
+    } else {
+      btnWrapper.classList.remove('hidden');
+      
+      const btn = btnWrapper.querySelector('.view-more-btn');
+      const textSpan = btn.querySelector('span');
+      const icon = btn.querySelector('.chevron-icon');
+
+      if (expandedSections[cat]) {
+        textSpan.textContent = 'View Less';
+        icon.classList.add('rotate-180');
+      } else {
+        textSpan.textContent = 'View More';
+        icon.classList.remove('rotate-180');
+      }
+    }
+  });
+}
+
+// Expand/Collapse toggling
+function toggleSectionExpansion(category) {
+  expandedSections[category] = !expandedSections[category];
+  
+  // Re-run render to apply slide animations to cards index >= 3
+  renderProducts();
+
+  // Smooth scroll back to section header if collapsing
+  if (!expandedSections[category]) {
+    const headerElement = document.getElementById(`${category}-section`);
+    if (headerElement) {
+      const headerOffset = 90;
+      const elementPosition = headerElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }
+}
+
+// Cart Drawer opening and closing transitions
+function openCart() {
+  const backdrop = document.getElementById('cart-drawer-backdrop');
+  const panel = document.getElementById('cart-drawer-panel');
+  const drawer = document.getElementById('cart-drawer');
+
+  if (drawer && backdrop && panel) {
+    drawer.classList.remove('hidden');
+    // Force DOM reflow to trigger transition
+    setTimeout(() => {
+      backdrop.classList.remove('opacity-0');
+      backdrop.classList.add('opacity-100');
+      panel.classList.remove('translate-x-full');
+      panel.classList.add('translate-x-0');
+    }, 10);
+  }
+}
+
+function closeCart() {
+  const backdrop = document.getElementById('cart-drawer-backdrop');
+  const panel = document.getElementById('cart-drawer-panel');
+  const drawer = document.getElementById('cart-drawer');
+
+  if (drawer && backdrop && panel) {
+    backdrop.classList.remove('opacity-100');
+    backdrop.classList.add('opacity-0');
+    panel.classList.remove('translate-x-0');
+    panel.classList.add('translate-x-full');
+    
+    // Hide container once transition completes
+    setTimeout(() => {
+      drawer.classList.add('hidden');
+    }, 300);
+  }
+}
+
+// Cart Mechanics
+function addToCart(productId) {
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+
+  const existingItem = cart.find(item => item.product.id === productId);
+  
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      product: product,
+      quantity: 1
+    });
+  }
+
+  saveCart();
+  updateCartUI();
+  
+  // Slide open the cart drawer to show the newly added item (premium UX detail)
+  openCart();
+  
+  // Visual button check animation feedback can be added here if needed
+}
+
+function updateCartQuantity(productId, change) {
+  const item = cart.find(item => item.product.id === productId);
+  if (!item) return;
+
+  item.quantity += change;
+
+  if (item.quantity <= 0) {
+    // Remove if quantity reaches zero
+    cart = cart.filter(i => i.product.id !== productId);
+  }
+
+  saveCart();
+  updateCartUI();
+}
+
+function removeCartItem(productId) {
+  cart = cart.filter(item => item.product.id !== productId);
+  saveCart();
+  updateCartUI();
+}
+
+function saveCart() {
+  localStorage.setItem('sph_supplement_cart', JSON.stringify(cart));
+}
+
+function updateCartUI() {
+  const cartItemsContainer = document.getElementById('cart-items-container');
+  const emptyCartState = document.getElementById('cart-empty-state');
+  const cartFilledState = document.getElementById('cart-filled-state');
+  
+  const floatingCount = document.getElementById('floating-cart-count');
+  const stickyCount = document.getElementById('sticky-cart-count');
+
+  // Compute counts
+  const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Update navbar/floating counts indicators
+  if (floatingCount) {
+    floatingCount.textContent = totalCount;
+    if (totalCount > 0) {
+      floatingCount.classList.remove('scale-0');
+      floatingCount.classList.add('scale-100');
+    } else {
+      floatingCount.classList.remove('scale-100');
+      floatingCount.classList.add('scale-0');
+    }
+  }
+
+  if (stickyCount) {
+    stickyCount.textContent = totalCount;
+    if (totalCount > 0) {
+      stickyCount.classList.remove('scale-0');
+      stickyCount.classList.add('scale-100');
+    } else {
+      stickyCount.classList.remove('scale-100');
+      stickyCount.classList.add('scale-0');
+    }
+  }
+
+  // Toggle empty state
+  if (cart.length === 0) {
+    if (emptyCartState) emptyCartState.classList.remove('hidden');
+    if (cartFilledState) cartFilledState.classList.add('hidden');
+    return;
+  }
+
+  if (emptyCartState) emptyCartState.classList.add('hidden');
+  if (cartFilledState) cartFilledState.classList.remove('hidden');
+
+  // Render list of cart products
+  if (cartItemsContainer) {
+    cartItemsContainer.innerHTML = '';
+    
+    cart.forEach(item => {
+      const itemRow = document.createElement('div');
+      itemRow.className = `flex items-center gap-4 py-4 border-b border-zinc-150 dark:border-zinc-800/80 last:border-b-0`;
+      
+      itemRow.innerHTML = `
+        <!-- Mini Image Placeholder Gap inside Cart -->
+        <div class="w-16 h-16 rounded-xl product-image-gap shrink-0 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+          ${getCategoryIcon(item.product.category)}
+        </div>
+        
+        <!-- Description details -->
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-2 mb-1">
+            <h4 class="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate font-display">
+              ${item.product.name}
+            </h4>
+            <button 
+              onclick="removeCartItem('${item.product.id}')"
+              class="text-zinc-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+              aria-label="Remove item"
+            >
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          </div>
+          
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-2 font-mono">${item.product.size}</p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center border border-zinc-300 dark:border-zinc-700 rounded-lg overflow-hidden bg-zinc-50 dark:bg-zinc-900">
+              <button 
+                onclick="updateCartQuantity('${item.product.id}', -1)"
+                class="px-2 py-1 text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
+                aria-label="Decrease quantity"
+              >
+                <i data-lucide="minus" class="w-3.5 h-3.5"></i>
+              </button>
+              <span class="px-3 text-xs font-bold text-zinc-900 dark:text-zinc-100 font-mono">
+                ${item.quantity}
+              </span>
+              <button 
+                onclick="updateCartQuantity('${item.product.id}', 1)"
+                class="px-2 py-1 text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
+                aria-label="Increase quantity"
+              >
+                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+            
+            <span class="text-sm font-black text-zinc-900 dark:text-white font-mono">
+              ₹${(item.product.price * item.quantity).toLocaleString('en-IN')}
+            </span>
+          </div>
+        </div>
+      `;
+      
+      cartItemsContainer.appendChild(itemRow);
+    });
+  }
+
+  // Calculate pricing metrics
+  const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+  
+  // Free Shipping criteria (> ₹3,000)
+  const shippingFee = subtotal >= 3000 ? 0 : 150;
+  const grandTotal = subtotal + shippingFee;
+
+  // Render values
+  const cartSubtotalEl = document.getElementById('cart-subtotal');
+  const cartShippingEl = document.getElementById('cart-shipping');
+  const cartTotalEl = document.getElementById('cart-total');
+
+  if (cartSubtotalEl) cartSubtotalEl.textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+  
+  if (cartShippingEl) {
+    if (shippingFee === 0) {
+      cartShippingEl.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider text-[10px]">FREE</span>`;
+    } else {
+      cartShippingEl.textContent = `₹${shippingFee}`;
+    }
+  }
+
+  if (cartTotalEl) cartTotalEl.textContent = `₹${grandTotal.toLocaleString('en-IN')}`;
+
+  // Parse newly rendered drawer buttons/icons
+  lucide.createIcons();
+}
+
+// Redirect and submit message to WhatsApp
+function checkoutWhatsApp() {
+  if (cart.length === 0) return;
+
+  const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+  const shippingFee = subtotal >= 3000 ? 0 : 150;
+  const grandTotal = subtotal + shippingFee;
+
+  // Format message lines strictly matching requirements
+  let message = `Hello, I would like to place an order for the following supplements:\n`;
+  
+  cart.forEach(item => {
+    message += `- ${item.product.name} (Qty: ${item.quantity}) - Price: ₹${item.product.price.toLocaleString('en-IN')}\n`;
+  });
+  
+  message += `\nTotal Price: ₹${grandTotal.toLocaleString('en-IN')}\n`;
+  message += `Please confirm my order.`;
+
+  // Encode message
+  const encodedText = encodeURIComponent(message);
+  
+  // Destination phone number: 917003659088
+  const whatsappUrl = `https://wa.me/917003659088?text=${encodedText}`;
+
+  // Redirect in new tab
+  window.open(whatsappUrl, '_blank');
+}

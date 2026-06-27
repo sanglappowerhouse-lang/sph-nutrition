@@ -1,0 +1,259 @@
+/* Import Google Fonts - Outfit (Display) & Inter (Body) */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Default: Light Theme Variables */
+  --bg-primary: #f8fafc;       /* slate-50 */
+  --bg-secondary: #ffffff;     /* white */
+  --bg-tertiary: #f1f5f9;      /* slate-100 */
+  --text-primary: #0f172a;     /* slate-900 */
+  --text-secondary: #475569;   /* slate-600 */
+  --text-muted: #94a3b8;       /* slate-400 */
+  --border-color: #e2e8f0;     /* slate-200 */
+  --accent-color: #059669;     /* emerald-600 */
+  --accent-light: #e6f4ea;     /* light green tint */
+  --accent-glow: rgba(5, 150, 105, 0.15);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  
+  --card-gradient-start: #e2e8f0;
+  --card-gradient-end: #cbd5e1;
+}
+
+:root.dark {
+  /* Dark Theme Variables */
+  --bg-primary: #09090b;       /* zinc-950 */
+  --bg-secondary: #121214;     /* zinc-900/slate-900 custom */
+  --bg-tertiary: #18181b;      /* zinc-900 */
+  --text-primary: #fafafa;     /* zinc-50 */
+  --text-secondary: #a1a1aa;   /* zinc-400 */
+  --text-muted: #52525b;       /* zinc-600 */
+  --border-color: #27272a;     /* zinc-800 */
+  --accent-color: #10b981;     /* emerald-500 */
+  --accent-light: rgba(16, 185, 129, 0.1);
+  --accent-glow: rgba(16, 185, 129, 0.25);
+  --header-bg: rgba(9, 9, 11, 0.85);
+  
+  --card-gradient-start: #18181b;
+  --card-gradient-end: #09090b;
+}
+
+/* Global resets & scroll smooth */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: 'Outfit', sans-serif;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Grid overlay pattern */
+.grid-overlay {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+}
+.dark .grid-overlay {
+  background-image: 
+    linear-gradient(to right, rgba(63, 63, 70, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(63, 63, 70, 0.15) 1px, transparent 1px);
+}
+
+/* Hero section blending gradient overlay */
+.hero-overlay {
+  background-image: linear-gradient(to bottom, transparent 0%, rgba(248, 250, 252, 0.45) 60%, var(--bg-primary) 100%);
+  transition: background-image 0.3s ease;
+}
+.dark .hero-overlay {
+  background-image: linear-gradient(to bottom, transparent 0%, rgba(9, 9, 11, 0.75) 60%, var(--bg-primary) 100%);
+}
+
+
+/* Custom transitions and glow effect for cards */
+.premium-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.premium-card:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 10px 30px var(--accent-glow);
+  transform: translateY(-4px);
+}
+
+/* Glow Text */
+.glow-accent {
+  text-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* Image Placeholder Gap styling */
+.product-image-gap {
+  background: linear-gradient(135deg, var(--card-gradient-start) 0%, var(--card-gradient-end) 100%);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.product-image-gap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+}
+.premium-card:hover .product-image-gap::after {
+  animation: shine 1.2s ease-in-out;
+}
+@keyframes shine {
+  100% {
+    left: 150%;
+  }
+}
+
+/* Theme Switch Transition */
+.theme-transition {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+/* Cart Drawer Animations */
+.cart-drawer-backdrop {
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s ease-out;
+}
+.cart-drawer-panel {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth expansion for grids */
+.grid-item-hidden {
+  display: none !important;
+  opacity: 0;
+  transform: translateY(10px);
+}
+.grid-item-visible {
+  display: flex !important;
+  animation: slideInUp 0.4s forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Lucide Icon override */
+svg[data-lucide] {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Explicit Card Text Color Overrides for High Contrast */
+.card-title {
+  color: var(--text-primary) !important;
+  transition: color 0.3s ease;
+}
+.card-title:hover {
+  color: var(--accent-color) !important;
+}
+.card-price {
+  color: var(--text-primary) !important;
+  transition: color 0.3s ease;
+}
+.card-description {
+  color: var(--text-secondary) !important;
+  transition: color 0.3s ease;
+}
+.card-mrp-label {
+  color: var(--text-muted) !important;
+  transition: color 0.3s ease;
+}
+
+/* Explicit Description Color Overrides for High Contrast */
+.section-header-desc {
+  color: var(--text-secondary) !important;
+}
+.hero-desc {
+  color: var(--text-secondary) !important;
+}
+.hero-title span {
+  color: transparent !important;
+}
+
+/* Sticky Scrolled Header Orange Background State */
+.scrolled-header {
+  background-color: #f97316 !important; /* Premium orange */
+  border-bottom-color: #ea580c !important;
+  box-shadow: 0 10px 25px rgba(234, 88, 12, 0.25) !important;
+  transition: all 0.3s ease;
+}
+
+/* Text and brand overrides for scrolled orange header */
+.scrolled-header nav a,
+.scrolled-header i,
+.scrolled-header #theme-toggle-btn,
+.scrolled-header #cart-icon-container {
+  color: #ffffff !important;
+}
+
+.scrolled-header .font-display,
+.scrolled-header span:not(.theme-transition) {
+  color: #ffffff !important;
+}
+
+/* Hover transitions on orange background */
+.scrolled-header nav a:hover {
+  color: #fef3c7 !important; /* Soft warm tint on hover */
+}
+
+/* Search bar styling inside orange header */
+.scrolled-header #header-search-input {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.scrolled-header #header-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.scrolled-header #header-search-clear {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.scrolled-header #theme-toggle-btn:hover,
+.scrolled-header #cart-icon-container:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+
+
