@@ -3,264 +3,332 @@ const products = [
   // Category 1: Proteins & Aminos
   {
     id: 'prot-1',
-    name: 'Whey Protein Isolate',
+    name: 'Transformium Nutrition- ISO4M 1kg (Choco lata bomb Flavor)',
     category: 'proteins',
-    price: 6500,
-    description: 'Premium fast-absorbing whey isolate. 25g protein, 0g sugar, and 5.5g BCAAs per serving.',
-    size: '2kg (4.4 lbs)',
-    rating: 4.8,
-    badge: 'Best Seller',
-    keywords: 'whey protein isolate powder ultra absorption muscle recovery lean gain fast absorbing raw gold standard'
+    price: 3849,
+    originalPrice: 6999,
+    description: 'European Sourced Isolate whey protein by Transformium Nutrition. Formulated to optimize athletic performance, accelerate post-workout recovery, and provide efficient muscle replenishment.',
+    size: '1kg',
+    rating: 4.9,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition iso4m choco lata bomb flavor chocolate isolate whey protein recovery muscle growth',
+    images: [
+      'images/ultra-iso4m-front.png',
+      'images/ultra-iso4m-back.png'
+    ]
   },
   {
     id: 'prot-2',
-    name: 'Premium Creatine Monohydrate',
-    category: 'creatine',
-    price: 2200,
-    description: '100% pure micronized creatine. Boosts muscle strength, power output, and cell hydration.',
-    size: '250g (50 servings)',
-    rating: 4.9,
-    badge: 'Most Popular',
-    keywords: 'creatine monohydrate micronized muscle volume explosive power weight lifting raw pure strength'
+    name: 'Transformium Nutrition- Anabolic Gainz Mass Gainer 2.72 kg (Strawberry And Vanilla Flavor)',
+    category: 'proteins',
+    price: 2749,
+    originalPrice: 4999,
+    description: 'Anabolic Mass Gainer by Transformium Nutrition in a delicious Strawberry and Vanilla flavor. Features over 1160 healthy calories, 50g protein, and 3g creatine per serving for serious muscle growth.',
+    size: '2.72kg',
+    rating: 4.8,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition anabolic gainz mass gainer strawberry vanilla flavor weight gainer protein muscle growth',
+    images: [
+      'images/ultra-anabolic-gainz-front.png',
+      'images/ultra-anabolic-gainz-back.png'
+    ]
   },
   {
     id: 'prot-3',
-    name: 'Essential BCAA 2:1:1',
+    name: 'Transformium Nutrition- Anabolic Gainz Mass Gainer 1kg (DryFruit Kulfi Flavor)',
     category: 'proteins',
-    price: 1800,
-    description: 'Branched-chain amino acids in a proven 2:1:1 ratio. Aids intra-workout endurance and muscle preservation.',
-    size: '300g (30 servings)',
-    rating: 4.6,
-    badge: 'Endurance',
-    keywords: 'bcaa essential amino acids recovery endurance intra-workout hydration muscle synthesis branch chain'
+    price: 1319,
+    originalPrice: 2399,
+    description: 'Anabolic Mass Gainer by Transformium Nutrition in a premium DryFruit Kulfi flavor. Loaded with high protein, complex carbs, and creatine to fuel intense workouts and muscle expansion.',
+    size: '1kg',
+    rating: 4.8,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition anabolic gainz mass gainer dryfruit kulfi flavor weight gainer protein muscle growth',
+    images: [
+      'images/ultra-anabolic-gainz-kulfi-front.png',
+      'images/ultra-anabolic-gainz-kulfi-back.png'
+    ]
   },
   {
     id: 'prot-4',
-    name: 'L-Glutamine Recovery Powder',
+    name: 'Transformium Nutrition- Anabolic Gainz 4.5kg',
     category: 'proteins',
-    price: 1500,
-    description: 'Pure micronized L-Glutamine. Promotes muscle tissue repair, gut health, and immune system support.',
-    size: '250g',
-    rating: 4.7,
-    badge: 'Recovery',
-    keywords: 'glutamine l-glutamine amino acid post workout muscle recovery soreness reduction gut health'
+    price: 4124,
+    originalPrice: 7499,
+    description: 'Anabolic Mass Gainer by Transformium Nutrition in a bulk 4.5kg tub. Loaded with over 1160 healthy calories, complex carbs, and high-quality protein designed for hardcore muscle gain.',
+    size: '4.5kg',
+    rating: 4.8,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition anabolic gainz mass gainer weight gainer 4.5kg protein muscle growth bulk value',
+    images: [
+      'images/ultra-anabolic-gainz-45kg-front.png',
+      'images/ultra-anabolic-gainz-45kg-back.png'
+    ]
   },
   {
     id: 'prot-5',
-    name: 'Hydrolyzed Collagen Peptides',
+    name: 'Transformium Nutrition- Grow Pro Beast Whey Protein 2kg (Caramel Coffee Flavor)',
     category: 'proteins',
-    price: 2800,
-    description: 'Type I & III grass-fed collagen. Promotes joint elasticity, skin health, hair strength, and nail growth.',
-    size: '300g',
-    rating: 4.5,
-    badge: 'Skin & Joints',
-    keywords: 'collagen peptides joint health skin glow hair nails protein anti aging hydrolyzed marine grass fed'
+    price: 5774,
+    originalPrice: 10499,
+    description: 'Grow Pro Beast Whey Protein with Collagen Peptides by Transformium Nutrition. Formulated in a delicious Caramel Coffee flavor, delivering 24g protein and 3g creatine per serving.',
+    size: '2kg',
+    rating: 4.9,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition grow pro beast whey protein collagen peptides caramel coffee flavor recovery strength muscle',
+    images: [
+      'images/ultra-grow-pro-beast-front.png',
+      'images/ultra-grow-pro-beast-back.png'
+    ]
   },
   {
     id: 'prot-6',
-    name: 'Organic Plant Protein Blend',
+    name: 'Transformium Nutrition- WHEY4MIUM whey Protein Concentrate & Isolate 2kg (Agua Fresca Flavor)',
     category: 'proteins',
-    price: 3200,
-    description: 'Premium vegan protein from pea, brown rice, and quinoa. Added digestive enzymes, soy & dairy free.',
-    size: '1kg (2.2 lbs)',
-    rating: 4.4,
-    badge: 'Vegan',
-    keywords: 'plant protein vegan organic pea brown rice quinoa dairy free lactose intolerant hypo allergenic green'
+    price: 4839,
+    originalPrice: 8799,
+    description: 'WHEY4MIUM Whey Protein Concentrate & Isolate by Transformium Nutrition. Formulated in an exotic Agua Fresca flavor to support rapid post-workout recovery, build lean muscle mass, and improve strength.',
+    size: '2kg',
+    rating: 4.9,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition whey4mium whey protein concentrate isolate agua fresca flavor recovery muscle growth strength',
+    images: [
+      'images/ultra-whey4mium-front.png',
+      'images/ultra-whey4mium-back.png'
+    ]
   },
-
-  // Category: Creatine & Strength (additional products)
+  {
+    id: 'prot-7',
+    name: 'Transformium Nutrition- Nitro Sensation 2.5kg (Pista Kulfi Flavor)',
+    category: 'proteins',
+    price: 3574,
+    originalPrice: 6499,
+    description: 'Nitro Sensation Whey Protein Concentrate by Transformium Nutrition. Infused with Ashwagandha, Ginseng, Tribulus, and Creatine in a rich Pista Kulfi flavor to maximize muscle breakdown prevention and high-intensity capacity.',
+    size: '2.5kg',
+    rating: 4.9,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition nitro sensation whey protein concentrate ashwagandha ginseng tribulus creatine pista kulfi flavor recovery muscle size strength',
+    images: [
+      'images/ultra-nitro-sensation-front.png',
+      'images/ultra-nitro-sensation-back.png'
+    ]
+  },
+  {
+    id: 'prot-8',
+    name: 'Transformium Nutrition- Anabolic BCAA+EAA, 50 Servings (Orange Spice Sprilzer Flavor)',
+    category: 'proteins',
+    price: 1649,
+    originalPrice: 2999,
+    description: 'Anabolic BCAA+EAA by Transformium Nutrition. Formulated in a refreshing Orange Spice Spritzer flavor, providing essential amino acids and hydration support across 50 servings.',
+    size: '50 Servings',
+    rating: 4.8,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition anabolic bcaa eaa hydration orange spice sprilzer spritzer flavor recovery muscle preservation amino acids',
+    images: [
+      'images/ultra-anabolic-bcaa-eaa-front.png',
+      'images/ultra-anabolic-bcaa-eaa-back.png'
+    ]
+  },
+  {
+    id: 'crt-1',
+    name: 'Transformium Nutrition- Ultra Creatine-250 g ( Blue Berry Flavor)',
+    category: 'creatine',
+    price: 1209,
+    originalPrice: 2199,
+    description: 'Ultra Creatine monohydrate by Transformium Nutrition. Formulated to enhance muscle volume, boost anaerobic power, and maximize ATP resynthesis.',
+    size: '250g',
+    rating: 4.8,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition ultra creatine blueberry blue berry flavor powder strength power muscle growth',
+    images: [
+      'images/ultra-creatine-front.png',
+      'images/ultra-creatine-back.png'
+    ]
+  },
   {
     id: 'crt-2',
-    name: 'Creatine HCL Ultra',
+    name: 'Transformium Nutrition- Ultra Creatine-250 g ( Sex On The Beach Flavor)',
     category: 'creatine',
-    price: 2800,
-    description: 'Highly concentrated creatine hydrochloride. Superior absorption, zero bloating, no loading phase required.',
-    size: '120 capsules',
-    rating: 4.7,
-    badge: 'Zero Bloat',
-    keywords: 'creatine hcl hydrochloride concentrated no bloat absorption strength power capsules'
+    price: 1209,
+    originalPrice: 2199,
+    description: 'Ultra Creatine monohydrate by Transformium Nutrition in a refreshing Sex on the Beach flavor. Formulated to enhance muscle volume, boost anaerobic power, and maximize ATP resynthesis.',
+    size: '250g',
+    rating: 4.8,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition ultra creatine sex on the beach flavor powder strength power muscle growth',
+    images: [
+      'images/ultra-creatine-sex-on-the-beach-front.png',
+      'images/ultra-creatine-sex-on-the-beach-back.png'
+    ]
   },
   {
     id: 'crt-3',
-    name: 'Buffered Creatine Kre-Alkalyn',
+    name: 'Transformium Nutrition- Ultra Creatine-250 g ( Lemon Flavor)',
     category: 'creatine',
-    price: 2500,
-    description: 'pH-buffered creatine formula that eliminates conversion to creatinine. Maximum muscle uptake efficiency.',
-    size: '90 capsules',
-    rating: 4.6,
-    badge: 'pH Buffered',
-    keywords: 'kre-alkalyn buffered creatine ph stable no conversion muscle uptake efficient loading free'
-  },
-  {
-    id: 'crt-4',
-    name: 'Micronized Creatine Powder',
-    category: 'creatine',
-    price: 1800,
-    description: 'Ultra-fine micronized creatine monohydrate for rapid dissolution. Unflavored, mixes instantly with any shake.',
-    size: '500g (100 servings)',
+    price: 1209,
+    originalPrice: 2199,
+    description: 'Ultra Creatine monohydrate by Transformium Nutrition in a tangy Lemon flavor. Formulated to enhance muscle volume, boost anaerobic power, and maximize ATP resynthesis.',
+    size: '250g',
     rating: 4.8,
-    badge: 'Value Pack',
-    keywords: 'micronized creatine powder unflavored bulk value monohydrate dissolution mix shake strength'
+    badge: '45% OFF',
+    keywords: 'transformium nutrition ultra creatine lemon flavor powder strength power muscle growth',
+    images: [
+      'images/ultra-creatine-lemon-front.png',
+      'images/ultra-creatine-lemon-back.png'
+    ]
   },
-  {
-    id: 'crt-5',
-    name: 'Creatine + HMB Stack',
-    category: 'creatine',
-    price: 3200,
-    description: 'Synergistic stack combining creatine monohydrate with HMB for enhanced lean muscle retention and power output.',
-    size: '240g (30 servings)',
-    rating: 4.5,
-    badge: 'Advanced Stack',
-    keywords: 'creatine hmb stack lean muscle anti catabolic power output strength synergy combo'
-  },
-  {
-    id: 'crt-6',
-    name: 'Creatine Gummies Sport',
-    category: 'creatine',
-    price: 1600,
-    description: 'Convenient creatine in chewable gummy form. 3g creatine per serving with natural fruit flavors.',
-    size: '90 gummies',
-    rating: 4.4,
-    badge: 'Easy Dose',
-    keywords: 'creatine gummies chewable convenient fruit flavor portable sport easy dose travel friendly'
-  },
+
+
+
 
 
   // Category 2: Pre-Workouts & Energy
   {
     id: 'energy-1',
-    name: 'High-Octane Pre-Workout',
+    name: 'Transformium Nutrition- Hazard Original Pre Workout 280g, 50 servings (Mixed Berries Flavor)',
     category: 'energy',
-    price: 3500,
-    description: 'Extreme focus and energy formula. Loaded with 350mg Caffeine, Citrulline Malate, and Beta-Alanine.',
-    size: '300g (30 servings)',
-    rating: 4.8,
-    badge: 'Extreme Energy',
-    keywords: 'preworkout high octane caffeine citrulline beta alanine energy focus tingling pump power drive'
-  },
-  {
-    id: 'energy-2',
-    name: 'SPH Stim-Free Pump Formula',
-    category: 'energy',
-    price: 2900,
-    description: 'Premium nitric oxide booster for maximum vascularity and muscle fullness. Caffeine & stim free.',
-    size: '320g (40 servings)',
-    rating: 4.7,
-    badge: 'Stim-Free Pump',
-    keywords: 'pump formula stim free caffeine free vascularity nitric oxide blood flow muscle fullness arginine non stim'
-  },
-  {
-    id: 'energy-3',
-    name: 'Liquid L-Carnitine 3000',
-    category: 'energy',
-    price: 1600,
-    description: 'High-potency liquid L-Carnitine. Helps convert dietary fats into usable muscular energy.',
-    size: '450ml',
-    rating: 4.5,
-    badge: 'Fat Metabolism',
-    keywords: 'l-carnitine carnitine liquid fat burner metabolic energy shred lean definition stamina'
-  },
-  {
-    id: 'energy-4',
-    name: 'Beta-Alanine Endurance',
-    category: 'energy',
-    price: 1400,
-    description: 'Pure Beta-Alanine powder to delay muscle fatigue, buffer lactic acid, and increase high-intensity reps.',
-    size: '200g',
-    rating: 4.6,
-    badge: 'Endurance Boost',
-    keywords: 'beta alanine endurance stamina buffering lactic acid fatigue resistance pre workout'
-  },
-  {
-    id: 'energy-5',
-    name: 'Thermogenic Shred Burner',
-    category: 'energy',
-    price: 2400,
-    description: 'Advanced calorie-burning formula with Green Tea Extract, Caffeine, L-Tyrosine, and Cayenne Pepper.',
-    size: '60 capsules',
-    rating: 4.4,
-    badge: 'Weight Mgmt',
-    keywords: 'thermogenic fat burner shred weight loss calories caffeine appetite suppressant green tea extract'
-  },
-  {
-    id: 'energy-6',
-    name: 'Caffeine Boost Focus Cap',
-    category: 'energy',
-    price: 800,
-    description: 'Fast-acting anhydrous caffeine capsules. Ideal for a quick, zero-calorie energy spike.',
-    size: '100 tablets',
-    rating: 4.3,
-    badge: 'Quick Focus',
-    keywords: 'caffeine pills capsules energy focus alert metabolism coffee preworkout alternative'
+    price: 1979,
+    originalPrice: 3599,
+    description: 'Hazard Original Pre-Workout by Transformium Nutrition. Formulated in a delicious Mixed Berries flavor to enhance endurance, boost strength, and provide testosterone support across 50 servings.',
+    size: '280g',
+    rating: 4.9,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition hazard original pre workout preworkout mixed berries flavor endurance testosterone support strength pump',
+    images: [
+      'images/ultra-hazard-preworkout-front.png',
+      'images/ultra-hazard-preworkout-back.png'
+    ]
   },
 
   // Category 3: Vitamins & Wellness
   {
     id: 'well-1',
-    name: 'Daily Multivitamin Active',
+    name: 'Transformium Nutrition- Performance Arginine Tablets 90N',
     category: 'wellness',
-    price: 1200,
-    description: 'Complete daily spectrum of 25+ key vitamins & minerals, customized for active fitness lifestyles.',
-    size: '90 tablets',
-    rating: 4.7,
-    badge: 'Daily Essential',
-    keywords: 'multivitamin vitamins minerals health zinc iron magnesium vitality active daily wellness immune system'
+    price: 879,
+    originalPrice: 1599,
+    description: 'Performance Arginine L-Arginine Tablets by Transformium Wellness. Promotes insane pumps, long-lasting erections, increased nitric oxide production, and enhanced vasodilation & recovery.',
+    size: '90N Tablets',
+    rating: 4.9,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition performance arginine tablets 90n l-arginine nitric oxide recovery strength pump vasodilation',
+    images: [
+      'images/ultra-arginine-front.png',
+      'images/ultra-arginine-back.png'
+    ]
   },
   {
     id: 'well-2',
-    name: 'Triple Strength Fish Oil',
+    name: 'Transformium NUTRITION-ULTRA Shred&Tight 3500ml (Pink Guava Flavor)',
     category: 'wellness',
-    price: 1500,
-    description: 'Enteric-coated capsules rich in EPA & DHA Omega-3 fatty acids. Promotes joint, heart, and brain health.',
-    size: '60 softgels',
-    rating: 4.8,
-    badge: 'Heart & Joint',
-    keywords: 'fish oil omega 3 fatty acids epa dha joint health cardiovascular cognitive brain support softgels'
+    price: 1814,
+    originalPrice: 3299,
+    description: 'Ultra Shred & Tight liquid formulation by Transformium Nutrition. Packing a 3500mg Carnitine Blend in Pink Guava flavor to accelerate metabolism, support a toned body, reduce body fat, and increase lean muscle.',
+    size: '450ml',
+    rating: 4.9,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition ultra shred tight 3500ml pink guava flavor carnitine blend fat loss metabolism tone lean muscle',
+    images: [
+      'images/ultra-shred-tight-front.png',
+      'images/ultra-shred-tight-back.png'
+    ]
   },
   {
     id: 'well-3',
-    name: 'Joint Support Glucosamine',
+    name: 'Transformium Nutrition- Uni-Vit Multivitamin (Tablets)',
     category: 'wellness',
-    price: 1800,
-    description: 'Specialized formulation combining Glucosamine, Chondroitin, and MSM for cartridge protection and joint comfort.',
-    size: '120 tablets',
-    rating: 4.6,
-    badge: 'Joint Relief',
-    keywords: 'glucosamine chondroitin msm joint support stiffness recovery cartilage protection heavy lifting comfort'
+    price: 385,
+    originalPrice: 699,
+    description: 'Uni-Vit Multivitamin Tablets by Transformium Nutrition. Premium blend of vitamins and minerals to improve immunity, boost energy levels, and support overall health and wellness.',
+    size: '30 Tablets',
+    rating: 4.8,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition uni vit univit multivitamin tablets vitamins minerals health immunity wellness daily active',
+    images: [
+      'images/ultra-uni-vit-front.png',
+      'images/ultra-uni-vit-back.png'
+    ]
   },
   {
     id: 'well-4',
-    name: 'Vitamin D3 + K2 Complex',
+    name: 'Transformium Nutrition- Ass Buster 60N Capsules',
     category: 'wellness',
-    price: 950,
-    description: 'High-absorption formulation for bone density strength, calcium absorption, and cardiovascular health.',
-    size: '60 vegetable capsules',
-    rating: 4.9,
-    badge: 'Bone Strength',
-    keywords: 'vitamin d3 k2 calcium absorption bone health immunity hormonal support micro nutrients'
+    price: 1429,
+    originalPrice: 2599,
+    description: 'Ass Buster Advanced Thermogenic Fat Burning formulation by Transformium Nutrition. Features organic root extracts and stimulants to deliver extreme energy, power, and focus across 60 capsules.',
+    size: '60N Capsules',
+    rating: 4.8,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition ass buster advanced thermogenic fat burning capsules weight loss metabolism energy focus power',
+    images: [
+      'images/ultra-ass-buster-front.png',
+      'images/ultra-ass-buster-back.png'
+    ]
   },
   {
     id: 'well-5',
-    name: 'Ashwagandha KSM-66',
+    name: 'Transformium Nutrition- Heart Revive Nattokinase+COQ10 30N Capsules',
     category: 'wellness',
-    price: 1100,
-    description: 'Clinically studied organic root extract. Lowers stress hormones, improves sleep, and boosts vitality.',
-    size: '60 capsules',
-    rating: 4.8,
-    badge: 'Natural Herb',
-    keywords: 'ashwagandha ksm-66 cortisol stress relief test booster vitality sleep quality natural wellness adaptogen'
+    price: 1319,
+    originalPrice: 2399,
+    description: 'Heart Revive Nattokinase & COQ10 by Transformium Nutrition. Formulated to maximize VO2 capacity, decrease bad cholesterol, support endurance and stamina, and promote healthy heart functioning.',
+    size: '30N Capsules',
+    rating: 4.9,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition heart revive nattokinase coq10 coq17 30n 90 capsules endurance stamina cholesterol heart health vo2 max',
+    images: [
+      'images/ultra-heart-revive-front.png',
+      'images/ultra-heart-revive-back.png'
+    ]
   },
   {
     id: 'well-6',
-    name: 'ZMA Night Recovery',
+    name: 'Transformium Nutrition- Anabolic Veinz-SR 90N Tablets',
     category: 'wellness',
-    price: 1300,
-    description: 'Synergistic blend of Zinc, Magnesium, and Vitamin B6. Promotes deep sleep, recovery, and anabolic support.',
-    size: '90 capsules',
-    rating: 4.7,
-    badge: 'Deep Sleep',
-    keywords: 'zma zinc magnesium b6 deep sleep recovery muscle tissue growth night recovery'
-  }
+    price: 1814,
+    originalPrice: 3299,
+    description: 'Anabolic Veinz-SR Nitric Oxide Augmenter formulation by Transformium Nutrition. Packed with Charge 3™ complex to promote extreme vasodilation, muscle pumps, and enhanced athletic performance across 90 tablets.',
+    size: '90N Tablets',
+    rating: 4.9,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition anabolic veinz sr veiz 90n tablets charge 3 nitric oxide augmenter vasodilation muscle pump performance',
+    images: [
+      'images/ultra-anabolic-veinz-front.png',
+      'images/ultra-anabolic-veinz-back.png'
+    ]
+  },
+  {
+    id: 'well-7',
+    name: 'Transformium Nutrition- Kidney Revive 60N Capsules',
+    category: 'wellness',
+    price: 1319,
+    originalPrice: 2399,
+    description: 'Kidney Revive Kidney Support by Transformium Nutrition. Formulated with milk thistle and other natural herbs to aid in kidney detox, normal creatinine levels, healthy bladder function, and gout/uric acid reduction.',
+    size: '60 Capsules',
+    rating: 4.8,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition kidney revive 60n capsules kidney detox gout uric acid normal creatinine bladder function support',
+    images: [
+      'images/ultra-kidney-revive-front.png',
+      'images/ultra-kidney-revive-back.png'
+    ]
+  },
+  {
+    id: 'well-8',
+    name: 'Transformium Nutrition- Liver&Heart Shield 60N Capsules',
+    category: 'wellness',
+    price: 1429,
+    originalPrice: 2599,
+    description: 'Liver & Heart Shield by Transformium Wellness. Formulated to support optimal liver regeneration & heart health, promote healthy liver function, and aid in sluggish liver and fatty liver recovery.',
+    size: '60 Capsules',
+    rating: 4.8,
+    badge: '45% OFF',
+    keywords: 'transformium nutrition liver heart shield 60n capsules liver toxicity fatty liver sluggish liver on cycle essentials support',
+    images: [
+      'images/ultra-liver-heart-shield-front.png',
+      'images/ultra-liver-heart-shield-back.png'
+    ]
+  },
 ];
 
 // Cart State (loaded from localStorage or empty)
@@ -370,27 +438,64 @@ function renderProducts() {
     }
 
     card.innerHTML = `
-      <!-- Product Image Placeholder Gap -->
-      <div class="aspect-[4/3] product-image-gap flex flex-col items-center justify-center p-4 sm:p-6 border-b border-zinc-200 dark:border-zinc-800 relative group">
-        <!-- Accent Glow background shape inside gap -->
-        <div class="absolute w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-emerald-500/10 dark:bg-emerald-500/5 blur-xl group-hover:scale-125 transition-transform duration-500"></div>
-        
-        <!-- Supplement Type Icon Graphic -->
-        <div class="z-10 w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-zinc-200/50 dark:bg-zinc-800/80 flex items-center justify-center border border-zinc-300 dark:border-zinc-700 text-emerald-600 dark:text-emerald-400 shadow-sm transition-transform duration-300 group-hover:scale-110">
-          ${getCategoryIcon(product.category)}
-        </div>
-        <span class="z-10 text-[7px] sm:text-[10px] tracking-widest text-zinc-500 dark:text-zinc-400 font-mono font-bold uppercase mt-2 sm:mt-4">IMAGE PLACEHOLDER</span>
-        
-        ${product.badge ? `
-          <div class="absolute top-2 left-2 bg-emerald-600 text-white dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-600/20 text-[7px] sm:text-[9px] font-bold px-1.5 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider font-display">
-            ${product.badge}
+      ${product.images ? `
+        <div class="aspect-[4/3] relative w-full overflow-hidden group bg-zinc-50 dark:bg-zinc-900/10">
+          <!-- Horizontal Scrollable Container -->
+          <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar w-full h-full" id="slider-${product.id}">
+            ${product.images.map((img, i) => `
+              <div class="w-full h-full flex-shrink-0 snap-start flex items-center justify-center p-3 sm:p-5">
+                <img src="${img}" class="object-contain max-w-full max-h-full transition-transform duration-300 group-hover:scale-105" alt="${product.name} - Image ${i + 1}">
+              </div>
+            `).join('')}
           </div>
-        ` : ''}
-        
-        <div class="absolute top-2 right-2 text-zinc-500 dark:text-zinc-400 text-[7px] sm:text-xs font-semibold px-1 sm:px-2 py-0.5 rounded bg-zinc-200/70 dark:bg-zinc-800/75 border border-zinc-300/40 dark:border-zinc-700/40 font-mono">
-          ${product.size}
+          
+          ${product.badge ? `
+            <div class="absolute top-2 left-2 bg-emerald-600 text-white dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-600/20 text-[7px] sm:text-[9px] font-bold px-1.5 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider font-display">
+              ${product.badge}
+            </div>
+          ` : ''}
+          
+          <div class="absolute top-2 right-2 text-zinc-500 dark:text-zinc-400 text-[7px] sm:text-xs font-semibold px-1 sm:px-2 py-0.5 rounded bg-zinc-200/70 dark:bg-zinc-800/75 border border-zinc-300/40 dark:border-zinc-700/40 font-mono">
+            ${product.size}
+          </div>
         </div>
-      </div>
+        
+        <!-- Horizontal Scrollable Thumbnails under the photo area -->
+        ${product.images.length > 1 ? `
+          <div class="flex gap-2 px-3 py-1.5 border-y border-zinc-200 dark:border-zinc-800/60 justify-center items-center bg-zinc-50/50 dark:bg-zinc-900/30 overflow-x-auto no-scrollbar scroll-smooth">
+            ${product.images.map((img, i) => `
+              <button 
+                onclick="event.stopPropagation(); document.getElementById('slider-${product.id}').scrollTo({left: document.getElementById('slider-${product.id}').offsetWidth * ${i}, behavior: 'smooth'})"
+                class="w-10 h-8 rounded border-2 ${i === 0 ? 'border-emerald-500 dark:border-emerald-400' : 'border-transparent'} overflow-hidden flex-shrink-0 transition-all duration-200 thumb-${product.id}"
+              >
+                <img src="${img}" class="object-cover w-full h-full">
+              </button>
+            `).join('')}
+          </div>
+        ` : `<div class="border-b border-zinc-200 dark:border-zinc-800"></div>`}
+      ` : `
+        <!-- Product Image Placeholder Gap -->
+        <div class="aspect-[4/3] product-image-gap flex flex-col items-center justify-center p-4 sm:p-6 border-b border-zinc-200 dark:border-zinc-800 relative group">
+          <!-- Accent Glow background shape inside gap -->
+          <div class="absolute w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-emerald-500/10 dark:bg-emerald-500/5 blur-xl group-hover:scale-125 transition-transform duration-500"></div>
+          
+          <!-- Supplement Type Icon Graphic -->
+          <div class="z-10 w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-zinc-200/50 dark:bg-zinc-800/80 flex items-center justify-center border border-zinc-300 dark:border-zinc-700 text-emerald-600 dark:text-emerald-400 shadow-sm transition-transform duration-300 group-hover:scale-110">
+            ${getCategoryIcon(product.category)}
+          </div>
+          <span class="z-10 text-[7px] sm:text-[10px] tracking-widest text-zinc-500 dark:text-zinc-400 font-mono font-bold uppercase mt-2 sm:mt-4">IMAGE PLACEHOLDER</span>
+          
+          ${product.badge ? `
+            <div class="absolute top-2 left-2 bg-emerald-600 text-white dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-600/20 text-[7px] sm:text-[9px] font-bold px-1.5 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider font-display">
+              ${product.badge}
+            </div>
+          ` : ''}
+          
+          <div class="absolute top-2 right-2 text-zinc-500 dark:text-zinc-400 text-[7px] sm:text-xs font-semibold px-1 sm:px-2 py-0.5 rounded bg-zinc-200/70 dark:bg-zinc-800/75 border border-zinc-300/40 dark:border-zinc-700/40 font-mono">
+            ${product.size}
+          </div>
+        </div>
+      `}
       
       <!-- Content -->
       <div class="p-3 sm:p-5 flex-1 flex flex-col justify-between">
@@ -413,7 +518,12 @@ function renderProducts() {
         <div class="border-t border-zinc-150 dark:border-zinc-800/80 pt-2.5 sm:pt-4 mt-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4">
           <div class="flex flex-col">
             <span class="card-mrp-label text-[7px] sm:text-[9px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 font-bold">MRP (Incl. taxes)</span>
-            <span class="card-price text-sm sm:text-xl font-black text-zinc-900 dark:text-white font-display">₹${product.price.toLocaleString('en-IN')}</span>
+            <div class="flex items-baseline gap-1.5">
+              <span class="card-price text-sm sm:text-xl font-black text-zinc-900 dark:text-white font-display">₹${product.price.toLocaleString('en-IN')}</span>
+              ${product.originalPrice ? `
+                <span class="text-[9px] sm:text-xs text-zinc-400 dark:text-zinc-505 line-through font-medium">₹${product.originalPrice.toLocaleString('en-IN')}</span>
+              ` : ''}
+            </div>
           </div>
           
           <button 
@@ -428,6 +538,24 @@ function renderProducts() {
     `;
 
     grid.appendChild(card);
+
+    // Sync thumbnails scroll
+    const slider = card.querySelector(`#slider-${product.id}`);
+    const thumbs = card.querySelectorAll(`.thumb-${product.id}`);
+    if (slider && thumbs.length > 0) {
+      slider.addEventListener('scroll', () => {
+        const index = Math.round(slider.scrollLeft / slider.offsetWidth);
+        thumbs.forEach((thumb, idx) => {
+          if (idx === index) {
+            thumb.classList.add('border-emerald-500', 'dark:border-emerald-400');
+            thumb.classList.remove('border-transparent');
+          } else {
+            thumb.classList.remove('border-emerald-500', 'dark:border-emerald-400');
+            thumb.classList.add('border-transparent');
+          }
+        });
+      });
+    }
   });
 
   // Reset SVG icon parsing
@@ -628,8 +756,7 @@ function updateCategoriesVisibility() {
     // Count matching
     totalVisibleProducts += matchingProducts.length;
 
-    // Toggle entire category element section block visibility
-    if (matchingProducts.length === 0) {
+    if (matchingProducts.length === 0 && (!['creatine', 'proteins', 'energy', 'wellness'].includes(category) || activeSearchQuery)) {
       sectionElement.classList.add('hidden');
     } else {
       sectionElement.classList.remove('hidden');
@@ -880,9 +1007,11 @@ function updateCartUI() {
       itemRow.className = `flex items-center gap-4 py-4 border-b border-zinc-150 dark:border-zinc-800/80 last:border-b-0`;
       
       itemRow.innerHTML = `
-        <!-- Mini Image Placeholder Gap inside Cart -->
-        <div class="w-16 h-16 rounded-xl product-image-gap shrink-0 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-          ${getCategoryIcon(item.product.category)}
+        <!-- Mini Image/Placeholder Gap inside Cart -->
+        <div class="w-16 h-16 rounded-xl product-image-gap shrink-0 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400 overflow-hidden">
+          ${item.product.images && item.product.images.length > 0 ? `
+            <img src="${item.product.images[0]}" class="object-cover w-full h-full" alt="${item.product.name}">
+          ` : getCategoryIcon(item.product.category)}
         </div>
         
         <!-- Description details -->
