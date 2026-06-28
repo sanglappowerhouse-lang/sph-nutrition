@@ -7,8 +7,8 @@
   --bg-secondary: #ffffff;     /* white */
   --bg-tertiary: #f1f5f9;      /* slate-100 */
   --text-primary: #0f172a;     /* slate-900 */
-  --text-secondary: #475569;   /* slate-600 */
-  --text-muted: #94a3b8;       /* slate-400 */
+  --text-secondary: #1e293b;   /* slate-800 */
+  --text-muted: #52525b;       /* zinc-600 */
   --border-color: #e2e8f0;     /* slate-200 */
   --accent-color: #059669;     /* emerald-600 */
   --accent-light: #e6f4ea;     /* light green tint */
@@ -26,7 +26,7 @@
   --bg-tertiary: #18181b;      /* zinc-900 */
   --text-primary: #fafafa;     /* zinc-50 */
   --text-secondary: #a1a1aa;   /* zinc-400 */
-  --text-muted: #52525b;       /* zinc-600 */
+  --text-muted: #71717a;       /* zinc-500 */
   --border-color: #27272a;     /* zinc-800 */
   --accent-color: #10b981;     /* emerald-500 */
   --accent-light: rgba(16, 185, 129, 0.1);
@@ -40,6 +40,10 @@
 /* Global resets & scroll smooth */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip; /* Stronger than hidden — prevents scroll AND layout shift */
 }
 
 body {
@@ -47,10 +51,24 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  overflow-x: clip;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  touch-action: pan-y; /* Allow vertical scroll only, prevent pinch-zoom */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  position: relative;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
   font-family: 'Outfit', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
   transition: color 0.3s ease;
 }
@@ -209,51 +227,54 @@ svg[data-lucide] {
   color: transparent !important;
 }
 
-/* Sticky Scrolled Header Orange Background State */
+/* Sticky Scrolled Header Glassmorphic State */
 .scrolled-header {
-  background-color: #f97316 !important; /* Premium orange */
-  border-bottom-color: #ea580c !important;
-  box-shadow: 0 10px 25px rgba(234, 88, 12, 0.25) !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border-bottom-color: rgba(226, 232, 240, 0.8) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05) !important;
   transition: all 0.3s ease;
 }
 
-/* Text and brand overrides for scrolled orange header */
-.scrolled-header nav a,
-.scrolled-header i,
-.scrolled-header #theme-toggle-btn,
-.scrolled-header #cart-icon-container {
-  color: #ffffff !important;
+.dark .scrolled-header {
+  background-color: rgba(9, 9, 11, 0.85) !important;
+  border-bottom-color: rgba(39, 39, 42, 0.8) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25) !important;
 }
 
-.scrolled-header .font-display,
-.scrolled-header span:not(.theme-transition) {
-  color: #ffffff !important;
+/* ===== Mobile Full-Screen Lock ===== */
+@media (max-width: 767px) {
+  /* Contain all sections to viewport width */
+  body, html {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overflow-x: clip !important;
+  }
+
+  /* Kill the oversized ambient glow blobs on mobile — they cause layout overflow */
+  .absolute[class*="bg-emerald"][class*="blur-"] {
+    display: none !important;
+  }
+
+  /* Ensure hero section fills width */
+  section {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Ensure product grids don't overflow */
+  .grid {
+    max-width: 100%;
+  }
+
+  /* Force main container full width */
+  main {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Footer full width */
+  footer {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 }
-
-/* Hover transitions on orange background */
-.scrolled-header nav a:hover {
-  color: #fef3c7 !important; /* Soft warm tint on hover */
-}
-
-/* Search bar styling inside orange header */
-.scrolled-header #header-search-input {
-  background-color: rgba(255, 255, 255, 0.2) !important;
-  border-color: rgba(255, 255, 255, 0.3) !important;
-  color: #ffffff !important;
-}
-
-.scrolled-header #header-search-input::placeholder {
-  color: rgba(255, 255, 255, 0.75) !important;
-}
-
-.scrolled-header #header-search-clear {
-  color: rgba(255, 255, 255, 0.8) !important;
-}
-
-.scrolled-header #theme-toggle-btn:hover,
-.scrolled-header #cart-icon-container:hover {
-  background-color: rgba(255, 255, 255, 0.15) !important;
-}
-
-
-

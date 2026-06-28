@@ -15,7 +15,7 @@ const products = [
   {
     id: 'prot-2',
     name: 'Premium Creatine Monohydrate',
-    category: 'proteins',
+    category: 'creatine',
     price: 2200,
     description: '100% pure micronized creatine. Boosts muscle strength, power output, and cell hydration.',
     size: '250g (50 servings)',
@@ -67,6 +67,64 @@ const products = [
     badge: 'Vegan',
     keywords: 'plant protein vegan organic pea brown rice quinoa dairy free lactose intolerant hypo allergenic green'
   },
+
+  // Category: Creatine & Strength (additional products)
+  {
+    id: 'crt-2',
+    name: 'Creatine HCL Ultra',
+    category: 'creatine',
+    price: 2800,
+    description: 'Highly concentrated creatine hydrochloride. Superior absorption, zero bloating, no loading phase required.',
+    size: '120 capsules',
+    rating: 4.7,
+    badge: 'Zero Bloat',
+    keywords: 'creatine hcl hydrochloride concentrated no bloat absorption strength power capsules'
+  },
+  {
+    id: 'crt-3',
+    name: 'Buffered Creatine Kre-Alkalyn',
+    category: 'creatine',
+    price: 2500,
+    description: 'pH-buffered creatine formula that eliminates conversion to creatinine. Maximum muscle uptake efficiency.',
+    size: '90 capsules',
+    rating: 4.6,
+    badge: 'pH Buffered',
+    keywords: 'kre-alkalyn buffered creatine ph stable no conversion muscle uptake efficient loading free'
+  },
+  {
+    id: 'crt-4',
+    name: 'Micronized Creatine Powder',
+    category: 'creatine',
+    price: 1800,
+    description: 'Ultra-fine micronized creatine monohydrate for rapid dissolution. Unflavored, mixes instantly with any shake.',
+    size: '500g (100 servings)',
+    rating: 4.8,
+    badge: 'Value Pack',
+    keywords: 'micronized creatine powder unflavored bulk value monohydrate dissolution mix shake strength'
+  },
+  {
+    id: 'crt-5',
+    name: 'Creatine + HMB Stack',
+    category: 'creatine',
+    price: 3200,
+    description: 'Synergistic stack combining creatine monohydrate with HMB for enhanced lean muscle retention and power output.',
+    size: '240g (30 servings)',
+    rating: 4.5,
+    badge: 'Advanced Stack',
+    keywords: 'creatine hmb stack lean muscle anti catabolic power output strength synergy combo'
+  },
+  {
+    id: 'crt-6',
+    name: 'Creatine Gummies Sport',
+    category: 'creatine',
+    price: 1600,
+    description: 'Convenient creatine in chewable gummy form. 3g creatine per serving with natural fruit flavors.',
+    size: '90 gummies',
+    rating: 4.4,
+    badge: 'Easy Dose',
+    keywords: 'creatine gummies chewable convenient fruit flavor portable sport easy dose travel friendly'
+  },
+
 
   // Category 2: Pre-Workouts & Energy
   {
@@ -210,6 +268,7 @@ let cart = JSON.parse(localStorage.getItem('sph_supplement_cart')) || [];
 
 // Category expanded state trackers
 const expandedSections = {
+  creatine: false,
   proteins: false,
   energy: false,
   wellness: false
@@ -265,6 +324,7 @@ function updateThemeIcon(isDark) {
 // Render product grids
 function renderProducts() {
   const categoryGrids = {
+    creatine: document.getElementById('creatine-grid'),
     proteins: document.getElementById('proteins-grid'),
     energy: document.getElementById('energy-grid'),
     wellness: document.getElementById('wellness-grid')
@@ -352,7 +412,7 @@ function renderProducts() {
         
         <div class="border-t border-zinc-150 dark:border-zinc-800/80 pt-2.5 sm:pt-4 mt-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4">
           <div class="flex flex-col">
-            <span class="card-mrp-label text-[7px] sm:text-[9px] uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-bold">MRP (Incl. taxes)</span>
+            <span class="card-mrp-label text-[7px] sm:text-[9px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 font-bold">MRP (Incl. taxes)</span>
             <span class="card-price text-sm sm:text-xl font-black text-zinc-900 dark:text-white font-display">₹${product.price.toLocaleString('en-IN')}</span>
           </div>
           
@@ -382,7 +442,10 @@ function renderProducts() {
 
 // Return matching SVG paths for supplement categories
 function getCategoryIcon(category) {
-  if (category === 'proteins') {
+  if (category === 'creatine') {
+    // Hexagon / molecule icon for creatine
+    return `<svg class="w-5 h-5 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`;
+  } else if (category === 'proteins') {
     // Protein powder container / dumbbell representation
     return `<svg class="w-5 h-5 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h12M6 6h12M3 10h18M3 14h18M8 6v12M16 6v12"/></svg>`;
   } else if (category === 'energy') {
@@ -540,6 +603,7 @@ function filterCatalog(query) {
 
 function updateCategoriesVisibility() {
   const sections = {
+    creatine: document.getElementById('creatine-section'),
     proteins: document.getElementById('proteins-section'),
     energy: document.getElementById('energy-section'),
     wellness: document.getElementById('wellness-section')
@@ -621,7 +685,7 @@ function updateCategoriesVisibility() {
 
 // Update Expand Grid buttons
 function updateExpandButtonsVisibility() {
-  const categories = ['proteins', 'energy', 'wellness'];
+  const categories = ['creatine', 'proteins', 'energy', 'wellness'];
   
   categories.forEach(cat => {
     const btnWrapper = document.querySelector(`.view-more-btn[data-section="${cat}"]`)?.closest('.view-more-wrapper');
@@ -829,7 +893,7 @@ function updateCartUI() {
             </h4>
             <button 
               onclick="removeCartItem('${item.product.id}')"
-              class="text-zinc-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+              class="text-zinc-500 hover:text-red-500 dark:text-zinc-400 dark:hover:text-red-400 transition-colors"
               aria-label="Remove item"
             >
               <i data-lucide="trash-2" class="w-4 h-4"></i>

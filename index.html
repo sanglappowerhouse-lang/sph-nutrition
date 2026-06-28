@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" style="overflow-x:clip;max-width:100vw;">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>SPH Supplement Store | Elite Health & Performance Nutrition</title>
-  
+
   <!-- SEO Best Practices Meta Tags -->
-  <meta name="description" content="Explore SPH Supplement Store's high-grade fitness ranges. Premium Whey Proteins, Creatine, Pre-workouts, and Daily Multivitamins. Order directly on WhatsApp with instant response.">
-  <meta name="keywords" content="SPH Supplement Store, SPH Gym Shop, Whey Protein, Creatine Monohydrate, Pre-workout, Vitamins, Health Supplements, WhatsApp Gym Order">
+  <meta name="description"
+    content="Explore SPH Supplement Store's high-grade fitness ranges. Premium Whey Proteins, Creatine, Pre-workouts, and Daily Multivitamins. Order directly on WhatsApp with instant response.">
+  <meta name="keywords"
+    content="SPH Supplement Store, SPH Gym Shop, Whey Protein, Creatine Monohydrate, Pre-workout, Vitamins, Health Supplements, WhatsApp Gym Order">
   <meta name="author" content="SPH Supplement Store">
 
   <!-- Tailwind CSS v4 CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <style type="tailwindcss">
+  <style type="text/tailwindcss">
     @custom-variant dark (&:where(.dark, .dark *));
   </style>
 
@@ -20,110 +24,117 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Linking Custom CSS Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=1.2">
 </head>
-<body class="min-h-screen overflow-x-hidden transition-colors duration-300">
 
-  <!-- Ambient Glow Background Graphics (Dark Mode specific glows) -->
-  <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/5 dark:bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none -translate-y-1/2"></div>
-  <div class="absolute top-[1000px] right-1/4 w-[600px] h-[600px] bg-emerald-500/5 dark:bg-emerald-500/5 rounded-full blur-[150px] pointer-events-none"></div>
-  <div class="absolute bottom-1/4 left-10 w-[400px] h-[400px] bg-emerald-500/5 dark:bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+<body class="min-h-screen transition-colors duration-300"
+  style="overflow-x:clip;max-width:100vw;width:100%;position:relative;">
+
+  <!-- Ambient Glow Background Graphics (contained to prevent mobile overflow) -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
+    <div
+      class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/5 dark:bg-emerald-500/10 rounded-full blur-[120px] -translate-y-1/2">
+    </div>
+    <div
+      class="absolute top-[1000px] right-1/4 w-[600px] h-[600px] bg-emerald-500/5 dark:bg-emerald-500/5 rounded-full blur-[150px]">
+    </div>
+    <div
+      class="absolute bottom-1/4 left-10 w-[400px] h-[400px] bg-emerald-500/5 dark:bg-emerald-500/5 rounded-full blur-[100px]">
+    </div>
+  </div>
 
   <!-- Header Navigation -->
-  <header id="header" class="fixed top-0 left-0 w-full z-40 transition-all duration-300 backdrop-blur-md bg-transparent border-b border-transparent">
+  <header id="header"
+    class="fixed top-0 left-0 w-full z-40 transition-all duration-300 backdrop-blur-md bg-transparent border-b border-transparent">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-      
+
       <!-- Brand Logo container -->
       <a href="#" class="flex items-center gap-3 group shrink-0">
-        <div class="w-12 h-12 rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md group-hover:scale-105 transition-transform duration-200 bg-white flex items-center justify-center">
+        <div
+          class="w-12 h-12 rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-md group-hover:scale-105 transition-transform duration-200 bg-white flex items-center justify-center">
           <img src="logo.jpg" alt="SPH Tiger Logo" class="w-full h-full object-cover">
         </div>
         <div class="flex flex-col">
-          <span class="text-xl font-black tracking-wider leading-none text-zinc-900 dark:text-white font-display">SPH<span class="text-emerald-600 dark:text-emerald-500 font-medium">NUTRITION</span></span>
-          <span class="text-[9px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-bold font-display">Elite Supplement Store</span>
+          <span
+            class="text-xl font-black tracking-wider leading-none text-zinc-900 dark:text-white font-display">SPH<span
+              class="text-emerald-600 dark:text-emerald-500 font-medium">NUTRITION</span></span>
+          <span
+            class="text-[9px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-bold font-display">Elite
+            Supplement Store</span>
         </div>
       </a>
 
       <!-- Desktop Navigation Menu links -->
       <nav class="hidden md:flex items-center gap-8">
-        <a href="#proteins-section" class="text-sm font-semibold tracking-wide text-zinc-600 hover:text-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400 transition-colors duration-250">Proteins & Aminos</a>
-        <a href="#energy-section" class="text-sm font-semibold tracking-wide text-zinc-600 hover:text-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400 transition-colors duration-250">Pre-Workouts & Energy</a>
-        <a href="#wellness-section" class="text-sm font-semibold tracking-wide text-zinc-600 hover:text-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400 transition-colors duration-250">Vitamins & Wellness</a>
+        <a href="#creatine-section"
+          class="text-sm font-semibold tracking-wide text-zinc-800 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400 transition-colors duration-250">Creatine
+          & Strength</a>
+        <a href="#proteins-section"
+          class="text-sm font-semibold tracking-wide text-zinc-800 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400 transition-colors duration-250">Proteins
+          & Aminos</a>
+        <a href="#energy-section"
+          class="text-sm font-semibold tracking-wide text-zinc-800 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400 transition-colors duration-250">Pre-Workouts
+          & Energy</a>
+        <a href="#wellness-section"
+          class="text-sm font-semibold tracking-wide text-zinc-800 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400 transition-colors duration-250">Vitamins
+          & Wellness</a>
       </nav>
 
       <!-- Desktop Header Actions & Search -->
       <div class="hidden md:flex items-center gap-4 flex-1 max-w-sm justify-end">
         <div class="relative w-full">
-          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-400 dark:text-zinc-500">
+          <span
+            class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500 dark:text-zinc-400">
             <i data-lucide="search" class="w-4 h-4"></i>
           </span>
-          <input 
-            type="text" 
-            id="header-search-input" 
-            placeholder="Search supplements (e.g. Whey, BCAA)..." 
-            class="w-full bg-zinc-200/50 dark:bg-zinc-900/60 border border-zinc-300 dark:border-zinc-800 rounded-full py-2 pl-9 pr-9 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-emerald-600 dark:focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/50 transition-all duration-200"
-          >
-          <button 
-            id="header-search-clear" 
-            class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 hidden cursor-pointer"
-            aria-label="Clear search"
-          >
+          <input type="text" id="header-search-input" placeholder="Search supplements (e.g. Whey, BCAA)..."
+            class="w-full bg-zinc-200/50 dark:bg-zinc-900/60 border border-zinc-300 dark:border-zinc-800 rounded-full py-2 pl-9 pr-9 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-emerald-600 dark:focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/50 transition-all duration-200">
+          <button id="header-search-clear"
+            class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-100 hidden cursor-pointer"
+            aria-label="Clear search">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
 
         <!-- Theme Toggle button -->
-        <button 
-          id="theme-toggle-btn" 
-          class="p-2.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-200 cursor-pointer"
-          aria-label="Toggle Theme"
-        >
-          <svg id="theme-icon" class="w-4 h-4 fill-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"></svg>
+        <button id="theme-toggle-btn"
+          class="p-2.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-700 hover:text-emerald-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-emerald-400 dark:hover:bg-zinc-900 transition-all duration-200 cursor-pointer"
+          aria-label="Toggle Theme">
+          <svg id="theme-icon" class="w-4 h-4 fill-current" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2"></svg>
         </button>
 
         <!-- Cart Trigger Container (Header Badge) -->
-        <button 
-          id="cart-icon-container" 
-          class="relative p-2.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-200 cursor-pointer"
-          aria-label="Open Shopping Cart"
-        >
+        <button id="cart-icon-container"
+          class="relative p-2.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-700 hover:text-emerald-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:text-emerald-400 dark:hover:bg-zinc-900 transition-all duration-200 cursor-pointer"
+          aria-label="Open Shopping Cart">
           <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-          <span 
-            id="sticky-cart-count" 
-            class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-emerald-600 text-white dark:bg-emerald-500 dark:text-black text-[9px] font-black rounded-full flex items-center justify-center border-2 border-slate-50 dark:border-zinc-950 scale-0 theme-transition"
-          >0</span>
+          <span id="sticky-cart-count"
+            class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-emerald-600 text-white dark:bg-emerald-500 dark:text-black text-[9px] font-black rounded-full flex items-center justify-center border-2 border-slate-50 dark:border-zinc-950 scale-0 theme-transition">0</span>
         </button>
       </div>
 
       <!-- Mobile Controls & hamburger Menu -->
       <div class="flex items-center gap-3 md:hidden">
         <!-- Theme Toggle mobile -->
-        <button 
-          onclick="toggleTheme()" 
-          class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
-          aria-label="Toggle Theme"
-        >
+        <button onclick="toggleTheme()"
+          class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900 cursor-pointer"
+          aria-label="Toggle Theme">
           <i data-lucide="sun-moon" class="w-4.5 h-4.5"></i>
         </button>
 
         <!-- Cart Mobile trigger link -->
-        <button 
-          onclick="openCart()"
-          class="relative p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
-          aria-label="Open Cart"
-        >
+        <button onclick="openCart()"
+          class="relative p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900 cursor-pointer"
+          aria-label="Open Cart">
           <i data-lucide="shopping-bag" class="w-4.5 h-4.5"></i>
-          <span 
-            id="floating-cart-count" 
-            class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-emerald-600 text-white dark:bg-emerald-500 dark:text-black text-[9px] font-black rounded-full flex items-center justify-center border-2 border-slate-50 dark:border-zinc-950 scale-0 theme-transition"
-          >0</span>
+          <span id="floating-cart-count"
+            class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-emerald-600 text-white dark:bg-emerald-500 dark:text-black text-[9px] font-black rounded-full flex items-center justify-center border-2 border-slate-50 dark:border-zinc-950 scale-0 theme-transition">0</span>
         </button>
 
-        <button 
-          id="mobile-menu-toggle" 
-          class="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer" 
-          aria-label="Toggle Navigation Drawer"
-        >
+        <button id="mobile-menu-toggle"
+          class="p-2 rounded-lg text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900 cursor-pointer"
+          aria-label="Toggle Navigation Drawer">
           <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
       </div>
@@ -132,42 +143,53 @@
   </header>
 
   <!-- Mobile Dropdown Navigation Panel -->
-  <div id="mobile-menu-drawer" class="fixed inset-0 z-30 bg-zinc-100/98 dark:bg-zinc-950/98 pt-24 px-6 flex flex-col gap-8 md:hidden transition-transform duration-300 translate-x-full">
+  <div id="mobile-menu-drawer"
+    class="fixed inset-0 z-30 bg-zinc-100/98 dark:bg-zinc-950/98 pt-24 px-6 flex flex-col gap-8 md:hidden transition-transform duration-300 translate-x-full">
     <div class="flex flex-col gap-6">
-      <h3 class="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-display">Navigation Links</h3>
-      <a href="#proteins-section" class="mobile-nav-link text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 flex justify-between items-center py-2 border-b border-zinc-200 dark:border-zinc-900">
+      <h3 class="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-display">Navigation
+        Links</h3>
+      <a href="#creatine-section"
+        class="mobile-nav-link text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 flex justify-between items-center py-2 border-b border-zinc-200 dark:border-zinc-900">
+        Creatine & Strength <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-600"></i>
+      </a>
+      <a href="#proteins-section"
+        class="mobile-nav-link text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 flex justify-between items-center py-2 border-b border-zinc-200 dark:border-zinc-900">
         Proteins & Aminos <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-600"></i>
       </a>
-      <a href="#energy-section" class="mobile-nav-link text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 flex justify-between items-center py-2 border-b border-zinc-200 dark:border-zinc-900">
+      <a href="#energy-section"
+        class="mobile-nav-link text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 flex justify-between items-center py-2 border-b border-zinc-200 dark:border-zinc-900">
         Pre-Workouts & Energy <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-600"></i>
       </a>
-      <a href="#wellness-section" class="mobile-nav-link text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 flex justify-between items-center py-2 border-b border-zinc-200 dark:border-zinc-900">
+      <a href="#wellness-section"
+        class="mobile-nav-link text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 flex justify-between items-center py-2 border-b border-zinc-200 dark:border-zinc-900">
         Vitamins & Wellness <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-600"></i>
       </a>
     </div>
-    
+
     <div class="flex flex-col gap-4">
-      <h3 class="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-display">Live Catalog Search</h3>
+      <h3 class="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-display">Live Catalog
+        Search</h3>
       <div class="relative w-full">
-        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
+        <span
+          class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500 dark:text-zinc-400">
           <i data-lucide="search" class="w-4 h-4"></i>
         </span>
-        <input 
-          type="text" 
-          id="mobile-search-input" 
-          placeholder="Type supplement keywords..." 
-          class="w-full bg-zinc-200 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 rounded-xl py-3.5 pl-10 pr-10 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-emerald-600"
-        >
+        <input type="text" id="mobile-search-input" placeholder="Type supplement keywords..."
+          class="w-full bg-zinc-200 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 rounded-xl py-3.5 pl-10 pr-10 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-emerald-600">
       </div>
     </div>
 
     <!-- Quick info card -->
-    <div class="mt-auto mb-10 p-5 rounded-2xl border border-zinc-200 dark:border-zinc-900 bg-zinc-200/30 dark:bg-zinc-900/20">
+    <div
+      class="mt-auto mb-10 p-5 rounded-2xl border border-zinc-200 dark:border-zinc-900 bg-zinc-200/30 dark:bg-zinc-900/20">
       <div class="flex items-center gap-3 mb-2">
         <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-        <span class="text-xs text-zinc-600 dark:text-zinc-400 font-bold uppercase tracking-wider font-display">Direct WhatsApp Orders</span>
+        <span class="text-xs text-zinc-600 dark:text-zinc-400 font-bold uppercase tracking-wider font-display">Direct
+          WhatsApp Orders</span>
       </div>
-      <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-light">Add premium supplements to your cart and send your pre-formatted order summary directly via WhatsApp. Direct deliveries and gym pickup available.</p>
+      <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-light">Add premium supplements to your
+        cart and send your pre-formatted order summary directly via WhatsApp. Direct deliveries and gym pickup
+        available.</p>
     </div>
   </div>
 
@@ -178,61 +200,73 @@
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto flex flex-col items-center">
-        
+
         <!-- Trust badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-600/5 dark:bg-emerald-500/10 border border-emerald-600/25 dark:border-emerald-500/20 mb-6">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-600/5 dark:bg-emerald-500/10 border border-emerald-600/25 dark:border-emerald-500/20 mb-6">
           <span class="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400 animate-pulse"></span>
-          <span class="text-[10px] font-extrabold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 font-display">100% Authentic Supplements</span>
+          <span
+            class="text-[10px] font-extrabold tracking-widest uppercase text-emerald-600 dark:text-emerald-400 font-display">100%
+            Authentic Supplements</span>
         </div>
 
-        <h1 class="hero-title text-4xl sm:text-6xl font-black tracking-tight leading-none text-zinc-900 dark:text-white font-display mb-6">
+        <h1
+          class="hero-title text-4xl sm:text-6xl font-black tracking-tight leading-none text-zinc-900 dark:text-white font-display mb-6">
           PREMIUM FUEL FOR YOUR <br>
-          <span class="bg-gradient-to-r from-emerald-600 to-emerald-400 dark:from-emerald-400 dark:to-emerald-500 bg-clip-text text-transparent glow-accent">ATHLETIC GOALS</span>
+          <span
+            class="bg-gradient-to-r from-emerald-600 to-emerald-400 dark:from-emerald-400 dark:to-emerald-500 bg-clip-text text-transparent glow-accent">ATHLETIC
+            GOALS</span>
         </h1>
-        
-        <p class="hero-desc text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-light leading-relaxed mb-8 max-w-xl">
-          Fuel your body with laboratory-tested proteins, high-octane pre-workouts, and essential daily health vitamins. Place orders instantly via WhatsApp integration.
+
+        <p
+          class="hero-desc text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-light leading-relaxed mb-8 max-w-xl">
+          Fuel your body with laboratory-tested proteins, high-octane pre-workouts, and essential daily health vitamins.
+          Place orders instantly via WhatsApp integration.
         </p>
 
         <!-- Hero Section Live Search Input -->
-        <div class="w-full max-w-xl mx-auto bg-white/70 dark:bg-zinc-900/50 backdrop-blur-xl border border-zinc-300 dark:border-zinc-800 p-2 rounded-2xl flex flex-col sm:flex-row gap-2 shadow-2xl focus-within:border-emerald-600/50 transition-all duration-300 mb-12">
+        <div
+          class="w-full max-w-xl mx-auto bg-white/70 dark:bg-zinc-900/50 backdrop-blur-xl border border-zinc-300 dark:border-zinc-800 p-2 rounded-2xl flex flex-col sm:flex-row gap-2 shadow-2xl focus-within:border-emerald-600/50 transition-all duration-300 mb-12">
           <div class="relative flex-1">
-            <span class="absolute inset-y-0 left-0 pl-4.5 flex items-center pointer-events-none text-zinc-400 dark:text-zinc-500">
+            <span
+              class="absolute inset-y-0 left-0 pl-4.5 flex items-center pointer-events-none text-zinc-400 dark:text-zinc-500">
               <i data-lucide="search" class="w-5 h-5"></i>
             </span>
-            <input 
-              type="text" 
-              id="hero-search-input" 
-              placeholder="Search by supplement name, category, or keywords..." 
-              class="w-full bg-transparent border-0 py-3 pl-11 pr-10 text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-0 text-sm"
-            >
+            <input type="text" id="hero-search-input" placeholder="Search by supplement name, category, or keywords..."
+              class="w-full bg-transparent border-0 py-3 pl-11 pr-10 text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-0 text-sm">
           </div>
-          <button 
-            type="button" 
-            class="bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-black font-extrabold text-xs px-6 py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group shadow-lg shadow-emerald-500/10 cursor-default"
-          >
+          <button type="button"
+            class="bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-black font-extrabold text-xs px-6 py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group shadow-lg shadow-emerald-500/10 cursor-default">
             Live Filtering
             <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
           </button>
         </div>
 
         <!-- Trust factors quick overview -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-4xl py-6 border-y border-zinc-300/60 dark:border-zinc-900 bg-zinc-200/20 dark:bg-zinc-950/40 rounded-2xl px-4 backdrop-blur-sm">
+        <div
+          class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-4xl py-6 border-y border-zinc-300/60 dark:border-zinc-900 bg-zinc-200/20 dark:bg-zinc-950/40 rounded-2xl px-4 backdrop-blur-sm">
           <div class="text-center">
-            <div class="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-display">Free Del</div>
-            <div class="text-[9px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-1">Orders Above ₹3,000</div>
+            <div class="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-display">Free
+              Delivery</div>
+            <div class="text-[9px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-1">Orders
+              Above ₹3,000</div>
           </div>
           <div class="text-center">
             <div class="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-display">100%</div>
-            <div class="text-[9px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-1">Original Source</div>
+            <div class="text-[9px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-1">Original
+              Source</div>
           </div>
           <div class="text-center">
-            <div class="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-display">Gym Pick</div>
-            <div class="text-[9px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-1">At SPH Gym Desk</div>
+            <div class="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-display">Gym Pick
+            </div>
+            <div class="text-[9px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-1">At SPH Gym
+              Desk</div>
           </div>
           <div class="text-center">
-            <div class="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-display">Instant</div>
-            <div class="text-[9px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-1">WhatsApp Route</div>
+            <div class="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-display">Instant
+            </div>
+            <div class="text-[9px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-1">WhatsApp
+              Route</div>
           </div>
         </div>
 
@@ -242,16 +276,17 @@
 
   <!-- Empty Results Placeholder display -->
   <div id="search-empty-state" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center hidden">
-    <div class="max-w-md mx-auto p-8 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-200/20 dark:bg-zinc-900/10 flex flex-col items-center">
-      <div class="w-16 h-16 rounded-full bg-zinc-300/40 dark:bg-zinc-800/80 flex items-center justify-center text-zinc-400 dark:text-zinc-600 mb-4 border border-zinc-300 dark:border-zinc-700">
+    <div
+      class="max-w-md mx-auto p-8 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-200/20 dark:bg-zinc-900/10 flex flex-col items-center">
+      <div
+        class="w-16 h-16 rounded-full bg-zinc-300/40 dark:bg-zinc-800/80 flex items-center justify-center text-zinc-400 dark:text-zinc-600 mb-4 border border-zinc-300 dark:border-zinc-700">
         <i data-lucide="package-search" class="w-8 h-8"></i>
       </div>
       <h3 class="text-lg font-bold text-zinc-900 dark:text-white font-display mb-2">No Matching Supplements</h3>
-      <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-6 max-w-xs">We couldn't find any products matching your search term. Double check spelling or try other keywords.</p>
-      <button 
-        id="reset-filters-btn" 
-        class="bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-black font-bold text-xs py-2.5 px-6 rounded-xl transition-all cursor-pointer"
-      >
+      <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-6 max-w-xs">We couldn't find any products matching your
+        search term. Double check spelling or try other keywords.</p>
+      <button id="reset-filters-btn"
+        class="bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-black font-bold text-xs py-2.5 px-6 rounded-xl transition-all cursor-pointer">
         Clear Search Query
       </button>
     </div>
@@ -260,18 +295,54 @@
   <!-- Primary Catalog Sections Wrapper -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-28 space-y-24">
 
+    <!-- Category: Creatine & Strength -->
+    <section id="creatine-section" class="scroll-mt-24">
+      <!-- Section Header -->
+      <div
+        class="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-10 gap-4">
+        <div>
+          <div class="text-xs uppercase tracking-widest font-extrabold text-emerald-600 dark:text-emerald-500 mb-1">Raw
+            Power & Volume</div>
+          <h2
+            class="section-header-title text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white font-display flex items-center gap-3">
+            Creatine & Strength
+          </h2>
+          <p class="section-header-desc text-zinc-500 dark:text-zinc-400 text-xs mt-1 max-w-md">Pure micronized creatine
+            formulas for explosive power, muscle volumization, and accelerated strength gains.</p>
+        </div>
+      </div>
+
+      <!-- Expandable Product Grid Container -->
+      <div id="creatine-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8">
+        <!-- Script dynamic inserts go here -->
+      </div>
+
+      <!-- Expand Control Button -->
+      <div class="view-more-wrapper flex justify-center mt-10">
+        <button
+          class="view-more-btn px-6 py-3 rounded-full border border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-emerald-600/40 hover:bg-zinc-100 dark:hover:bg-zinc-900 dark:hover:border-emerald-500/45 text-xs font-bold tracking-wider uppercase text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-250 flex items-center gap-2 cursor-pointer"
+          data-section="creatine">
+          <span>View More</span>
+          <i data-lucide="chevron-down" class="chevron-icon w-4 h-4 transition-transform duration-300"></i>
+        </button>
+      </div>
+    </section>
+
     <!-- Category 1st: Proteins & Aminos -->
     <section id="proteins-section" class="scroll-mt-24">
       <!-- Section Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-10 gap-4">
+      <div
+        class="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-10 gap-4">
         <div>
-          <div class="text-xs uppercase tracking-widest font-extrabold text-emerald-600 dark:text-emerald-500 mb-1">Muscle Build & Repair</div>
-          <h2 class="section-header-title text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white font-display flex items-center gap-3">
+          <div class="text-xs uppercase tracking-widest font-extrabold text-emerald-600 dark:text-emerald-500 mb-1">
+            Muscle Build & Repair</div>
+          <h2
+            class="section-header-title text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white font-display flex items-center gap-3">
             Proteins & Aminos
           </h2>
-          <p class="section-header-desc text-zinc-500 dark:text-zinc-400 text-xs mt-1 max-w-md">Premium grade recovery powders and amino matrices engineered for post-workout muscle synthesis.</p>
+          <p class="section-header-desc text-zinc-500 dark:text-zinc-400 text-xs mt-1 max-w-md">Premium grade recovery
+            powders and amino matrices engineered for post-workout muscle synthesis.</p>
         </div>
-        <span class="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase font-mono bg-zinc-200/50 dark:bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-300/40 dark:border-zinc-800">Section Code: SPH-PRO</span>
       </div>
 
       <!-- Expandable Product Grid Container -->
@@ -281,10 +352,9 @@
 
       <!-- Expand Control Button -->
       <div class="view-more-wrapper flex justify-center mt-10">
-        <button 
+        <button
           class="view-more-btn px-6 py-3 rounded-full border border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-emerald-600/40 hover:bg-zinc-100 dark:hover:bg-zinc-900 dark:hover:border-emerald-500/45 text-xs font-bold tracking-wider uppercase text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-250 flex items-center gap-2 cursor-pointer"
-          data-section="proteins"
-        >
+          data-section="proteins">
           <span>View More</span>
           <i data-lucide="chevron-down" class="chevron-icon w-4 h-4 transition-transform duration-300"></i>
         </button>
@@ -294,15 +364,18 @@
     <!-- Category 2nd: Pre-Workouts & Energy -->
     <section id="energy-section" class="scroll-mt-24">
       <!-- Section Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-10 gap-4">
+      <div
+        class="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-10 gap-4">
         <div>
-          <div class="text-xs uppercase tracking-widest font-extrabold text-emerald-600 dark:text-emerald-500 mb-1">Stamina & Muscle Pump</div>
-          <h2 class="section-header-title text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white font-display flex items-center gap-3">
+          <div class="text-xs uppercase tracking-widest font-extrabold text-emerald-600 dark:text-emerald-500 mb-1">
+            Stamina & Muscle Pump</div>
+          <h2
+            class="section-header-title text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white font-display flex items-center gap-3">
             Pre-Workouts & Energy
           </h2>
-          <p class="section-header-desc text-zinc-500 dark:text-zinc-400 text-xs mt-1 max-w-md">High stim energy boosters and nitric oxide vaso-dilators for explosive strength, focus, and drive.</p>
+          <p class="section-header-desc text-zinc-500 dark:text-zinc-400 text-xs mt-1 max-w-md">High stim energy
+            boosters and nitric oxide vaso-dilators for explosive strength, focus, and drive.</p>
         </div>
-        <span class="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase font-mono bg-zinc-200/50 dark:bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-300/40 dark:border-zinc-800">Section Code: SPH-POW</span>
       </div>
 
       <!-- Expandable Product Grid Container -->
@@ -312,10 +385,9 @@
 
       <!-- Expand Control Button -->
       <div class="view-more-wrapper flex justify-center mt-10">
-        <button 
+        <button
           class="view-more-btn px-6 py-3 rounded-full border border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-emerald-600/40 hover:bg-zinc-100 dark:hover:bg-zinc-900 dark:hover:border-emerald-500/45 text-xs font-bold tracking-wider uppercase text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-250 flex items-center gap-2 cursor-pointer"
-          data-section="energy"
-        >
+          data-section="energy">
           <span>View More</span>
           <i data-lucide="chevron-down" class="chevron-icon w-4 h-4 transition-transform duration-300"></i>
         </button>
@@ -325,15 +397,18 @@
     <!-- Category 3rd: Vitamins & Wellness -->
     <section id="wellness-section" class="scroll-mt-24">
       <!-- Section Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-10 gap-4">
+      <div
+        class="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-10 gap-4">
         <div>
-          <div class="text-xs uppercase tracking-widest font-extrabold text-emerald-600 dark:text-emerald-500 mb-1">Vitality & Joint Recovery</div>
-          <h2 class="section-header-title text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white font-display flex items-center gap-3">
+          <div class="text-xs uppercase tracking-widest font-extrabold text-emerald-600 dark:text-emerald-500 mb-1">
+            Vitality & Joint Recovery</div>
+          <h2
+            class="section-header-title text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white font-display flex items-center gap-3">
             Vitamins & Wellness
           </h2>
-          <p class="section-header-desc text-zinc-500 dark:text-zinc-400 text-xs mt-1 max-w-md">Essential micronutrients, immune system protectors, and joint lubrication matrices for absolute health longevity.</p>
+          <p class="section-header-desc text-zinc-500 dark:text-zinc-400 text-xs mt-1 max-w-md">Essential
+            micronutrients, immune system protectors, and joint lubrication matrices for absolute health longevity.</p>
         </div>
-        <span class="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase font-mono bg-zinc-200/50 dark:bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-300/40 dark:border-zinc-800">Section Code: SPH-VIT</span>
       </div>
 
       <!-- Expandable Product Grid Container -->
@@ -343,10 +418,9 @@
 
       <!-- Expand Control Button -->
       <div class="view-more-wrapper flex justify-center mt-10">
-        <button 
+        <button
           class="view-more-btn px-6 py-3 rounded-full border border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 hover:border-emerald-600/40 hover:bg-zinc-100 dark:hover:bg-zinc-900 dark:hover:border-emerald-500/45 text-xs font-bold tracking-wider uppercase text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-250 flex items-center gap-2 cursor-pointer"
-          data-section="wellness"
-        >
+          data-section="wellness">
           <span>View More</span>
           <i data-lucide="chevron-down" class="chevron-icon w-4 h-4 transition-transform duration-300"></i>
         </button>
@@ -356,47 +430,49 @@
   </main>
 
   <!-- Shopping Cart Drawer Container -->
-  <div id="cart-drawer" class="fixed inset-0 z-50 hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-    
+  <div id="cart-drawer" class="fixed inset-0 z-50 hidden" aria-labelledby="slide-over-title" role="dialog"
+    aria-modal="true">
+
     <!-- Backdrop Blur cover -->
-    <div id="cart-drawer-backdrop" class="absolute inset-0 bg-zinc-950/60 dark:bg-zinc-950/80 opacity-0 cart-drawer-backdrop"></div>
+    <div id="cart-drawer-backdrop"
+      class="absolute inset-0 bg-zinc-950/60 dark:bg-zinc-950/80 opacity-0 cart-drawer-backdrop"></div>
 
     <div class="absolute inset-0 overflow-hidden">
       <div class="pointer-events-none absolute inset-y-0 right-0 flex max-w-full pl-10">
         <!-- Cart Drawer Body Panel -->
-        <div id="cart-drawer-panel" class="pointer-events-auto w-screen max-w-md translate-x-full cart-drawer-panel bg-white dark:bg-zinc-950 border-l border-zinc-200 dark:border-zinc-900 shadow-2xl flex flex-col h-full">
-          
+        <div id="cart-drawer-panel"
+          class="pointer-events-auto w-screen max-w-md translate-x-full cart-drawer-panel bg-white dark:bg-zinc-950 border-l border-zinc-200 dark:border-zinc-900 shadow-2xl flex flex-col h-full">
+
           <!-- Drawer Header -->
           <div class="px-6 py-5 border-b border-zinc-150 dark:border-zinc-900 flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <h2 class="text-lg font-black text-zinc-900 dark:text-white font-display" id="slide-over-title">Your Shopping Cart</h2>
-              <span class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-mono font-bold text-[10px] py-0.5 px-2 rounded-full border border-zinc-200 dark:border-zinc-800">
+              <h2 class="text-lg font-black text-zinc-900 dark:text-white font-display" id="slide-over-title">Your
+                Shopping Cart</h2>
+              <span
+                class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-mono font-bold text-[10px] py-0.5 px-2 rounded-full border border-zinc-200 dark:border-zinc-800">
                 Active Items
               </span>
             </div>
-            <button 
-              id="close-cart-btn" 
-              type="button" 
-              class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-400 hover:text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
-            >
+            <button id="close-cart-btn" type="button"
+              class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 cursor-pointer">
               <i data-lucide="x" class="w-5 h-5"></i>
             </button>
           </div>
 
           <!-- Drawer Content (Scrollable list area) -->
           <div class="flex-1 overflow-y-auto px-6 py-4">
-            
+
             <!-- Cart Empty State -->
             <div id="cart-empty-state" class="h-full flex flex-col items-center justify-center text-center">
-              <div class="w-16 h-16 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-400 dark:text-zinc-600 mb-4 border border-zinc-200 dark:border-zinc-800">
+              <div
+                class="w-16 h-16 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-500 dark:text-zinc-400 mb-4 border border-zinc-200 dark:border-zinc-800">
                 <i data-lucide="shopping-cart" class="w-8 h-8"></i>
               </div>
               <h3 class="text-sm font-bold text-zinc-900 dark:text-white font-display mb-1">Your cart is empty</h3>
-              <p class="text-xs text-zinc-400 dark:text-zinc-500 mb-6 max-w-xs">Looks like you haven't added any supplements yet. Browse the catalog and choose your products!</p>
-              <button 
-                onclick="closeCart()" 
-                class="bg-zinc-950 dark:bg-zinc-100 text-white dark:text-black font-extrabold text-xs py-2.5 px-6 rounded-xl hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all cursor-pointer"
-              >
+              <p class="text-xs text-zinc-600 dark:text-zinc-400 mb-6 max-w-xs">Looks like you haven't added any
+                supplements yet. Browse the catalog and choose your products!</p>
+              <button onclick="closeCart()"
+                class="bg-zinc-950 dark:bg-zinc-100 text-white dark:text-black font-extrabold text-xs py-2.5 px-6 rounded-xl hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all cursor-pointer">
                 Start Shopping
               </button>
             </div>
@@ -409,8 +485,9 @@
           </div>
 
           <!-- Drawer Calculation and Checkout Footer -->
-          <div id="cart-filled-state" class="border-t border-zinc-200 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-950 p-6 flex flex-col gap-4">
-            
+          <div id="cart-filled-state"
+            class="border-t border-zinc-200 dark:border-zinc-900 bg-zinc-50 dark:bg-zinc-950 p-6 flex flex-col gap-4">
+
             <!-- Price Summary table -->
             <div class="space-y-2 text-xs">
               <div class="flex items-center justify-between text-zinc-600 dark:text-zinc-400">
@@ -418,26 +495,29 @@
                 <span id="cart-subtotal" class="font-bold font-mono text-zinc-900 dark:text-white">₹0</span>
               </div>
               <div class="flex items-center justify-between text-zinc-600 dark:text-zinc-400">
-                <span class="flex items-center gap-1">Shipping & Handling <i data-lucide="info" class="w-3.5 h-3.5" title="Free Shipping on orders above ₹3,000"></i></span>
+                <span class="flex items-center gap-1">Shipping & Handling <i data-lucide="info" class="w-3.5 h-3.5"
+                    title="Free Shipping on orders above ₹3,000"></i></span>
                 <span id="cart-shipping" class="font-bold font-mono text-zinc-900 dark:text-white">₹150</span>
               </div>
-              <div class="border-t border-zinc-200 dark:border-zinc-800 pt-3 flex items-center justify-between text-base">
+              <div
+                class="border-t border-zinc-200 dark:border-zinc-800 pt-3 flex items-center justify-between text-base">
                 <span class="font-black text-zinc-900 dark:text-white font-display">Grand Total</span>
-                <span id="cart-total" class="font-black font-mono text-emerald-600 dark:text-emerald-400 text-lg">₹0</span>
+                <span id="cart-total"
+                  class="font-black font-mono text-emerald-600 dark:text-emerald-400 text-lg">₹0</span>
               </div>
             </div>
 
             <!-- Promo badge banner -->
-            <div class="bg-emerald-600/5 dark:bg-emerald-500/10 border border-emerald-600/20 text-emerald-600 dark:text-emerald-400 p-3.5 rounded-xl text-[10px] flex items-center gap-2">
+            <div
+              class="bg-emerald-600/5 dark:bg-emerald-500/10 border border-emerald-600/20 text-emerald-600 dark:text-emerald-400 p-3.5 rounded-xl text-[10px] flex items-center gap-2">
               <i data-lucide="truck" class="w-4 h-4"></i>
-              <span class="font-semibold">Orders are formatted and routed directly to our WhatsApp representative.</span>
+              <span class="font-semibold">Orders are formatted and routed directly to our WhatsApp
+                representative.</span>
             </div>
 
             <!-- WhatsApp checkout CTA -->
-            <button 
-              onclick="checkoutWhatsApp()"
-              class="w-full bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-black font-extrabold text-sm py-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95 shadow-lg shadow-emerald-500/15 cursor-pointer"
-            >
+            <button onclick="checkoutWhatsApp()"
+              class="w-full bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-black font-extrabold text-sm py-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-95 shadow-lg shadow-emerald-500/15 cursor-pointer">
               <i data-lucide="message-square" class="w-4.5 h-4.5 fill-current"></i>
               <span>Buy Now via WhatsApp</span>
             </button>
@@ -449,38 +529,55 @@
   </div>
 
   <!-- Main Footer -->
-  <footer class="border-t border-zinc-200 dark:border-zinc-900 bg-zinc-200/20 dark:bg-zinc-950/60 py-16 transition-all duration-300">
+  <footer
+    class="border-t border-zinc-200 dark:border-zinc-900 bg-zinc-200/20 dark:bg-zinc-950/60 py-16 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-        
+
         <!-- About Column -->
         <div class="flex flex-col gap-4">
           <a href="#" class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-white flex items-center justify-center">
+            <div
+              class="w-10 h-10 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-white flex items-center justify-center">
               <img src="logo.jpg" alt="SPH Tiger Logo" class="w-full h-full object-cover">
             </div>
-            <span class="text-lg font-black tracking-wider leading-none text-zinc-900 dark:text-white font-display">SPH<span class="text-emerald-600 dark:text-emerald-500 font-medium">NUTRITION</span></span>
+            <span
+              class="text-lg font-black tracking-wider leading-none text-zinc-900 dark:text-white font-display">SPH<span
+                class="text-emerald-600 dark:text-emerald-500 font-medium">NUTRITION</span></span>
           </a>
-          <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-light">The premium health and nutrition branch of Sanglap Powerhouse (SPH) Gym. Providing verified, premium quality, laboratory-tested supplements to athletes and fitness enthusiasts.</p>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-light">The premium health and
+            nutrition branch of Sanglap Powerhouse (SPH) Gym. Providing verified, premium quality, laboratory-tested
+            supplements to athletes and fitness enthusiasts.</p>
         </div>
 
         <!-- Links Column -->
         <div class="flex flex-col gap-3.5">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white font-display">Shop Categories</h4>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white font-display">Shop
+            Categories</h4>
           <ul class="space-y-2 text-xs">
-            <li><a href="#proteins-section" class="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Proteins & Aminos</a></li>
-            <li><a href="#energy-section" class="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Pre-Workouts & Energy</a></li>
-            <li><a href="#wellness-section" class="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Vitamins & Wellness</a></li>
+            <li><a href="#creatine-section"
+                class="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Creatine
+                & Strength</a></li>
+            <li><a href="#proteins-section"
+                class="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Proteins
+                & Aminos</a></li>
+            <li><a href="#energy-section"
+                class="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Pre-Workouts
+                & Energy</a></li>
+            <li><a href="#wellness-section"
+                class="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Vitamins
+                & Wellness</a></li>
           </ul>
         </div>
 
         <!-- Hours/Contact Column -->
         <div class="flex flex-col gap-3.5">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white font-display">Gym Store Details</h4>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white font-display">Gym Store
+            Details</h4>
           <ul class="space-y-2 text-xs text-zinc-500 dark:text-zinc-400">
             <li class="flex items-start gap-2.5">
               <i data-lucide="map-pin" class="w-4 h-4 shrink-0 text-emerald-600 dark:text-emerald-400"></i>
-              <span>Sanglap Powerhouse Gym Desk, Shop Counter, Main Floor</span>
+              <span>Opposite to Sanglap Power House Gym</span>
             </li>
             <li class="flex items-start gap-2.5">
               <i data-lucide="clock" class="w-4 h-4 shrink-0 text-emerald-600 dark:text-emerald-400"></i>
@@ -496,8 +593,10 @@
       </div>
 
       <!-- Divider / Copyright -->
-      <div class="border-t border-zinc-200 dark:border-zinc-900 mt-12 pt-8 text-center flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p class="text-[10px] text-zinc-500 dark:text-zinc-500">© 2026 SPH Nutrition & Supplement Shop. Powered by Sanglap Powerhouse. All rights reserved.</p>
+      <div
+        class="border-t border-zinc-200 dark:border-zinc-900 mt-12 pt-8 text-center flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-[10px] text-zinc-500 dark:text-zinc-500">© 2026 SPH Nutrition & Supplement Shop. Powered by
+          Sanglap Powerhouse. All rights reserved.</p>
         <div class="flex gap-6 text-[10px] text-zinc-500 dark:text-zinc-500">
           <a href="#" class="hover:text-emerald-500">Privacy Policy</a>
           <a href="#" class="hover:text-emerald-500">Terms of Service</a>
@@ -507,6 +606,7 @@
   </footer>
 
   <!-- Binding Scripts -->
-  <script src="js/script.js"></script>
+  <script src="js/script.js?v=1.1"></script>
 </body>
+
 </html>
