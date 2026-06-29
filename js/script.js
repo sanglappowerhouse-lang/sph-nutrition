@@ -1052,9 +1052,27 @@ function updateCartUI() {
               </button>
             </div>
             
-            <span class="text-sm font-black text-zinc-900 dark:text-white font-mono">
-              ₹${(item.product.price * item.quantity).toLocaleString('en-IN')}
-            </span>
+            <div class="flex flex-col items-end gap-0.5">
+              <div class="flex items-center gap-1.5">
+                ${item.product.originalPrice ? `
+                  <span class="text-[10px] text-zinc-400 dark:text-zinc-500 line-through font-medium font-mono">
+                    ₹${(item.product.originalPrice * item.quantity).toLocaleString('en-IN')}
+                  </span>
+                ` : ''}
+                <span class="text-sm font-black text-zinc-900 dark:text-white font-mono">
+                  ₹${(item.product.price * item.quantity).toLocaleString('en-IN')}
+                </span>
+              </div>
+              ${item.product.badge ? `
+                <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 dark:bg-emerald-500/10 border border-emerald-600/10 dark:border-emerald-500/10 px-1.5 py-0.2 rounded font-sans tracking-wide">
+                  ${item.product.badge}
+                </span>
+              ` : (item.product.originalPrice && item.product.originalPrice > item.product.price ? `
+                <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 dark:bg-emerald-500/10 border border-emerald-600/10 dark:border-emerald-500/10 px-1.5 py-0.2 rounded font-sans tracking-wide">
+                  ${Math.round(((item.product.originalPrice - item.product.price) / item.product.originalPrice) * 100)}% OFF
+                </span>
+              ` : '')}
+            </div>
           </div>
         </div>
       `;
@@ -1065,6 +1083,12 @@ function updateCartUI() {
 
   // Calculate pricing metrics
   const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+  const originalSubtotal = cart.reduce((sum, item) => {
+    const origPrice = item.product.originalPrice || item.product.price;
+    return sum + (origPrice * item.quantity);
+  }, 0);
+  const totalSavings = originalSubtotal - subtotal;
+  const savingsPercentage = originalSubtotal > 0 ? Math.round((totalSavings / originalSubtotal) * 100) : 0;
   
   // Free Shipping criteria (> ₹3,000)
   const shippingFee = subtotal >= 3000 ? 0 : 150;
@@ -1074,6 +1098,9 @@ function updateCartUI() {
   const cartSubtotalEl = document.getElementById('cart-subtotal');
   const cartShippingEl = document.getElementById('cart-shipping');
   const cartTotalEl = document.getElementById('cart-total');
+  const cartSavingsRow = document.getElementById('cart-savings-row');
+  const cartSavingsEl = document.getElementById('cart-savings');
+  const cartSavingsBadge = document.getElementById('cart-savings-badge');
 
   if (cartSubtotalEl) cartSubtotalEl.textContent = `₹${subtotal.toLocaleString('en-IN')}`;
   
@@ -1086,6 +1113,23 @@ function updateCartUI() {
   }
 
   if (cartTotalEl) cartTotalEl.textContent = `₹${grandTotal.toLocaleString('en-IN')}`;
+
+  // Update savings row & badge
+  if (totalSavings > 0) {
+    if (cartSavingsRow) {
+      cartSavingsRow.classList.remove('hidden');
+      if (cartSavingsEl) {
+        cartSavingsEl.textContent = `-₹${totalSavings.toLocaleString('en-IN')} (${savingsPercentage}% OFF)`;
+      }
+    }
+    if (cartSavingsBadge) {
+      cartSavingsBadge.textContent = `${savingsPercentage}% SAVED`;
+      cartSavingsBadge.classList.remove('hidden');
+    }
+  } else {
+    if (cartSavingsRow) cartSavingsRow.classList.add('hidden');
+    if (cartSavingsBadge) cartSavingsBadge.classList.add('hidden');
+  }
 
   // Parse newly rendered drawer buttons/icons
   lucide.createIcons();
