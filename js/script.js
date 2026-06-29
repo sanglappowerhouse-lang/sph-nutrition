@@ -506,7 +506,7 @@ function renderProducts() {
             <span class="text-[9px] sm:text-xs text-zinc-500 dark:text-zinc-400 font-semibold font-mono">${product.rating}</span>
           </div>
           
-          <h3 class="card-title text-xs sm:text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1 sm:mb-2 font-display hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200 line-clamp-1">
+          <h3 class="card-title text-xs sm:text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-1 sm:mb-2 font-display hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200">
             ${product.name}
           </h3>
           
@@ -1017,7 +1017,7 @@ function updateCartUI() {
         <!-- Description details -->
         <div class="flex-1 min-w-0">
           <div class="flex items-start justify-between gap-2 mb-1">
-            <h4 class="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate font-display">
+            <h4 class="text-sm font-bold text-zinc-900 dark:text-zinc-100 font-display">
               ${item.product.name}
             </h4>
             <button 
