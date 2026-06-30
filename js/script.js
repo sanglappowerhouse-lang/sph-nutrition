@@ -355,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProducts();
   setupEventListeners();
   updateCartUI();
+  initAthletesSlider();
 });
 
 // Theme Logic
@@ -1161,4 +1162,89 @@ function checkoutWhatsApp() {
 
   // Redirect in new tab
   window.open(whatsappUrl, '_blank');
+}
+
+// Transformium Athletes Horizontal Slider Logic
+function initAthletesSlider() {
+  const slider = document.getElementById('athletes-slider');
+  const prevBtn = document.getElementById('athletes-prev');
+  const nextBtn = document.getElementById('athletes-next');
+  const dotsContainer = document.getElementById('athletes-dots');
+  
+  if (!slider) return;
+
+  const cards = slider.querySelectorAll('.snap-start');
+  if (cards.length === 0) return;
+  
+  const totalCards = cards.length;
+  
+  // Generate active dots pagination indicators
+  function generateDots() {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    
+    for (let i = 0; i < totalCards; i++) {
+      const dot = document.createElement('button');
+      dot.className = `w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
+        i === 0 ? 'bg-emerald-500 w-5' : 'bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-600'
+      }`;
+      dot.setAttribute('aria-label', `Go to athlete ${i + 1}`);
+      
+      dot.addEventListener('click', () => {
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 24; // Gap between cards (gap-6 = 24px)
+        slider.scrollTo({
+          left: i * (cardWidth + gap),
+          behavior: 'smooth'
+        });
+      });
+      
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  // Next / Prev button event clicks
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 24;
+      slider.scrollBy({
+        left: -(cardWidth + gap),
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 24;
+      slider.scrollBy({
+        left: cardWidth + gap,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  // Track active slide on scroll and sync indicators
+  slider.addEventListener('scroll', () => {
+    const cardWidth = cards[0].offsetWidth;
+    const gap = 24;
+    const scrollLeft = slider.scrollLeft;
+    const activeIndex = Math.round(scrollLeft / (cardWidth + gap));
+    
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('button');
+      dots.forEach((dot, idx) => {
+        if (idx === activeIndex) {
+          dot.className = 'w-2 h-2 rounded-full transition-all duration-300 cursor-pointer bg-emerald-500 w-5';
+        } else {
+          dot.className = 'w-2 h-2 rounded-full transition-all duration-300 cursor-pointer bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-600';
+        }
+      });
+    }
+  });
+
+  // Initial call to setup dots display
+  generateDots();
 }

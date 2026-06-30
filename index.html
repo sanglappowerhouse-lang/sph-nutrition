@@ -65,7 +65,7 @@
       </a>
 
       <!-- Desktop Navigation Menu links -->
-      <nav class="hidden md:flex items-center gap-8">
+      <nav class="hidden md:flex items-center gap-6 lg:gap-8">
         <a href="#creatine-section"
           class="text-sm font-semibold tracking-wide text-zinc-800 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400 transition-colors duration-250">Creatine
           & Strength</a>
@@ -78,6 +78,8 @@
         <a href="#wellness-section"
           class="text-sm font-semibold tracking-wide text-zinc-800 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400 transition-colors duration-250">Vitamins
           & Wellness</a>
+        <a href="#athletes-section"
+          class="text-sm font-semibold tracking-wide text-zinc-800 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400 transition-colors duration-250">Transformium Athletes</a>
       </nav>
 
       <!-- Desktop Header Actions & Search -->
@@ -163,6 +165,10 @@
       <a href="#wellness-section"
         class="mobile-nav-link text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 flex justify-between items-center py-2 border-b border-zinc-200 dark:border-zinc-900">
         Vitamins & Wellness <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-600"></i>
+      </a>
+      <a href="#athletes-section"
+        class="mobile-nav-link text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 flex justify-between items-center py-2 border-b border-zinc-200 dark:border-zinc-900">
+        Transformium Athletes <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-600"></i>
       </a>
     </div>
 
@@ -267,6 +273,17 @@
             </div>
             <div class="text-[9px] text-zinc-500 dark:text-zinc-400 uppercase tracking-widest font-bold mt-1">WhatsApp
               Route</div>
+          </div>
+
+          <!-- Collaboration Branding -->
+          <div class="col-span-2 md:col-span-4 border-t border-zinc-300/40 dark:border-zinc-800/80 pt-6 mt-2 flex flex-row items-center justify-center gap-4 flex-wrap w-full animate-fade-in">
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-zinc-650 dark:text-zinc-300 font-display">In collaboration with</span>
+            </div>
+            <div class="h-20 sm:h-26 px-10 py-2.5 rounded-2xl bg-zinc-950 border border-zinc-800 shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-emerald-500/10 hover:border-emerald-500/30">
+              <img src="images/transformium_logo.png" alt="Transformium Nutrition Logo" class="h-full object-contain max-w-[280px] sm:max-w-[360px]">
+            </div>
           </div>
         </div>
 
@@ -427,6 +444,192 @@
       </div>
     </section>
 
+    <!-- Category 4th: Transformium Athletes -->
+    <section id="athletes-section" class="scroll-mt-24 relative">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-200 dark:border-zinc-900 pb-5 mb-10 gap-4">
+        <div>
+          <div class="text-xs uppercase tracking-widest font-extrabold text-emerald-600 dark:text-emerald-500 mb-1">
+            Inspirational Journeys</div>
+          <h2 class="section-header-title text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white font-display flex items-center gap-3">
+            Transformium Athletes
+          </h2>
+          <p class="section-header-desc text-zinc-500 dark:text-zinc-400 text-xs mt-1 max-w-md">
+            Real results from real athletes. Swipe or click the navigation controls below to explore their body transformation journeys powered by Transformium Nutrition.
+          </p>
+        </div>
+        <!-- Slider Navigation Controls -->
+        <div class="flex items-center gap-2">
+          <button id="athletes-prev" class="p-2.5 rounded-full border border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 text-zinc-700 dark:text-zinc-300 hover:border-emerald-600 hover:text-emerald-550 dark:hover:border-emerald-500 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all duration-200 cursor-pointer" aria-label="Previous Athlete">
+            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+          </button>
+          <button id="athletes-next" class="p-2.5 rounded-full border border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 text-zinc-700 dark:text-zinc-300 hover:border-emerald-600 hover:text-emerald-555 dark:hover:border-emerald-500 dark:hover:text-emerald-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all duration-200 cursor-pointer" aria-label="Next Athlete">
+            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Horizontal Scrollable Container -->
+      <div id="athletes-slider" class="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth pb-4 px-1">
+        <!-- Athlete Card 1 -->
+        <div class="flex-shrink-0 w-[290px] sm:w-[350px] snap-start">
+          <div class="premium-card rounded-2xl overflow-hidden flex flex-col h-full group bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 transition-all duration-300">
+            <div class="relative aspect-[4/5] overflow-hidden bg-zinc-50 dark:bg-zinc-900/10">
+              <img src="images/athlete1.png" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" alt="Transformium Athlete 1">
+              <!-- Label overlays -->
+              <div class="absolute bottom-3 left-3 bg-zinc-950/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest">Before</div>
+              <div class="absolute bottom-3 right-3 bg-emerald-600/90 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/20 uppercase tracking-widest">After</div>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-sm sm:text-base font-bold text-zinc-900 dark:text-white font-display mb-1">Elite Conditioning</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-xs font-light leading-relaxed">Significant fat loss combined with lean muscle gains, highlighting enhanced core definition and symmetry.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Athlete Card 2 -->
+        <div class="flex-shrink-0 w-[290px] sm:w-[350px] snap-start">
+          <div class="premium-card rounded-2xl overflow-hidden flex flex-col h-full group bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 transition-all duration-300">
+            <div class="relative aspect-[4/5] overflow-hidden bg-zinc-50 dark:bg-zinc-900/10">
+              <img src="images/athlete2.png" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" alt="Transformium Athlete 2">
+              <div class="absolute bottom-3 left-3 bg-zinc-950/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest">Before</div>
+              <div class="absolute bottom-3 right-3 bg-emerald-600/90 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/20 uppercase tracking-widest">After</div>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-sm sm:text-base font-bold text-zinc-900 dark:text-white font-display mb-1">Competition Physique</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-xs font-light leading-relaxed">Transition to stage-ready conditioning with deep muscle striations, vascularity, and peak athletic build.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Athlete Card 3 -->
+        <div class="flex-shrink-0 w-[290px] sm:w-[350px] snap-start">
+          <div class="premium-card rounded-2xl overflow-hidden flex flex-col h-full group bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 transition-all duration-300">
+            <div class="relative aspect-[4/5] overflow-hidden bg-zinc-50 dark:bg-zinc-900/10">
+              <img src="images/athlete3.png" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" alt="Transformium Athlete 3">
+              <div class="absolute bottom-3 left-3 bg-zinc-950/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest">Before</div>
+              <div class="absolute bottom-3 right-3 bg-emerald-600/90 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/20 uppercase tracking-widest">After</div>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-sm sm:text-base font-bold text-zinc-900 dark:text-white font-display mb-1">Lean Bulk & Strength</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-xs font-light leading-relaxed">Exceptional muscle mass gains from a lean starting base, showing development in shoulders, chest, and arms.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Athlete Card 4 -->
+        <div class="flex-shrink-0 w-[290px] sm:w-[350px] snap-start">
+          <div class="premium-card rounded-2xl overflow-hidden flex flex-col h-full group bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 transition-all duration-300">
+            <div class="relative aspect-[4/5] overflow-hidden bg-zinc-50 dark:bg-zinc-900/10">
+              <img src="images/athlete4.png" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" alt="Transformium Athlete 4">
+              <div class="absolute bottom-3 left-3 bg-zinc-950/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest">Before</div>
+              <div class="absolute bottom-3 right-3 bg-emerald-600/90 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/20 uppercase tracking-widest">After</div>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-sm sm:text-base font-bold text-zinc-900 dark:text-white font-display mb-1">Aesthetic Volumization</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-xs font-light leading-relaxed">Massive improvements in muscle fullness, thickness, and posture, creating a classical v-taper aesthetic.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Athlete Card 5 -->
+        <div class="flex-shrink-0 w-[290px] sm:w-[350px] snap-start">
+          <div class="premium-card rounded-2xl overflow-hidden flex flex-col h-full group bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 transition-all duration-300">
+            <div class="relative aspect-[4/5] overflow-hidden bg-zinc-50 dark:bg-zinc-900/10">
+              <img src="images/athlete5.png" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" alt="Transformium Athlete 5">
+              <div class="absolute bottom-3 left-3 bg-zinc-950/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest">Before</div>
+              <div class="absolute bottom-3 right-3 bg-emerald-600/90 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/20 uppercase tracking-widest">After</div>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-sm sm:text-base font-bold text-zinc-900 dark:text-white font-display mb-1">Recomposition & Shred</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-xs font-light leading-relaxed">Incredible abdominal and serratus detailing achieved through targeted fat loss and active muscle preservation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Athlete Card 6 -->
+        <div class="flex-shrink-0 w-[290px] sm:w-[350px] snap-start">
+          <div class="premium-card rounded-2xl overflow-hidden flex flex-col h-full group bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 transition-all duration-300">
+            <div class="relative aspect-[4/5] overflow-hidden bg-zinc-50 dark:bg-zinc-900/10">
+              <img src="images/athlete6.png" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" alt="Transformium Athlete 6">
+              <div class="absolute bottom-3 left-3 bg-zinc-950/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest">Before</div>
+              <div class="absolute bottom-3 right-3 bg-emerald-600/90 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/20 uppercase tracking-widest">After</div>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-sm sm:text-base font-bold text-zinc-900 dark:text-white font-display mb-1">Aesthetic Shredding</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-xs font-light leading-relaxed">Remarkable definition in the chest, shoulders, and obliques, illustrating a complete V-taper sculpt.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Athlete Card 7 -->
+        <div class="flex-shrink-0 w-[290px] sm:w-[350px] snap-start">
+          <div class="premium-card rounded-2xl overflow-hidden flex flex-col h-full group bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 transition-all duration-300">
+            <div class="relative aspect-[4/5] overflow-hidden bg-zinc-50 dark:bg-zinc-900/10">
+              <img src="images/athlete7.png" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" alt="Transformium Athlete 7">
+              <div class="absolute bottom-3 left-3 bg-zinc-950/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest">Before</div>
+              <div class="absolute bottom-3 right-3 bg-emerald-600/90 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/20 uppercase tracking-widest">After</div>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-sm sm:text-base font-bold text-zinc-900 dark:text-white font-display mb-1">Peak Conditioning</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-xs font-light leading-relaxed">Drastic muscle building and fat loss, showcasing deep definition in abdominal muscles and quad separation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Athlete Card 8 -->
+        <div class="flex-shrink-0 w-[290px] sm:w-[350px] snap-start">
+          <div class="premium-card rounded-2xl overflow-hidden flex flex-col h-full group bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 transition-all duration-300">
+            <div class="relative aspect-[4/5] overflow-hidden bg-zinc-50 dark:bg-zinc-900/10">
+              <img src="images/athlete8.png" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" alt="Transformium Athlete 8">
+              <div class="absolute bottom-3 left-3 bg-zinc-950/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest">Before</div>
+              <div class="absolute bottom-3 right-3 bg-emerald-600/90 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/20 uppercase tracking-widest">After</div>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-sm sm:text-base font-bold text-zinc-900 dark:text-white font-display mb-1">Lean Bulk & Strength</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-xs font-light leading-relaxed">Complete physique recomposition focusing on abdominal definition, shoulder width, and overall muscle fullness.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Athlete Card 9 -->
+        <div class="flex-shrink-0 w-[290px] sm:w-[350px] snap-start">
+          <div class="premium-card rounded-2xl overflow-hidden flex flex-col h-full group bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 transition-all duration-300">
+            <div class="relative aspect-[4/5] overflow-hidden bg-zinc-50 dark:bg-zinc-900/10">
+              <img src="images/athlete9.png" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" alt="Transformium Athlete 9">
+              <div class="absolute bottom-3 left-3 bg-zinc-950/80 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest">Before</div>
+              <div class="absolute bottom-3 right-3 bg-emerald-600/90 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/20 uppercase tracking-widest">After</div>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-sm sm:text-base font-bold text-zinc-900 dark:text-white font-display mb-1">Vascularity & Cut</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-xs font-light leading-relaxed">Superb reduction in body fat ratio while gaining strength, leading to visible vascular cuts and aesthetic proportions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination Indicators -->
+      <div id="athletes-dots" class="flex justify-center items-center gap-1.5 mt-4"></div>
+    </section>
+
   </main>
 
   <!-- Shopping Cart Drawer Container -->
@@ -577,6 +780,8 @@
             <li><a href="#wellness-section"
                 class="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Vitamins
                 & Wellness</a></li>
+            <li><a href="#athletes-section"
+                class="text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Transformium Athletes</a></li>
           </ul>
         </div>
 
