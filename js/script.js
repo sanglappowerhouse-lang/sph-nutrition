@@ -1622,87 +1622,14 @@ const addModalProductToCart = addSpecsProductToCart;
 const buyModalProductWhatsApp = buySpecsProductWhatsApp;
 
 /**
- * Initializes frontend security measures to deter client-side tampering, reverse engineering,
- * and DOM modification. All product states are locked and verified against frozen databases.
+ * Initializes data integrity protections for products and catalog
  */
 function initSecurity() {
-
-  // 1. Disable Right-Click context menu to restrict access to 'Inspect Element'
-  document.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-  });
-
-  // 2. Block keyboard shortcuts for standard DevTools panels, source view, and print/save triggers
-  window.addEventListener('keydown', (e) => {
-    if (
-      e.key === 'F12' ||
-      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
-      (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's' || e.key === 'P' || e.key === 'p'))
-    ) {
-      e.preventDefault();
-      return false;
-    }
-  });
-
-  // 3. Create active anti-debugging breakpoint loop to stall JS execution if DevTools is open
-  const preventDevTools = () => {
-    function pauseExecution() {
-      (function() {
-        return false;
-      }
-      .constructor('debugger')
-      .call());
-    }
-    setInterval(pauseExecution, 100);
-  };
-  try {
-    preventDevTools();
-  } catch (err) {}
-
-  // 4. Setup MutationObserver to watch for manual DOM modification on critical items & cart containers
-  const observeTargets = [
-    document.getElementById('creatine-grid'),
-    document.getElementById('proteins-grid'),
-    document.getElementById('energy-grid'),
-    document.getElementById('wellness-grid'),
-    document.getElementById('cart-items-container'),
-    document.getElementById('cart-filled-state')
-  ].filter(Boolean);
-
-  const observer = new MutationObserver((mutations) => {
-    if (isSystemAction) return;
-
-    let tampered = false;
-    const protectedAttrs = ['id', 'data-id', 'onclick', 'data-name', 'data-keywords'];
-
-    for (const mutation of mutations) {
-      // Direct text mutations or changes to elements inside target containers are tampered actions
-      if (mutation.type === 'characterData' || mutation.type === 'childList') {
-        tampered = true;
-        break;
-      }
-      // Inspect modification to crucial elements' attributes
-      if (mutation.type === 'attributes') {
-        const attr = mutation.attributeName;
-        if (protectedAttrs.includes(attr)) {
-          tampered = true;
-          break;
-        }
-      }
-    }
-
-    if (tampered) {
-      console.warn('Security alert: unauthorized DOM manipulation detected. Reloading page state.');
-      location.reload();
-    }
-  });
-
-  observeTargets.forEach(target => {
-    observer.observe(target, {
-      attributes: true,
-      childList: true,
-      characterData: true,
-      subtree: true
+  // Ensure product array remains immutable
+  if (typeof products !== 'undefined' && Array.isArray(products)) {
+    products.forEach(p => {
+      if (!Object.isFrozen(p)) Object.freeze(p);
     });
-  });
+    if (!Object.isFrozen(products)) Object.freeze(products);
+  }
 }
