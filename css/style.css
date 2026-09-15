@@ -407,33 +407,41 @@ svg[data-lucide] {
   }
 }
 
-/* ===== Product Detail Quick View Modal Styles ===== */
-#product-detail-modal {
-  transition: opacity 0.3s ease;
+/* ===== Flagship Supplement Showcase & Detail Modal Styles ===== */
+.modal-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
+.modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.open .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* Custom Scroll for Specs Modal */
+.specs-custom-scroll::-webkit-scrollbar {
   width: 6px;
 }
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(24, 24, 27, 0.4);
+.specs-custom-scroll::-webkit-scrollbar-track {
+  background: rgba(24, 24, 27, 0.6);
 }
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(63, 63, 70, 0.7);
-  border-radius: 4px;
+.specs-custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(63, 63, 70, 0.8);
+  border-radius: 9999px;
 }
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.6);
-}
-
-.modal-zoom-container {
-  overflow: hidden;
-  cursor: zoom-in;
+.specs-custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.8);
 }
 
-.modal-zoom-container.is-zoomed img {
-  transform: scale(2.2);
-  cursor: zoom-out;
-}
 
 

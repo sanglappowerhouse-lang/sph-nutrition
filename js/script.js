@@ -585,10 +585,10 @@ function renderProducts() {
       </div>
     `;
 
-    // Add card click listener to open the Flipkart-style product detail window
+    // Add card click listener to open the flagship product showcase specs window
     card.addEventListener('click', (e) => {
       if (e.target.closest('button')) return;
-      openProductModal(product.id);
+      openSpecsModal(product.id);
     });
 
     grid.appendChild(card);
@@ -752,10 +752,35 @@ function setupEventListeners() {
     cartDrawerBackdrop.addEventListener('click', closeCart);
   }
 
+  // Specs modal backdrop click to close
+  const specsModal = document.getElementById('specs-modal');
+  if (specsModal) {
+    specsModal.addEventListener('click', (e) => {
+      if (e.target.id === 'specs-modal') {
+        closeSpecsModal();
+      }
+    });
+  }
+
+  // Lightbox modal backdrop click to close
+  const lightboxModal = document.getElementById('lightbox-modal');
+  if (lightboxModal) {
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target.id === 'lightbox-modal') {
+        closeLightboxModal();
+      }
+    });
+  }
+
   // Keyboard shortcut to close open modal / drawer on Escape
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      closeProductModal();
+      const lb = document.getElementById('lightbox-modal');
+      if (lb && lb.classList.contains('open')) {
+        closeLightboxModal();
+        return;
+      }
+      closeSpecsModal();
       closeCart();
     }
   });
@@ -1326,93 +1351,103 @@ function initAthletesSlider() {
 }
 
 // =========================================================================
-// Flipkart-Style Product Detail / Quick View Modal Window Logic
+// Flagship Specs Showcase Modal & Fullscreen Lightbox Logic
 // =========================================================================
-let activeModalProduct = null;
-let modalQuantity = 1;
+let activeSpecsProduct = null;
+let specsQuantity = 1;
 
-function openProductModal(productId) {
+function getProductKeyHighlights(product) {
+  const cat = product.category || '';
+  if (cat === 'creatine') {
+    return [
+      { icon: 'shield-check', text: '100% Pure Micronized Creatine Monohydrate' },
+      { icon: 'zap', text: 'Rapid ATP Resynthesis & Intracellular Volumization' },
+      { icon: 'layers', text: 'Zero Added Sugar • European Lab Tested' }
+    ];
+  } else if (cat === 'proteins') {
+    return [
+      { icon: 'shield-check', text: 'European Sourced Whey Isolate / Concentrate' },
+      { icon: 'sparkles', text: '24g+ High Bioavailable Protein & Essential BCAAs' },
+      { icon: 'layers', text: 'Ultra-Filtered • Zero Bloat Instant Digestion' }
+    ];
+  } else if (cat === 'energy') {
+    return [
+      { icon: 'zap', text: 'Explosive Beta-Alanine, Citrulline & Caffeine Matrix' },
+      { icon: 'activity', text: 'Extreme Nitric Oxide Pumps & Razor Focus' },
+      { icon: 'shield-check', text: 'Zero Crash Formula • Prolonged Endurance' }
+    ];
+  } else {
+    return [
+      { icon: 'shield-check', text: 'High-Potency Therapeutic Botanical Extracts' },
+      { icon: 'heart-pulse', text: 'Complete Organ Detox, Vitality & Health Shield' },
+      { icon: 'award', text: '100% Authentic Daily Athletic Formulation' }
+    ];
+  }
+}
+
+function openSpecsModal(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
 
-  activeModalProduct = product;
-  modalQuantity = 1;
+  activeSpecsProduct = product;
+  specsQuantity = 1;
 
-  const modal = document.getElementById('product-detail-modal');
-  const backdrop = document.getElementById('product-modal-backdrop');
-  const panel = document.getElementById('product-modal-panel');
-  if (!modal || !backdrop || !panel) return;
+  const modal = document.getElementById('specs-modal');
+  if (!modal) return;
 
-  // 1. Badges setup
-  const badgeEl = document.getElementById('modal-product-badge');
+  // 1. Top Badges
+  const badgeEl = document.getElementById('specs-modal-badge');
   if (badgeEl) {
-    if (product.badge) {
-      badgeEl.textContent = product.badge;
-      badgeEl.classList.remove('hidden');
-    } else {
-      badgeEl.classList.add('hidden');
-    }
+    const categoryLabels = {
+      creatine: 'Creatine & Strength',
+      proteins: 'Proteins & Aminos',
+      energy: 'Pre-Workout & Energy',
+      wellness: 'Vitamins & Wellness'
+    };
+    badgeEl.textContent = categoryLabels[product.category] || 'Supplement';
   }
 
-  const sizeBadgeEl = document.getElementById('modal-product-size-badge');
-  if (sizeBadgeEl) {
-    sizeBadgeEl.textContent = product.size || '';
+  const seriesEl = document.getElementById('specs-modal-header-series');
+  if (seriesEl) {
+    seriesEl.textContent = 'Transformium Heavy-Duty Series';
   }
 
-  // 2. Main Image and Interactive Zoom Showcase
-  const mainImage = document.getElementById('modal-main-image');
-  const thumbsContainer = document.getElementById('modal-thumbnails');
-  const imageContainer = document.getElementById('modal-image-container');
+  // 2. Product Name and Description
+  const nameEl = document.getElementById('specs-modal-name');
+  if (nameEl) nameEl.textContent = product.name;
 
+  const descEl = document.getElementById('specs-modal-desc');
+  if (descEl) descEl.textContent = product.description;
+
+  // 3. Main Showcase Image
+  const imgEl = document.getElementById('specs-modal-img');
   const defaultImg = (product.images && product.images.length > 0) ? product.images[0] : '';
-  if (mainImage) {
-    mainImage.src = defaultImg;
-    mainImage.alt = product.name;
-    mainImage.style.transformOrigin = 'center center';
-    mainImage.style.transform = 'scale(1)';
+  if (imgEl) {
+    imgEl.src = defaultImg;
+    imgEl.alt = product.name;
   }
 
-  if (imageContainer) {
-    imageContainer.classList.remove('is-zoomed');
-    
-    // Zoom follow cursor logic
-    imageContainer.onmousemove = (e) => {
-      const rect = imageContainer.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      if (mainImage) {
-        mainImage.style.transformOrigin = `${x}% ${y}%`;
-      }
-    };
-
-    imageContainer.onclick = () => {
-      imageContainer.classList.toggle('is-zoomed');
-    };
-  }
-
-  // 3. Thumbnails Switcher Gallery
+  // 4. Thumbnails Row
+  const thumbsContainer = document.getElementById('specs-modal-thumbnails');
   if (thumbsContainer) {
     thumbsContainer.innerHTML = '';
     if (product.images && product.images.length > 1) {
       product.images.forEach((img, idx) => {
         const thumbBtn = document.createElement('button');
-        thumbBtn.className = `w-14 h-12 rounded-xl border-2 ${idx === 0 ? 'border-emerald-500 shadow-md shadow-emerald-500/20' : 'border-zinc-800 hover:border-zinc-600'} bg-zinc-900/60 p-1 overflow-hidden transition-all duration-200 cursor-pointer modal-thumb`;
-        thumbBtn.setAttribute('title', idx === 0 ? 'Front View' : 'Nutrition & Details View');
+        thumbBtn.type = 'button';
+        thumbBtn.className = `w-14 h-12 rounded-xl border-2 ${idx === 0 ? 'border-orange-500 shadow-md shadow-orange-500/20' : 'border-zinc-800 hover:border-zinc-600'} bg-zinc-900/80 p-1 overflow-hidden transition-all duration-200 cursor-pointer specs-modal-thumb shrink-0`;
+        thumbBtn.setAttribute('title', idx === 0 ? 'Front Label View' : 'Back Nutrition Facts View');
         thumbBtn.innerHTML = `<img src="${img}" class="w-full h-full object-contain pointer-events-none">`;
         
         thumbBtn.onclick = (e) => {
           e.stopPropagation();
-          if (mainImage) {
-            mainImage.src = img;
-            mainImage.style.transform = 'scale(1)';
-          }
-          if (imageContainer) imageContainer.classList.remove('is-zoomed');
-          document.querySelectorAll('.modal-thumb').forEach(t => {
-            t.classList.remove('border-emerald-500', 'shadow-md', 'shadow-emerald-500/20');
+          if (imgEl) imgEl.src = img;
+          document.querySelectorAll('.specs-modal-thumb').forEach(t => {
+            t.classList.remove('border-orange-500', 'shadow-md', 'shadow-orange-500/20');
             t.classList.add('border-zinc-800');
           });
           thumbBtn.classList.remove('border-zinc-800');
-          thumbBtn.classList.add('border-emerald-500', 'shadow-md', 'shadow-emerald-500/20');
+          thumbBtn.classList.add('border-orange-500', 'shadow-md', 'shadow-orange-500/20');
         };
 
         thumbsContainer.appendChild(thumbBtn);
@@ -1423,174 +1458,111 @@ function openProductModal(productId) {
     }
   }
 
-  // 4. Category Breadcrumb
-  const categoryEl = document.getElementById('modal-product-category');
-  if (categoryEl) {
-    const categoryNames = {
-      creatine: 'Creatine & Strength Matrix',
-      proteins: 'Proteins & Amino Formulas',
-      energy: 'Pre-Workout & Energy Fuel',
-      wellness: 'Daily Vitamins & Health Matrix'
-    };
-    categoryEl.textContent = `TRANSFORMIUM NUTRITION • ${categoryNames[product.category] || 'ELITE SUPPLEMENT'}`;
-  }
-
-  // 5. Title & Star Rating
-  const titleEl = document.getElementById('modal-product-title');
-  if (titleEl) titleEl.textContent = product.name;
-
-  const ratingScoreEl = document.getElementById('modal-rating-score');
-  if (ratingScoreEl) ratingScoreEl.textContent = product.rating;
-
-  const starsEl = document.getElementById('modal-rating-stars');
-  if (starsEl) {
-    let starsHtml = '';
-    const fullStars = Math.floor(product.rating);
-    for (let i = 0; i < 5; i++) {
-      if (i < fullStars) {
-        starsHtml += `<i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>`;
-      } else {
-        starsHtml += `<i data-lucide="star" class="w-3.5 h-3.5 text-zinc-600"></i>`;
-      }
-    }
-    starsEl.innerHTML = starsHtml;
-  }
-
-  // 6. Price & Savings Block
-  const priceEl = document.getElementById('modal-product-price');
+  // 5. Price & MRP Block
+  const priceEl = document.getElementById('specs-modal-price');
   if (priceEl) priceEl.textContent = `₹${product.price.toLocaleString('en-IN')}`;
 
-  const origPriceEl = document.getElementById('modal-product-original-price');
-  if (origPriceEl) {
+  const mrpEl = document.getElementById('specs-modal-mrp');
+  if (mrpEl) {
     if (product.originalPrice) {
-      origPriceEl.textContent = `₹${product.originalPrice.toLocaleString('en-IN')}`;
-      origPriceEl.classList.remove('hidden');
+      mrpEl.textContent = `₹${product.originalPrice.toLocaleString('en-IN')}`;
+      mrpEl.classList.remove('hidden');
     } else {
-      origPriceEl.classList.add('hidden');
+      mrpEl.classList.add('hidden');
     }
   }
 
-  const discountPill = document.getElementById('modal-product-discount-pill');
-  if (discountPill) {
-    if (product.originalPrice && product.originalPrice > product.price) {
-      const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
-      const savings = product.originalPrice - product.price;
-      discountPill.textContent = `Save ${discount}% (₹${savings.toLocaleString('en-IN')} OFF)`;
-      discountPill.classList.remove('hidden');
-    } else {
-      discountPill.classList.add('hidden');
-    }
+  // 6. Dynamic Key Engineering / Formulation Highlights
+  const featuresList = document.getElementById('specs-modal-features');
+  if (featuresList) {
+    const highlights = getProductKeyHighlights(product);
+    featuresList.innerHTML = highlights.map(h => `
+      <li class="flex items-start gap-2.5">
+        <div class="w-5 h-5 rounded bg-orange-500/10 border border-orange-500/25 flex items-center justify-center text-orange-400 shrink-0 mt-0.5">
+          <i data-lucide="${h.icon}" class="w-3.5 h-3.5"></i>
+        </div>
+        <span class="text-zinc-300 font-medium">${h.text}</span>
+      </li>
+    `).join('');
   }
 
-  // 7. Specs and Description
-  const specSize = document.getElementById('modal-spec-size');
-  if (specSize) specSize.textContent = product.size || 'Standard Size';
+  // 7. Quantity UI Reset
+  updateSpecsQtyUI();
 
-  const specCat = document.getElementById('modal-spec-category');
-  if (specCat) specCat.textContent = product.category ? product.category.toUpperCase() : 'SUPPLEMENT';
-
-  const descEl = document.getElementById('modal-product-description');
-  if (descEl) descEl.textContent = product.description;
-
-  // 8. Quantity Counter Reset
-  updateModalQuantityUI();
-
-  // 9. Show Modal with Smooth Scale Animation
-  modal.classList.remove('hidden');
+  // 8. Open Modal
+  modal.classList.add('open');
   document.body.style.overflow = 'hidden';
-
-  setTimeout(() => {
-    backdrop.classList.remove('opacity-0');
-    backdrop.classList.add('opacity-100');
-    panel.classList.remove('scale-95', 'opacity-0');
-    panel.classList.add('scale-100', 'opacity-100');
-  }, 10);
 
   lucide.createIcons();
 }
 
-function closeProductModal() {
-  const modal = document.getElementById('product-detail-modal');
-  const backdrop = document.getElementById('product-modal-backdrop');
-  const panel = document.getElementById('product-modal-panel');
-  if (!modal || !backdrop || !panel) return;
-
-  backdrop.classList.remove('opacity-100');
-  backdrop.classList.add('opacity-0');
-  panel.classList.remove('scale-100', 'opacity-100');
-  panel.classList.add('scale-95', 'opacity-0');
-
-  setTimeout(() => {
-    modal.classList.add('hidden');
-    document.body.style.overflow = '';
-  }, 300);
+function closeSpecsModal() {
+  const modal = document.getElementById('specs-modal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
 }
 
-function updateModalQuantityUI() {
-  const qtyEl = document.getElementById('modal-quantity');
-  if (qtyEl) qtyEl.textContent = modalQuantity;
+function updateSpecsQtyUI() {
+  const qtyEl = document.getElementById('specs-modal-qty');
+  if (qtyEl) qtyEl.textContent = specsQuantity;
 }
 
-function incrementModalQty() {
-  if (modalQuantity < 20) {
-    modalQuantity += 1;
-    updateModalQuantityUI();
+function incrementSpecsQty() {
+  if (specsQuantity < 20) {
+    specsQuantity += 1;
+    updateSpecsQtyUI();
   }
 }
 
-function decrementModalQty() {
-  if (modalQuantity > 1) {
-    modalQuantity -= 1;
-    updateModalQuantityUI();
+function decrementSpecsQty() {
+  if (specsQuantity > 1) {
+    specsQuantity -= 1;
+    updateSpecsQtyUI();
   }
 }
 
-function addModalProductToCart() {
-  if (!activeModalProduct) return;
+function addSpecsProductToCart() {
+  if (!activeSpecsProduct) return;
 
-  const existingItem = cart.find(item => item.product.id === activeModalProduct.id);
+  const existingItem = cart.find(item => item.product.id === activeSpecsProduct.id);
   if (existingItem) {
-    existingItem.quantity += modalQuantity;
+    existingItem.quantity += specsQuantity;
   } else {
     cart.push({
-      product: activeModalProduct,
-      quantity: modalQuantity
+      product: activeSpecsProduct,
+      quantity: specsQuantity
     });
   }
 
   saveCart();
   updateCartUI();
 
-  // Provide quick feedback on the button
-  const addBtn = document.getElementById('modal-add-to-cart-btn');
+  const addBtn = document.getElementById('specs-modal-cart-btn');
   if (addBtn) {
     const origHtml = addBtn.innerHTML;
-    addBtn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i><span>Added ${modalQuantity} to Cart!</span>`;
-    addBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
-    addBtn.classList.add('bg-emerald-500');
+    addBtn.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-emerald-400"></i><span class="text-emerald-400">Added ${specsQuantity} to Cart!</span>`;
     lucide.createIcons();
 
     setTimeout(() => {
       addBtn.innerHTML = origHtml;
-      addBtn.classList.remove('bg-emerald-500');
-      addBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
-      closeProductModal();
+      closeSpecsModal();
       openCart();
-    }, 600);
+    }, 500);
   } else {
-    closeProductModal();
+    closeSpecsModal();
     openCart();
   }
 }
 
-function buyModalProductWhatsApp() {
-  if (!activeModalProduct) return;
+function buySpecsProductWhatsApp() {
+  if (!activeSpecsProduct) return;
 
-  const total = activeModalProduct.price * modalQuantity;
+  const total = activeSpecsProduct.price * specsQuantity;
   let message = `*SPH Nutrition Store - Direct Order Request*\n\n`;
   message += `Hello! I want to order from SPH Supplement Store:\n`;
-  message += `📦 *Product:* ${activeModalProduct.name}\n`;
-  message += `🔢 *Quantity:* ${modalQuantity}\n`;
+  message += `📦 *Product:* ${activeSpecsProduct.name}\n`;
+  message += `🔢 *Quantity:* ${specsQuantity}\n`;
   message += `💰 *Total Amount:* ₹${total.toLocaleString('en-IN')}\n`;
   message += `📍 *Delivery/Pickup:* SPH Gym Desk / Express Delivery\n\n`;
   message += `Please confirm my order.`;
@@ -1599,6 +1571,55 @@ function buyModalProductWhatsApp() {
   const whatsappUrl = `https://wa.me/917003659088?text=${encodedText}`;
   window.open(whatsappUrl, '_blank');
 }
+
+// Fullscreen Lightbox Modal Functions
+function openLightboxModal(imgSrc, title, price) {
+  const modal = document.getElementById('lightbox-modal');
+  const img = document.getElementById('lightbox-modal-img');
+  const titleEl = document.getElementById('lightbox-modal-title');
+  const priceEl = document.getElementById('lightbox-modal-price');
+
+  if (!modal || !img) return;
+
+  img.src = imgSrc || '';
+  if (titleEl) titleEl.textContent = title || '';
+  if (priceEl) priceEl.textContent = price || '';
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openLightboxFromStage() {
+  const imgEl = document.getElementById('specs-modal-img');
+  const nameEl = document.getElementById('specs-modal-name');
+  const priceEl = document.getElementById('specs-modal-price');
+
+  if (imgEl && imgEl.src) {
+    openLightboxModal(
+      imgEl.src,
+      nameEl ? nameEl.textContent : (activeSpecsProduct ? activeSpecsProduct.name : ''),
+      priceEl ? priceEl.textContent : ''
+    );
+  }
+}
+
+function closeLightboxModal() {
+  const modal = document.getElementById('lightbox-modal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  const specsModal = document.getElementById('specs-modal');
+  if (!specsModal || !specsModal.classList.contains('open')) {
+    document.body.style.overflow = '';
+  }
+}
+
+// Aliases for backwards compatibility
+const openProductModal = openSpecsModal;
+const closeProductModal = closeSpecsModal;
+const decrementModalQty = decrementSpecsQty;
+const incrementModalQty = incrementSpecsQty;
+const addModalProductToCart = addSpecsProductToCart;
+const buyModalProductWhatsApp = buySpecsProductWhatsApp;
 
 /**
  * Initializes frontend security measures to deter client-side tampering, reverse engineering,
