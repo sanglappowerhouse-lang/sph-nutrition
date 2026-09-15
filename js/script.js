@@ -331,8 +331,27 @@ const products = [
   },
 ];
 
-// Cart State (loaded from localStorage or empty)
-let cart = JSON.parse(localStorage.getItem('sph_supplement_cart')) || [];
+// Freeze the product database to prevent any unauthorized run-time modifications via console
+products.forEach(p => Object.freeze(p));
+Object.freeze(products);
+
+// Load cart state and validate integrity against the frozen products array to prevent tampering
+let cart = [];
+try {
+  const savedCart = JSON.parse(localStorage.getItem('sph_supplement_cart')) || [];
+  cart = savedCart.map(item => {
+    const authenticProduct = products.find(p => p.id === (item.product && item.product.id));
+    if (authenticProduct && typeof item.quantity === 'number' && item.quantity > 0) {
+      return {
+        product: authenticProduct,
+        quantity: Math.floor(item.quantity)
+      };
+    }
+    return null;
+  }).filter(Boolean);
+} catch (e) {
+  cart = [];
+}
 
 // Category expanded state trackers
 const expandedSections = {
@@ -345,8 +364,26 @@ const expandedSections = {
 // Current active search query
 let activeSearchQuery = '';
 
+// System DOM action tracking to bypass MutationObserver triggers during code modifications
+let isSystemAction = false;
+
+function safeDOMOperation(action) {
+  isSystemAction = true;
+  try {
+    action();
+  } finally {
+    // Reset system action state in the next tick to ensure mutation observer microtasks complete
+    setTimeout(() => {
+      isSystemAction = false;
+    }, 0);
+  }
+}
+
 // DOM Elements Initialization
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize security protections
+  initSecurity();
+
   // Setup Lucide Icons
   lucide.createIcons();
 
@@ -392,7 +429,8 @@ function updateThemeIcon(isDark) {
 
 // Render product grids
 function renderProducts() {
-  const categoryGrids = {
+  safeDOMOperation(() => {
+    const categoryGrids = {
     creatine: document.getElementById('creatine-grid'),
     proteins: document.getElementById('proteins-grid'),
     energy: document.getElementById('energy-grid'),
@@ -414,7 +452,7 @@ function renderProducts() {
 
     // Create Card elements
     const card = document.createElement('article');
-    card.className = `premium-card rounded-2xl overflow-hidden flex flex-col h-full opacity-100 transition-all duration-300`;
+    card.className = `premium-card rounded-2xl overflow-hidden flex flex-col h-full opacity-100 transition-all duration-300 cursor-pointer group`;
     card.setAttribute('data-id', product.id);
     card.setAttribute('data-name', product.name.toLowerCase());
     card.setAttribute('data-keywords', product.keywords.toLowerCase());
@@ -440,7 +478,7 @@ function renderProducts() {
 
     card.innerHTML = `
       ${product.images ? `
-        <div class="aspect-[4/3] relative w-full overflow-hidden group bg-zinc-50 dark:bg-zinc-900/10">
+        <div class="aspect-[4/3] relative w-full overflow-hidden group/img bg-zinc-50 dark:bg-zinc-900/10">
           <!-- Horizontal Scrollable Container -->
           <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar w-full h-full" id="slider-${product.id}">
             ${product.images.map((img, i) => `
@@ -450,13 +488,21 @@ function renderProducts() {
             `).join('')}
           </div>
           
+          <!-- Subtle Quick View Overlay Pill on Hover -->
+          <div class="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none z-10">
+            <div class="bg-zinc-950/90 border border-zinc-700/80 text-white text-[9px] sm:text-[11px] font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 backdrop-blur-sm transform translate-y-2 group-hover:translate-y-0 transition-transform duration-200">
+              <i data-lucide="maximize-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>Quick View</span>
+            </div>
+          </div>
+
           ${product.badge ? `
-            <div class="absolute top-2 left-2 bg-emerald-600 text-white dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-600/20 text-[7px] sm:text-[9px] font-bold px-1.5 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider font-display">
+            <div class="absolute top-2 left-2 bg-emerald-600 text-white dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-600/20 text-[7px] sm:text-[9px] font-bold px-1.5 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider font-display z-10">
               ${product.badge}
             </div>
           ` : ''}
           
-          <div class="absolute top-2 right-2 text-zinc-500 dark:text-zinc-400 text-[7px] sm:text-xs font-semibold px-1 sm:px-2 py-0.5 rounded bg-zinc-200/70 dark:bg-zinc-800/75 border border-zinc-300/40 dark:border-zinc-700/40 font-mono">
+          <div class="absolute top-2 right-2 text-zinc-500 dark:text-zinc-400 text-[7px] sm:text-xs font-semibold px-1 sm:px-2 py-0.5 rounded bg-zinc-200/70 dark:bg-zinc-800/75 border border-zinc-300/40 dark:border-zinc-700/40 font-mono z-10">
             ${product.size}
           </div>
         </div>
@@ -468,6 +514,7 @@ function renderProducts() {
               <button 
                 onclick="event.stopPropagation(); document.getElementById('slider-${product.id}').scrollTo({left: document.getElementById('slider-${product.id}').offsetWidth * ${i}, behavior: 'smooth'})"
                 class="w-10 h-8 rounded border-2 ${i === 0 ? 'border-emerald-500 dark:border-emerald-400' : 'border-transparent'} overflow-hidden flex-shrink-0 transition-all duration-200 thumb-${product.id}"
+                aria-label="View photo ${i + 1}"
               >
                 <img src="${img}" class="object-cover w-full h-full">
               </button>
@@ -528,7 +575,7 @@ function renderProducts() {
           </div>
           
           <button 
-            onclick="addToCart('${product.id}')"
+            onclick="event.stopPropagation(); addToCart('${product.id}')"
             class="w-full sm:w-auto flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-black font-bold text-[9px] sm:text-xs py-2 sm:py-2.5 px-2.5 sm:px-4 rounded-xl transition-all duration-200 active:scale-95 shadow-md shadow-emerald-600/10 dark:shadow-emerald-500/5 hover:-translate-y-0.5 cursor-pointer text-center"
           >
             <i data-lucide="shopping-cart" class="w-3 sm:w-3.5 h-3 sm:h-3.5"></i>
@@ -537,6 +584,12 @@ function renderProducts() {
         </div>
       </div>
     `;
+
+    // Add card click listener to open the Flipkart-style product detail window
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('button')) return;
+      openProductModal(product.id);
+    });
 
     grid.appendChild(card);
 
@@ -565,8 +618,9 @@ function renderProducts() {
   // Show or hide categories depending on query search matching
   updateCategoriesVisibility();
   
-  // Re-adjust expandable buttons displays
-  updateExpandButtonsVisibility();
+    // Re-adjust expandable buttons displays
+    updateExpandButtonsVisibility();
+  });
 }
 
 // Return matching SVG paths for supplement categories
@@ -697,6 +751,14 @@ function setupEventListeners() {
   if (cartDrawerBackdrop) {
     cartDrawerBackdrop.addEventListener('click', closeCart);
   }
+
+  // Keyboard shortcut to close open modal / drawer on Escape
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeProductModal();
+      closeCart();
+    }
+  });
 
   // Setup header sticky scroll styles
   window.addEventListener('scroll', () => {
@@ -956,7 +1018,8 @@ function saveCart() {
 }
 
 function updateCartUI() {
-  const cartItemsContainer = document.getElementById('cart-items-container');
+  safeDOMOperation(() => {
+    const cartItemsContainer = document.getElementById('cart-items-container');
   const emptyCartState = document.getElementById('cart-empty-state');
   const cartFilledState = document.getElementById('cart-filled-state');
   
@@ -1082,10 +1145,15 @@ function updateCartUI() {
     });
   }
 
-  // Calculate pricing metrics
-  const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+  // Calculate pricing metrics using authentic, frozen data lookups
+  const subtotal = cart.reduce((sum, item) => {
+    const authenticProduct = products.find(p => p.id === item.product.id);
+    const price = authenticProduct ? authenticProduct.price : 0;
+    return sum + (price * item.quantity);
+  }, 0);
   const originalSubtotal = cart.reduce((sum, item) => {
-    const origPrice = item.product.originalPrice || item.product.price;
+    const authenticProduct = products.find(p => p.id === item.product.id);
+    const origPrice = authenticProduct ? (authenticProduct.originalPrice || authenticProduct.price) : 0;
     return sum + (origPrice * item.quantity);
   }, 0);
   const totalSavings = originalSubtotal - subtotal;
@@ -1132,15 +1200,20 @@ function updateCartUI() {
     if (cartSavingsBadge) cartSavingsBadge.classList.add('hidden');
   }
 
-  // Parse newly rendered drawer buttons/icons
-  lucide.createIcons();
+    // Parse newly rendered drawer buttons/icons
+    lucide.createIcons();
+  });
 }
 
 // Redirect and submit message to WhatsApp
 function checkoutWhatsApp() {
   if (cart.length === 0) return;
 
-  const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+  const subtotal = cart.reduce((sum, item) => {
+    const authenticProduct = products.find(p => p.id === item.product.id);
+    const price = authenticProduct ? authenticProduct.price : 0;
+    return sum + (price * item.quantity);
+  }, 0);
   const shippingFee = subtotal >= 3000 ? 0 : 150;
   const grandTotal = subtotal + shippingFee;
 
@@ -1148,7 +1221,10 @@ function checkoutWhatsApp() {
   let message = `Hello, I would like to place an order for the following supplements:\n`;
   
   cart.forEach(item => {
-    message += `- ${item.product.name} (Qty: ${item.quantity}) - Price: ₹${item.product.price.toLocaleString('en-IN')}\n`;
+    const authenticProduct = products.find(p => p.id === item.product.id);
+    if (authenticProduct) {
+      message += `- ${authenticProduct.name} (Qty: ${item.quantity}) - Price: ₹${authenticProduct.price.toLocaleString('en-IN')}\n`;
+    }
   });
   
   message += `\nTotal Price: ₹${grandTotal.toLocaleString('en-IN')}\n`;
@@ -1247,4 +1323,365 @@ function initAthletesSlider() {
 
   // Initial call to setup dots display
   generateDots();
+}
+
+// =========================================================================
+// Flipkart-Style Product Detail / Quick View Modal Window Logic
+// =========================================================================
+let activeModalProduct = null;
+let modalQuantity = 1;
+
+function openProductModal(productId) {
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+
+  activeModalProduct = product;
+  modalQuantity = 1;
+
+  const modal = document.getElementById('product-detail-modal');
+  const backdrop = document.getElementById('product-modal-backdrop');
+  const panel = document.getElementById('product-modal-panel');
+  if (!modal || !backdrop || !panel) return;
+
+  // 1. Badges setup
+  const badgeEl = document.getElementById('modal-product-badge');
+  if (badgeEl) {
+    if (product.badge) {
+      badgeEl.textContent = product.badge;
+      badgeEl.classList.remove('hidden');
+    } else {
+      badgeEl.classList.add('hidden');
+    }
+  }
+
+  const sizeBadgeEl = document.getElementById('modal-product-size-badge');
+  if (sizeBadgeEl) {
+    sizeBadgeEl.textContent = product.size || '';
+  }
+
+  // 2. Main Image and Interactive Zoom Showcase
+  const mainImage = document.getElementById('modal-main-image');
+  const thumbsContainer = document.getElementById('modal-thumbnails');
+  const imageContainer = document.getElementById('modal-image-container');
+
+  const defaultImg = (product.images && product.images.length > 0) ? product.images[0] : '';
+  if (mainImage) {
+    mainImage.src = defaultImg;
+    mainImage.alt = product.name;
+    mainImage.style.transformOrigin = 'center center';
+    mainImage.style.transform = 'scale(1)';
+  }
+
+  if (imageContainer) {
+    imageContainer.classList.remove('is-zoomed');
+    
+    // Zoom follow cursor logic
+    imageContainer.onmousemove = (e) => {
+      const rect = imageContainer.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      if (mainImage) {
+        mainImage.style.transformOrigin = `${x}% ${y}%`;
+      }
+    };
+
+    imageContainer.onclick = () => {
+      imageContainer.classList.toggle('is-zoomed');
+    };
+  }
+
+  // 3. Thumbnails Switcher Gallery
+  if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+    if (product.images && product.images.length > 1) {
+      product.images.forEach((img, idx) => {
+        const thumbBtn = document.createElement('button');
+        thumbBtn.className = `w-14 h-12 rounded-xl border-2 ${idx === 0 ? 'border-emerald-500 shadow-md shadow-emerald-500/20' : 'border-zinc-800 hover:border-zinc-600'} bg-zinc-900/60 p-1 overflow-hidden transition-all duration-200 cursor-pointer modal-thumb`;
+        thumbBtn.setAttribute('title', idx === 0 ? 'Front View' : 'Nutrition & Details View');
+        thumbBtn.innerHTML = `<img src="${img}" class="w-full h-full object-contain pointer-events-none">`;
+        
+        thumbBtn.onclick = (e) => {
+          e.stopPropagation();
+          if (mainImage) {
+            mainImage.src = img;
+            mainImage.style.transform = 'scale(1)';
+          }
+          if (imageContainer) imageContainer.classList.remove('is-zoomed');
+          document.querySelectorAll('.modal-thumb').forEach(t => {
+            t.classList.remove('border-emerald-500', 'shadow-md', 'shadow-emerald-500/20');
+            t.classList.add('border-zinc-800');
+          });
+          thumbBtn.classList.remove('border-zinc-800');
+          thumbBtn.classList.add('border-emerald-500', 'shadow-md', 'shadow-emerald-500/20');
+        };
+
+        thumbsContainer.appendChild(thumbBtn);
+      });
+      thumbsContainer.classList.remove('hidden');
+    } else {
+      thumbsContainer.classList.add('hidden');
+    }
+  }
+
+  // 4. Category Breadcrumb
+  const categoryEl = document.getElementById('modal-product-category');
+  if (categoryEl) {
+    const categoryNames = {
+      creatine: 'Creatine & Strength Matrix',
+      proteins: 'Proteins & Amino Formulas',
+      energy: 'Pre-Workout & Energy Fuel',
+      wellness: 'Daily Vitamins & Health Matrix'
+    };
+    categoryEl.textContent = `TRANSFORMIUM NUTRITION • ${categoryNames[product.category] || 'ELITE SUPPLEMENT'}`;
+  }
+
+  // 5. Title & Star Rating
+  const titleEl = document.getElementById('modal-product-title');
+  if (titleEl) titleEl.textContent = product.name;
+
+  const ratingScoreEl = document.getElementById('modal-rating-score');
+  if (ratingScoreEl) ratingScoreEl.textContent = product.rating;
+
+  const starsEl = document.getElementById('modal-rating-stars');
+  if (starsEl) {
+    let starsHtml = '';
+    const fullStars = Math.floor(product.rating);
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        starsHtml += `<i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>`;
+      } else {
+        starsHtml += `<i data-lucide="star" class="w-3.5 h-3.5 text-zinc-600"></i>`;
+      }
+    }
+    starsEl.innerHTML = starsHtml;
+  }
+
+  // 6. Price & Savings Block
+  const priceEl = document.getElementById('modal-product-price');
+  if (priceEl) priceEl.textContent = `₹${product.price.toLocaleString('en-IN')}`;
+
+  const origPriceEl = document.getElementById('modal-product-original-price');
+  if (origPriceEl) {
+    if (product.originalPrice) {
+      origPriceEl.textContent = `₹${product.originalPrice.toLocaleString('en-IN')}`;
+      origPriceEl.classList.remove('hidden');
+    } else {
+      origPriceEl.classList.add('hidden');
+    }
+  }
+
+  const discountPill = document.getElementById('modal-product-discount-pill');
+  if (discountPill) {
+    if (product.originalPrice && product.originalPrice > product.price) {
+      const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+      const savings = product.originalPrice - product.price;
+      discountPill.textContent = `Save ${discount}% (₹${savings.toLocaleString('en-IN')} OFF)`;
+      discountPill.classList.remove('hidden');
+    } else {
+      discountPill.classList.add('hidden');
+    }
+  }
+
+  // 7. Specs and Description
+  const specSize = document.getElementById('modal-spec-size');
+  if (specSize) specSize.textContent = product.size || 'Standard Size';
+
+  const specCat = document.getElementById('modal-spec-category');
+  if (specCat) specCat.textContent = product.category ? product.category.toUpperCase() : 'SUPPLEMENT';
+
+  const descEl = document.getElementById('modal-product-description');
+  if (descEl) descEl.textContent = product.description;
+
+  // 8. Quantity Counter Reset
+  updateModalQuantityUI();
+
+  // 9. Show Modal with Smooth Scale Animation
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+
+  setTimeout(() => {
+    backdrop.classList.remove('opacity-0');
+    backdrop.classList.add('opacity-100');
+    panel.classList.remove('scale-95', 'opacity-0');
+    panel.classList.add('scale-100', 'opacity-100');
+  }, 10);
+
+  lucide.createIcons();
+}
+
+function closeProductModal() {
+  const modal = document.getElementById('product-detail-modal');
+  const backdrop = document.getElementById('product-modal-backdrop');
+  const panel = document.getElementById('product-modal-panel');
+  if (!modal || !backdrop || !panel) return;
+
+  backdrop.classList.remove('opacity-100');
+  backdrop.classList.add('opacity-0');
+  panel.classList.remove('scale-100', 'opacity-100');
+  panel.classList.add('scale-95', 'opacity-0');
+
+  setTimeout(() => {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }, 300);
+}
+
+function updateModalQuantityUI() {
+  const qtyEl = document.getElementById('modal-quantity');
+  if (qtyEl) qtyEl.textContent = modalQuantity;
+}
+
+function incrementModalQty() {
+  if (modalQuantity < 20) {
+    modalQuantity += 1;
+    updateModalQuantityUI();
+  }
+}
+
+function decrementModalQty() {
+  if (modalQuantity > 1) {
+    modalQuantity -= 1;
+    updateModalQuantityUI();
+  }
+}
+
+function addModalProductToCart() {
+  if (!activeModalProduct) return;
+
+  const existingItem = cart.find(item => item.product.id === activeModalProduct.id);
+  if (existingItem) {
+    existingItem.quantity += modalQuantity;
+  } else {
+    cart.push({
+      product: activeModalProduct,
+      quantity: modalQuantity
+    });
+  }
+
+  saveCart();
+  updateCartUI();
+
+  // Provide quick feedback on the button
+  const addBtn = document.getElementById('modal-add-to-cart-btn');
+  if (addBtn) {
+    const origHtml = addBtn.innerHTML;
+    addBtn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i><span>Added ${modalQuantity} to Cart!</span>`;
+    addBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
+    addBtn.classList.add('bg-emerald-500');
+    lucide.createIcons();
+
+    setTimeout(() => {
+      addBtn.innerHTML = origHtml;
+      addBtn.classList.remove('bg-emerald-500');
+      addBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+      closeProductModal();
+      openCart();
+    }, 600);
+  } else {
+    closeProductModal();
+    openCart();
+  }
+}
+
+function buyModalProductWhatsApp() {
+  if (!activeModalProduct) return;
+
+  const total = activeModalProduct.price * modalQuantity;
+  let message = `*SPH Nutrition Store - Direct Order Request*\n\n`;
+  message += `Hello! I want to order from SPH Supplement Store:\n`;
+  message += `📦 *Product:* ${activeModalProduct.name}\n`;
+  message += `🔢 *Quantity:* ${modalQuantity}\n`;
+  message += `💰 *Total Amount:* ₹${total.toLocaleString('en-IN')}\n`;
+  message += `📍 *Delivery/Pickup:* SPH Gym Desk / Express Delivery\n\n`;
+  message += `Please confirm my order.`;
+
+  const encodedText = encodeURIComponent(message);
+  const whatsappUrl = `https://wa.me/917003659088?text=${encodedText}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+/**
+ * Initializes frontend security measures to deter client-side tampering, reverse engineering,
+ * and DOM modification. All product states are locked and verified against frozen databases.
+ */
+function initSecurity() {
+
+  // 1. Disable Right-Click context menu to restrict access to 'Inspect Element'
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+  });
+
+  // 2. Block keyboard shortcuts for standard DevTools panels, source view, and print/save triggers
+  window.addEventListener('keydown', (e) => {
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+      (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's' || e.key === 'P' || e.key === 'p'))
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 3. Create active anti-debugging breakpoint loop to stall JS execution if DevTools is open
+  const preventDevTools = () => {
+    function pauseExecution() {
+      (function() {
+        return false;
+      }
+      .constructor('debugger')
+      .call());
+    }
+    setInterval(pauseExecution, 100);
+  };
+  try {
+    preventDevTools();
+  } catch (err) {}
+
+  // 4. Setup MutationObserver to watch for manual DOM modification on critical items & cart containers
+  const observeTargets = [
+    document.getElementById('creatine-grid'),
+    document.getElementById('proteins-grid'),
+    document.getElementById('energy-grid'),
+    document.getElementById('wellness-grid'),
+    document.getElementById('cart-items-container'),
+    document.getElementById('cart-filled-state')
+  ].filter(Boolean);
+
+  const observer = new MutationObserver((mutations) => {
+    if (isSystemAction) return;
+
+    let tampered = false;
+    const protectedAttrs = ['id', 'data-id', 'onclick', 'data-name', 'data-keywords'];
+
+    for (const mutation of mutations) {
+      // Direct text mutations or changes to elements inside target containers are tampered actions
+      if (mutation.type === 'characterData' || mutation.type === 'childList') {
+        tampered = true;
+        break;
+      }
+      // Inspect modification to crucial elements' attributes
+      if (mutation.type === 'attributes') {
+        const attr = mutation.attributeName;
+        if (protectedAttrs.includes(attr)) {
+          tampered = true;
+          break;
+        }
+      }
+    }
+
+    if (tampered) {
+      console.warn('Security alert: unauthorized DOM manipulation detected. Reloading page state.');
+      location.reload();
+    }
+  });
+
+  observeTargets.forEach(target => {
+    observer.observe(target, {
+      attributes: true,
+      childList: true,
+      characterData: true,
+      subtree: true
+    });
+  });
 }

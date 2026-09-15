@@ -287,3 +287,153 @@ svg[data-lucide] {
   -ms-overflow-style: none !important;
   scrollbar-width: none !important;
 }
+
+/* ===== Supplement Brand Logos Infinite Marquee ===== */
+.brand-marquee-section {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  padding: 1.5rem 0 2rem 0;
+}
+
+.brand-marquee-container {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  user-select: none;
+  padding: 0.75rem 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.brand-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 1.25rem;
+  will-change: transform;
+  animation: brandMarqueeLTR 32s linear infinite;
+}
+
+/* Pause marquee on hover so user can inspect logos */
+.brand-marquee-container:hover .brand-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Infinite Left-to-Right Marquee Loop */
+@keyframes brandMarqueeLTR {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Individual Brand Logo Card Badge */
+.brand-logo-item {
+  flex-shrink: 0;
+  height: 4.5rem;
+  width: 12.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 1rem;
+  background-color: #09090b; /* zinc-950 dark badge */
+  border: 1px solid rgba(39, 39, 42, 0.85); /* zinc-800 */
+  box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gloss radial glow overlay on card hover */
+.brand-logo-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.brand-logo-item:hover {
+  transform: translateY(-3px) scale(1.03);
+  border-color: rgba(16, 185, 129, 0.5);
+  box-shadow: 0 10px 24px -3px rgba(16, 185, 129, 0.15), 0 0 12px rgba(16, 185, 129, 0.08);
+}
+
+.brand-logo-item:hover::before {
+  opacity: 1;
+}
+
+.brand-logo-item img {
+  max-height: 2.6rem;
+  max-width: 9rem;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
+}
+
+.brand-logo-item:hover img {
+  transform: scale(1.06);
+}
+
+/* Mobile responsive scaling */
+@media (max-width: 640px) {
+  .brand-marquee-section {
+    padding: 1rem 0 1.5rem 0;
+  }
+  .brand-logo-item {
+    height: 3.75rem;
+    width: 9.75rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 0.75rem;
+  }
+  .brand-logo-item img {
+    max-height: 2.1rem;
+    max-width: 7.5rem;
+  }
+  .brand-marquee-track {
+    gap: 0.85rem;
+  }
+}
+
+/* ===== Product Detail Quick View Modal Styles ===== */
+#product-detail-modal {
+  transition: opacity 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(24, 24, 27, 0.4);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(63, 63, 70, 0.7);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.6);
+}
+
+.modal-zoom-container {
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.modal-zoom-container.is-zoomed img {
+  transform: scale(2.2);
+  cursor: zoom-out;
+}
+
+
