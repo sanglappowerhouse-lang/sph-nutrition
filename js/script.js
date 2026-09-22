@@ -19,6 +19,23 @@ const products = [
     ]
   },
   {
+    id: 'prot-10',
+    name: 'ISO4M(Belgium Chocolate) 1.8kg',
+    category: 'proteins',
+    price: 10799,
+    originalPrice: 17999,
+    description: 'European Sourced Isolate whey protein by Transformium Nutrition in rich Belgium Chocolate flavor. Formulated to optimize athletic performance, accelerate post-workout recovery, and provide efficient muscle replenishment with 25g protein per serving across 55 servings.',
+    size: '1.8kg',
+    rating: 4.9,
+    badge: '40% OFF',
+    keywords: 'transformium nutrition iso4m belgium chocolate 1.8kg european sourced isolate whey protein recovery muscle growth',
+    images: [
+      'images/ultra-iso4m-belgium-chocolate-front.png',
+      'images/ultra-iso4m-belgium-chocolate-back.png',
+      'images/ultra-iso4m-belgium-chocolate-nutrition.png'
+    ]
+  },
+  {
     id: 'prot-1',
     name: 'Transformium Nutrition- ISO4M 1kg (Choco lata bomb Flavor)',
     category: 'proteins',
