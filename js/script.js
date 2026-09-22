@@ -1896,11 +1896,6 @@ function openSpecsModal(productId) {
     badgeEl.textContent = categoryLabels[product.category] || 'Supplement';
   }
 
-  const seriesEl = document.getElementById('specs-modal-header-series');
-  if (seriesEl) {
-    seriesEl.textContent = 'Transformium Heavy-Duty Series';
-  }
-
   // 2. Product Name and Description
   const nameEl = document.getElementById('specs-modal-name');
   if (nameEl) nameEl.textContent = product.name;
