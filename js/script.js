@@ -2,6 +2,23 @@
 const products = [
   // Category 1: Proteins & Aminos
   {
+    id: 'prot-9',
+    name: 'ISO4M(Velvet Nut Melody) 900g',
+    category: 'proteins',
+    price: 5399,
+    originalPrice: 8999,
+    description: 'European Sourced Isolate whey protein by Transformium Nutrition in Velvet Nut Melody flavor. Formulated to optimize athletic performance, accelerate post-workout recovery, and provide efficient muscle replenishment with 25g protein per serving.',
+    size: '900g',
+    rating: 4.9,
+    badge: '40% OFF',
+    keywords: 'transformium nutrition iso4m velvet nut melody 900g european sourced isolate whey protein recovery muscle growth',
+    images: [
+      'images/ultra-iso4m-velvet-nut-front.png',
+      'images/ultra-iso4m-velvet-nut-back.png',
+      'images/ultra-iso4m-velvet-nut-nutrition.png'
+    ]
+  },
+  {
     id: 'prot-1',
     name: 'Transformium Nutrition- ISO4M 1kg (Choco lata bomb Flavor)',
     category: 'proteins',
@@ -1436,7 +1453,8 @@ function openSpecsModal(productId) {
         const thumbBtn = document.createElement('button');
         thumbBtn.type = 'button';
         thumbBtn.className = `w-14 h-12 rounded-xl border-2 ${idx === 0 ? 'border-orange-500 shadow-md shadow-orange-500/20' : 'border-zinc-800 hover:border-zinc-600'} bg-zinc-900/80 p-1 overflow-hidden transition-all duration-200 cursor-pointer specs-modal-thumb shrink-0`;
-        thumbBtn.setAttribute('title', idx === 0 ? 'Front Label View' : 'Back Nutrition Facts View');
+        const viewTitles = ['Front Label View', 'Back & MRP Details View', 'Nutrition Facts & Amino Profile View'];
+        thumbBtn.setAttribute('title', viewTitles[idx] || `View ${idx + 1}`);
         thumbBtn.innerHTML = `<img src="${img}" class="w-full h-full object-contain pointer-events-none">`;
         
         thumbBtn.onclick = (e) => {
