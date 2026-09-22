@@ -445,5 +445,77 @@ svg[data-lucide] {
   background: rgba(16, 185, 129, 0.8);
 }
 
+/* ===== Live Search & Interactive Filter System Styles ===== */
+.quick-filter-chip {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.quick-filter-chip:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.quick-filter-chip.active {
+  background-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px var(--accent-glow) !important;
+}
+
+.dark .quick-filter-chip.active {
+  color: #000000 !important;
+}
+
+/* Floating Elevated Panels */
+#hero-search-dropdown, #hero-filter-panel {
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.25), 0 0 0 1px var(--border-color);
+  animation: filterDropdownSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes filterDropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Filter Option Radio Buttons */
+.filter-select-btn {
+  background-color: transparent;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.filter-select-btn:hover {
+  background-color: var(--accent-light);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.filter-select-btn.active {
+  background-color: var(--accent-light);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+/* Active Filter Counter Pill */
+#hero-filter-btn.active-filters {
+  background-color: #047857;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.35);
+}
+
+.dark #hero-filter-btn.active-filters {
+  background-color: #10b981;
+}
+
+
 
 

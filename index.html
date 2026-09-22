@@ -233,21 +233,133 @@
           Place orders instantly via WhatsApp integration.
         </p>
 
-        <!-- Hero Section Live Search Input -->
-        <div
-          class="w-full max-w-xl mx-auto bg-white/70 dark:bg-zinc-900/50 backdrop-blur-xl border border-zinc-300 dark:border-zinc-800 p-2 rounded-2xl flex flex-col sm:flex-row gap-2 shadow-2xl focus-within:border-emerald-600/50 transition-all duration-300 mb-12">
-          <div class="relative flex-1">
-            <span
-              class="absolute inset-y-0 left-0 pl-4.5 flex items-center pointer-events-none text-zinc-400 dark:text-zinc-500">
-              <i data-lucide="search" class="w-5 h-5"></i>
-            </span>
-            <input type="text" id="hero-search-input" placeholder="Search by supplement name, category, or keywords..."
-              class="w-full bg-transparent border-0 py-3 pl-11 pr-10 text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-0 text-sm">
+        <!-- Hero Section Live Search & Interactive Filter System -->
+        <div class="relative w-full max-w-2xl mx-auto mb-4 z-30">
+          <div
+            class="bg-white/80 dark:bg-zinc-900/60 backdrop-blur-xl border border-zinc-300 dark:border-zinc-800 p-2 rounded-2xl flex flex-col sm:flex-row gap-2 shadow-2xl focus-within:border-emerald-600/50 transition-all duration-300">
+            <div class="relative flex-1">
+              <span
+                class="absolute inset-y-0 left-0 pl-4.5 flex items-center pointer-events-none text-zinc-400 dark:text-zinc-500">
+                <i data-lucide="search" class="w-5 h-5"></i>
+              </span>
+              <input type="text" id="hero-search-input" placeholder="Search by supplement name, category, or keywords..."
+                autocomplete="off"
+                class="w-full bg-transparent border-0 py-3 pl-11 pr-10 text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-0 text-sm">
+              <button id="hero-search-clear" type="button"
+                class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hidden cursor-pointer"
+                aria-label="Clear search">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+            <button type="button" id="hero-filter-btn"
+              class="bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-black font-extrabold text-xs px-5 py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group shadow-lg shadow-emerald-500/10 cursor-pointer active:scale-95 shrink-0"
+              aria-expanded="false" aria-controls="hero-filter-panel">
+              <span>Live Filtering</span>
+              <i data-lucide="sliders-horizontal" class="w-4 h-4 transition-transform duration-200" id="filter-btn-icon"></i>
+              <span id="hero-filter-badge" class="hidden px-1.5 py-0.5 rounded-full text-[9px] font-black bg-zinc-950 text-white dark:bg-zinc-900 dark:text-emerald-400 border border-emerald-500/30">0</span>
+            </button>
           </div>
-          <button type="button"
-            class="bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-black font-extrabold text-xs px-6 py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group shadow-lg shadow-emerald-500/10 cursor-default">
-            Live Filtering
-            <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+
+          <!-- Instant Live Search Results Dropdown -->
+          <div id="hero-search-dropdown"
+            class="hidden absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-3 z-50 max-h-[460px] overflow-y-auto no-scrollbar transition-all duration-200">
+            <!-- Results dynamically generated via JS -->
+          </div>
+
+          <!-- Interactive Live Filter Panel -->
+          <div id="hero-filter-panel"
+            class="hidden absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-4 sm:p-6 z-40 transition-all duration-300">
+            <div class="flex items-center justify-between pb-3 border-b border-zinc-200 dark:border-zinc-800 mb-4">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                  <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+                </div>
+                <h3 class="text-sm sm:text-base font-black text-zinc-900 dark:text-white font-display">Live Filter & Sort</h3>
+              </div>
+              <button type="button" id="close-filter-panel-btn"
+                class="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+                aria-label="Close filter panel">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Filter Categories Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+              <!-- 1. Product Type -->
+              <div>
+                <label class="block text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2 font-display">
+                  Product Type
+                </label>
+                <div class="space-y-1 max-h-48 overflow-y-auto pr-1 no-scrollbar" id="filter-type-options">
+                  <!-- Dynamically inserted in JS -->
+                </div>
+              </div>
+
+              <!-- 2. Price Range -->
+              <div>
+                <label class="block text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2 font-display">
+                  Price Range
+                </label>
+                <div class="space-y-1 max-h-48 overflow-y-auto pr-1 no-scrollbar" id="filter-price-options">
+                  <!-- Dynamically inserted in JS -->
+                </div>
+              </div>
+
+              <!-- 3. Sort By -->
+              <div>
+                <label class="block text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2 font-display">
+                  Sort Order
+                </label>
+                <div class="space-y-1 max-h-48 overflow-y-auto pr-1 no-scrollbar" id="filter-sort-options">
+                  <!-- Dynamically inserted in JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer Action Row -->
+            <div class="pt-3 border-t border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div class="text-xs text-zinc-500 dark:text-zinc-400 font-medium">
+                Matching: <span id="filter-match-count" class="font-bold text-zinc-900 dark:text-white font-mono">22</span> supplements
+              </div>
+              <div class="flex items-center gap-2 w-full sm:w-auto">
+                <button type="button" id="filter-reset-btn"
+                  class="flex-1 sm:flex-none px-4 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer">
+                  Reset
+                </button>
+                <button type="button" id="filter-apply-btn"
+                  class="flex-1 sm:flex-none px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-black text-xs font-black transition-all cursor-pointer shadow-md shadow-emerald-500/20">
+                  Apply & View
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Filter Chips Horizontal Bar -->
+        <div class="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap max-w-3xl mx-auto mb-10 px-2">
+          <button type="button" class="quick-filter-chip active px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer border" data-filter-type="all">
+            All (22)
+          </button>
+          <button type="button" class="quick-filter-chip px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer border" data-filter-type="isolate">
+            🥛 Whey Isolate (3)
+          </button>
+          <button type="button" class="quick-filter-chip px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer border" data-filter-type="gainer">
+            💪 Mass Gainer (3)
+          </button>
+          <button type="button" class="quick-filter-chip px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer border" data-filter-type="creatine">
+            ⚡ Creatine (3)
+          </button>
+          <button type="button" class="quick-filter-chip px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer border" data-filter-type="preworkout">
+            🔥 Pre-Workout (1)
+          </button>
+          <button type="button" class="quick-filter-chip px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer border" data-filter-type="wellness">
+            🌿 Organ Health (6)
+          </button>
+          <button type="button" class="quick-filter-chip px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer border" data-filter-price="under-3000">
+            🏷️ Under ₹3,000
+          </button>
+          <button type="button" class="quick-filter-chip px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer border" data-filter-discount="40">
+            🔥 40% OFF
           </button>
         </div>
 
