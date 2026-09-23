@@ -419,16 +419,13 @@ const expandedSections = {
 
 // Filter & Sort Configuration
 const PRODUCT_TYPES = [
-  { id: 'all', label: 'All Product Types', icon: 'sparkles' },
+  { id: 'all', label: 'All', icon: 'sparkles' },
   { id: 'isolate', label: 'Whey Isolate', icon: 'shield-check' },
   { id: 'gainer', label: 'Mass Gainers', icon: 'dumbbell' },
-  { id: 'blend', label: 'Whey Blends & Concentrate', icon: 'layers' },
-  { id: 'creatine', label: 'Creatine Monohydrate', icon: 'zap' },
+  { id: 'blend', label: 'Whey Blends', icon: 'layers' },
+  { id: 'creatine', label: 'Creatine', icon: 'zap' },
   { id: 'preworkout', label: 'Pre-Workouts', icon: 'flame' },
-  { id: 'aminos', label: 'BCAA & Aminos', icon: 'activity' },
-  { id: 'fatburner', label: 'Fat Burners & Carnitine', icon: 'fire' },
-  { id: 'wellness', label: 'Organ Care & Vitality', icon: 'heart-pulse' },
-  { id: 'multivitamin', label: 'Daily Multivitamins', icon: 'pill' }
+  { id: 'wellness', label: 'Organ Care', icon: 'heart-pulse' }
 ];
 
 const PRICE_RANGES = [
@@ -436,16 +433,15 @@ const PRICE_RANGES = [
   { id: 'under-2000', label: 'Under ₹2,000' },
   { id: '2000-5000', label: '₹2,000 – ₹5,000' },
   { id: '5000-10000', label: '₹5,000 – ₹10,000' },
-  { id: 'above-10000', label: 'Above ₹10,000' },
-  { id: 'under-3000', label: 'Under ₹3,000' }
+  { id: 'above-10000', label: 'Above ₹10,000' }
 ];
 
 const SORT_OPTIONS = [
-  { id: 'featured', label: 'Featured / Recommended' },
-  { id: 'price-asc', label: 'Price: Low to High' },
-  { id: 'price-desc', label: 'Price: High to Low' },
-  { id: 'discount-desc', label: 'Highest Discount %' },
-  { id: 'rating-desc', label: 'Top Customer Rating' }
+  { id: 'featured', label: 'Recommended' },
+  { id: 'price-asc', label: 'Price: Low-High' },
+  { id: 'price-desc', label: 'Price: High-Low' },
+  { id: 'rating-desc', label: 'Top Rated' },
+  { id: 'discount-desc', label: 'Top Discount' }
 ];
 
 // Current active filter state
@@ -587,19 +583,19 @@ document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
   updateCartUI();
   initAthletesSlider();
+  initHeroGridAnimation();
 });
 
 // Theme Logic
 function initTheme() {
-  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const savedTheme = localStorage.getItem('theme');
   
-  if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
-    document.documentElement.classList.add('dark');
-    updateThemeIcon(true);
-  } else {
+  if (savedTheme === 'light') {
     document.documentElement.classList.remove('dark');
     updateThemeIcon(false);
+  } else {
+    document.documentElement.classList.add('dark');
+    updateThemeIcon(true);
   }
 }
 
@@ -855,24 +851,28 @@ function renderHeroFilterOptions() {
   const sortContainer = document.getElementById('filter-sort-options');
 
   if (typeContainer) {
-    typeContainer.innerHTML = PRODUCT_TYPES.map(t => {
-      const count = t.id === 'all'
-        ? products.length
-        : products.filter(p => t.id === 'blend' ? (p.type === 'blend' || p.type === 'concentrate') : p.type === t.id).length;
-      const isActive = currentFilterState.productType === t.id;
-      return `
-        <button type="button" onclick="selectFilterOption('productType', '${t.id}')"
-          class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs flex items-center justify-between filter-select-btn ${isActive ? 'active' : 'text-zinc-700 dark:text-zinc-300'} cursor-pointer">
-          <span class="flex items-center gap-2 truncate">
-            <i data-lucide="${t.icon || 'circle'}" class="w-3.5 h-3.5 shrink-0 ${isActive ? 'text-emerald-500' : 'text-zinc-400'}"></i>
-            <span class="truncate">${t.label}</span>
-          </span>
-          <span class="text-[10px] font-mono px-1.5 py-0.5 rounded-full ${isActive ? 'bg-emerald-500 text-white dark:text-black' : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500'} font-bold">
-            ${count}
-          </span>
-        </button>
-      `;
-    }).join('');
+    typeContainer.innerHTML = PRODUCT_TYPES
+      .filter(t => {
+        if (t.id === 'all') return true;
+        const count = products.filter(p => t.id === 'blend' ? (p.type === 'blend' || p.type === 'concentrate') : p.type === t.id).length;
+        return count > 0;
+      })
+      .map(t => {
+        const count = t.id === 'all'
+          ? products.length
+          : products.filter(p => t.id === 'blend' ? (p.type === 'blend' || p.type === 'concentrate') : p.type === t.id).length;
+        const isActive = currentFilterState.productType === t.id;
+        return `
+          <button type="button" onclick="selectFilterOption('productType', '${t.id}')"
+            class="filter-pill ${isActive ? 'active' : ''} px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[10.5px] sm:text-xs font-semibold inline-flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer select-none">
+            <i data-lucide="${t.icon || 'circle'}" class="w-3 h-3 shrink-0 ${isActive ? 'text-emerald-500 dark:text-emerald-400' : 'text-zinc-400'}"></i>
+            <span>${t.label}</span>
+            <span class="pill-count text-[9px] font-mono px-1 py-0.2 rounded-full font-bold">
+              ${count}
+            </span>
+          </button>
+        `;
+      }).join('');
   }
 
   if (priceContainer) {
@@ -880,9 +880,9 @@ function renderHeroFilterOptions() {
       const isActive = currentFilterState.priceRange === pr.id;
       return `
         <button type="button" onclick="selectFilterOption('priceRange', '${pr.id}')"
-          class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs flex items-center justify-between filter-select-btn ${isActive ? 'active' : 'text-zinc-700 dark:text-zinc-300'} cursor-pointer">
+          class="filter-pill ${isActive ? 'active' : ''} px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[10.5px] sm:text-xs font-semibold inline-flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer select-none">
+          ${isActive ? `<i data-lucide="check" class="w-3 h-3 text-emerald-500 dark:text-emerald-400 shrink-0"></i>` : ''}
           <span>${pr.label}</span>
-          ${isActive ? `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i>` : ''}
         </button>
       `;
     }).join('');
@@ -893,9 +893,9 @@ function renderHeroFilterOptions() {
       const isActive = currentFilterState.sortBy === s.id;
       return `
         <button type="button" onclick="selectFilterOption('sortBy', '${s.id}')"
-          class="w-full text-left px-2.5 py-1.5 rounded-lg text-xs flex items-center justify-between filter-select-btn ${isActive ? 'active' : 'text-zinc-700 dark:text-zinc-300'} cursor-pointer">
+          class="filter-pill ${isActive ? 'active' : ''} px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[10.5px] sm:text-xs font-semibold inline-flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer select-none">
+          ${isActive ? `<i data-lucide="check" class="w-3 h-3 text-emerald-500 dark:text-emerald-400 shrink-0"></i>` : ''}
           <span>${s.label}</span>
-          ${isActive ? `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i>` : ''}
         </button>
       `;
     }).join('');
@@ -905,9 +905,17 @@ function renderHeroFilterOptions() {
   lucide.createIcons();
 }
 
-// Select an option inside the filter panel
+// Select an option inside the filter panel (with toggle support)
 function selectFilterOption(filterKey, value) {
-  currentFilterState[filterKey] = value;
+  if (filterKey === 'productType') {
+    currentFilterState.productType = (currentFilterState.productType === value && value !== 'all') ? 'all' : value;
+  } else if (filterKey === 'priceRange') {
+    currentFilterState.priceRange = (currentFilterState.priceRange === value && value !== 'all') ? 'all' : value;
+  } else if (filterKey === 'sortBy') {
+    currentFilterState.sortBy = value;
+  } else {
+    currentFilterState[filterKey] = value;
+  }
   renderHeroFilterOptions();
   renderProducts();
 }
@@ -936,28 +944,6 @@ function updateFilterBadges() {
       filterBtn.classList.remove('active-filters');
     }
   }
-
-  // Update quick filter chips active class
-  document.querySelectorAll('.quick-filter-chip').forEach(chip => {
-    const fType = chip.getAttribute('data-filter-type');
-    const fPrice = chip.getAttribute('data-filter-price');
-    const fDisc = chip.getAttribute('data-filter-discount');
-
-    let isActive = false;
-    if (fType) {
-      isActive = currentFilterState.productType === fType;
-    } else if (fPrice) {
-      isActive = currentFilterState.priceRange === fPrice;
-    } else if (fDisc) {
-      isActive = currentFilterState.minDiscount === parseInt(fDisc, 10);
-    }
-
-    if (isActive) {
-      chip.classList.add('active');
-    } else {
-      chip.classList.remove('active');
-    }
-  });
 }
 
 // Instant Live Search Dropdown Renderer
@@ -1246,16 +1232,17 @@ function setupEventListeners() {
 
   // Filter Panel Reset & Apply buttons
   const filterResetBtn = document.getElementById('filter-reset-btn');
-  if (filterResetBtn) {
-    filterResetBtn.addEventListener('click', () => {
-      currentFilterState.productType = 'all';
-      currentFilterState.priceRange = 'all';
-      currentFilterState.sortBy = 'featured';
-      currentFilterState.minDiscount = 0;
-      renderHeroFilterOptions();
-      renderProducts();
-    });
-  }
+  const headerResetBtn = document.getElementById('header-reset-btn');
+  const handleFilterReset = () => {
+    currentFilterState.productType = 'all';
+    currentFilterState.priceRange = 'all';
+    currentFilterState.sortBy = 'featured';
+    currentFilterState.minDiscount = 0;
+    renderHeroFilterOptions();
+    renderProducts();
+  };
+  if (filterResetBtn) filterResetBtn.addEventListener('click', handleFilterReset);
+  if (headerResetBtn) headerResetBtn.addEventListener('click', handleFilterReset);
 
   const filterApplyBtn = document.getElementById('filter-apply-btn');
   if (filterApplyBtn) {
@@ -1267,27 +1254,6 @@ function setupEventListeners() {
     });
   }
 
-  // Quick Filter Chips Bar
-  document.querySelectorAll('.quick-filter-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const fType = chip.getAttribute('data-filter-type');
-      const fPrice = chip.getAttribute('data-filter-price');
-      const fDisc = chip.getAttribute('data-filter-discount');
-
-      if (fType) {
-        currentFilterState.productType = (currentFilterState.productType === fType && fType !== 'all') ? 'all' : fType;
-      } else if (fPrice) {
-        currentFilterState.priceRange = (currentFilterState.priceRange === fPrice) ? 'all' : fPrice;
-      } else if (fDisc) {
-        const dVal = parseInt(fDisc, 10);
-        currentFilterState.minDiscount = (currentFilterState.minDiscount === dVal) ? 0 : dVal;
-      }
-
-      renderHeroFilterOptions();
-      renderProducts();
-      updateFilterBadges();
-    });
-  });
 
   // Reset Filters button on empty state
   const resetFiltersBtn = document.getElementById('reset-filters-btn');
@@ -1358,11 +1324,15 @@ function setupEventListeners() {
 
   // Cart Drawer triggers
   const cartIconContainer = document.getElementById('cart-icon-container');
+  const mobileCartBtn = document.getElementById('mobile-cart-btn');
   const closeCartBtn = document.getElementById('close-cart-btn');
   const cartDrawerBackdrop = document.getElementById('cart-drawer-backdrop');
   
   if (cartIconContainer) {
     cartIconContainer.addEventListener('click', openCart);
+  }
+  if (mobileCartBtn) {
+    mobileCartBtn.addEventListener('click', openCart);
   }
   if (closeCartBtn) {
     closeCartBtn.addEventListener('click', closeCart);
@@ -1752,6 +1722,462 @@ function checkoutWhatsApp() {
 
   // Redirect in new tab
   window.open(whatsappUrl, '_blank');
+}
+
+// =========================================================================
+// Cart Drawer Mechanics (Open / Close & Backdrop Transitions)
+// =========================================================================
+let cartCloseTimer = null;
+
+function openCart() {
+  const drawer = document.getElementById('cart-drawer');
+  const backdrop = document.getElementById('cart-drawer-backdrop');
+  const panel = document.getElementById('cart-drawer-panel');
+
+  if (!drawer) return;
+
+  if (cartCloseTimer) {
+    clearTimeout(cartCloseTimer);
+    cartCloseTimer = null;
+  }
+
+  // Auto-close mobile navigation menu if it is currently open
+  const mobileDrawer = document.getElementById('mobile-menu-drawer');
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  if (mobileDrawer && !mobileDrawer.classList.contains('translate-x-full')) {
+    mobileDrawer.classList.remove('translate-x-0');
+    mobileDrawer.classList.add('translate-x-full');
+    if (mobileToggle) {
+      mobileToggle.innerHTML = `<i data-lucide="menu" class="w-6 h-6"></i>`;
+    }
+  }
+
+  // Make drawer container active
+  drawer.classList.remove('hidden');
+
+  // Trigger smooth transition
+  requestAnimationFrame(() => {
+    if (backdrop) {
+      backdrop.classList.remove('opacity-0');
+      backdrop.classList.add('opacity-100');
+    }
+    if (panel) {
+      panel.classList.remove('translate-x-full');
+      panel.classList.add('translate-x-0');
+    }
+  });
+
+  document.body.style.overflow = 'hidden';
+  updateCartUI();
+
+  if (window.lucide && typeof window.lucide.createIcons === 'function') {
+    window.lucide.createIcons();
+  }
+}
+
+function closeCart() {
+  const drawer = document.getElementById('cart-drawer');
+  const backdrop = document.getElementById('cart-drawer-backdrop');
+  const panel = document.getElementById('cart-drawer-panel');
+
+  if (!drawer) return;
+
+  if (cartCloseTimer) {
+    clearTimeout(cartCloseTimer);
+  }
+
+  // Trigger transition out
+  if (backdrop) {
+    backdrop.classList.remove('opacity-100');
+    backdrop.classList.add('opacity-0');
+  }
+  if (panel) {
+    panel.classList.remove('translate-x-0');
+    panel.classList.add('translate-x-full');
+  }
+
+  cartCloseTimer = setTimeout(() => {
+    if (panel && panel.classList.contains('translate-x-full')) {
+      drawer.classList.add('hidden');
+    }
+    cartCloseTimer = null;
+  }, 300);
+
+  // Restore body scroll unless another modal is still open
+  const specsModal = document.getElementById('specs-modal');
+  const lightboxModal = document.getElementById('lightbox-modal');
+  const isSpecsOpen = specsModal && specsModal.classList.contains('open');
+  const isLightboxOpen = lightboxModal && lightboxModal.classList.contains('open');
+  if (!isSpecsOpen && !isLightboxOpen) {
+    document.body.style.overflow = '';
+  }
+}
+
+// Ensure global accessibility for inline onclick handlers
+window.openCart = openCart;
+window.closeCart = closeCart;
+window.addToCart = addToCart;
+window.updateCartQuantity = updateCartQuantity;
+window.removeCartItem = removeCartItem;
+window.checkoutWhatsApp = checkoutWhatsApp;
+
+// =========================================================================
+// Hero Background Grid Glowing Line Flow Animation (Center to Corners)
+// =========================================================================
+function initHeroGridAnimation() {
+  const canvas = document.getElementById('hero-grid-canvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let animFrameId = null;
+  let width = 0;
+  let height = 0;
+  let isVisible = true;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize() {
+    const parent = canvas.parentElement;
+    if (!parent) return;
+    const rect = parent.getBoundingClientRect();
+    width = rect.width;
+    height = rect.height;
+
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Pause when hero is scrolled out of viewport
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !animFrameId) {
+          lastTime = performance.now();
+          animFrameId = requestAnimationFrame(render);
+        }
+      });
+    }, { threshold: 0.05 });
+    observer.observe(canvas.parentElement || canvas);
+  }
+
+  let lastTime = performance.now();
+  let totalTime = 0;
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function render(now) {
+    if (!isVisible) {
+      animFrameId = null;
+      return;
+    }
+
+    const dt = Math.min((now - lastTime) / 1000, 0.1);
+    lastTime = now;
+    totalTime += dt;
+
+    ctx.clearRect(0, 0, width, height);
+
+    if (width <= 10 || height <= 10) {
+      animFrameId = requestAnimationFrame(render);
+      return;
+    }
+
+    const isDark = document.documentElement.classList.contains('dark');
+    const gridSize = 50; // Aligns with background-size: 50px 50px of .grid-overlay
+
+    // Center coordinates snapped to 50px grid
+    const rawCx = width / 2;
+    const rawCy = height * 0.44;
+    const cx = Math.round(rawCx / gridSize) * gridSize;
+    const cy = Math.round(rawCy / gridSize) * gridSize;
+
+    // Corner targets
+    const corners = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: 0, y: height },
+      { x: width, y: height }
+    ];
+
+    // Cardinal edge targets (along central grid axes)
+    const cardinals = [
+      { x: cx, y: 0 },
+      { x: cx, y: height },
+      { x: 0, y: cy },
+      { x: width, y: cy }
+    ];
+
+    const primaryGlow = isDark ? '#10b981' : '#059669';
+    const highlightColor = isDark ? '#6ee7b7' : '#10b981';
+    const ambientAlpha = isDark ? 0.08 : 0.04;
+
+    // 1. Faint ambient guide lines connecting center to corners & axes
+    ctx.save();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = `rgba(16, 185, 129, ${ambientAlpha})`;
+    corners.forEach(corner => {
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(corner.x, corner.y);
+      ctx.stroke();
+    });
+    cardinals.forEach(card => {
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(card.x, card.y);
+      ctx.stroke();
+    });
+    ctx.restore();
+
+    // 2. Expanding Rectangular Grid Waves (Ripples through box line layout)
+    const numBoxWaves = 3;
+    for (let i = 0; i < numBoxWaves; i++) {
+      const waveCycle = (totalTime * 0.25 + i / numBoxWaves) % 1.0;
+      const progress = 1 - Math.pow(1 - waveCycle, 1.8);
+      const waveW = progress * width * 1.35;
+      const waveH = progress * height * 1.35;
+      const waveAlpha = Math.sin(progress * Math.PI) * (isDark ? 0.22 : 0.12);
+
+      if (waveAlpha > 0.01) {
+        ctx.save();
+        ctx.shadowColor = primaryGlow;
+        ctx.shadowBlur = 8;
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = `rgba(16, 185, 129, ${waveAlpha})`;
+        ctx.strokeRect(cx - waveW / 2, cy - waveH / 2, waveW, waveH);
+        ctx.restore();
+      }
+    }
+
+    // 3. Flowing Green Glow Lines: Center to 4 Corners (Infinite loop)
+    const pulsesPerRay = 3;
+    const pulseSpeed = 0.3; // Loop period ~3.3s
+    const tailRatio = 0.32; // Length of the luminous trailing line
+
+    corners.forEach((corner, cIdx) => {
+      for (let p = 0; p < pulsesPerRay; p++) {
+        const offset = (p / pulsesPerRay) + (cIdx * 0.08);
+        const t = (totalTime * pulseSpeed + offset) % 1.0;
+
+        // Smooth sinusoidal opacity curve (fade in at center, full in transit, fade at corner)
+        const alpha = Math.sin(t * Math.PI) * (isDark ? 0.9 : 0.7);
+        if (alpha <= 0.02) continue;
+
+        const headX = lerp(cx, corner.x, t);
+        const headY = lerp(cy, corner.y, t);
+
+        const tailT = Math.max(0, t - tailRatio);
+        const tailX = lerp(cx, corner.x, tailT);
+        const tailY = lerp(cy, corner.y, tailT);
+
+        const segDist = Math.hypot(headX - tailX, headY - tailY);
+        if (segDist < 1) continue;
+
+        // Glowing gradient along the moving line
+        const grad = ctx.createLinearGradient(tailX, tailY, headX, headY);
+        grad.addColorStop(0, 'rgba(16, 185, 129, 0)');
+        grad.addColorStop(0.65, `rgba(16, 185, 129, ${alpha * 0.65})`);
+        grad.addColorStop(1, isDark ? `rgba(110, 231, 183, ${alpha})` : `rgba(16, 185, 129, ${alpha})`);
+
+        ctx.save();
+        ctx.shadowColor = primaryGlow;
+        ctx.shadowBlur = 12;
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(headX, headY);
+        ctx.stroke();
+
+        // Luminous spark particle at the head
+        ctx.beginPath();
+        ctx.arc(headX, headY, 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = highlightColor;
+        ctx.shadowColor = primaryGlow;
+        ctx.shadowBlur = 14;
+        ctx.fill();
+        ctx.restore();
+      }
+    });
+
+    // 4. Cardinal Pulses (Flowing horizontally and vertically along grid axes)
+    cardinals.forEach((card, cIdx) => {
+      for (let p = 0; p < 2; p++) {
+        const offset = (p / 2) + (cIdx * 0.15);
+        const t = (totalTime * 0.32 + offset) % 1.0;
+        const alpha = Math.sin(t * Math.PI) * (isDark ? 0.65 : 0.45);
+        if (alpha <= 0.02) continue;
+
+        const headX = lerp(cx, card.x, t);
+        const headY = lerp(cy, card.y, t);
+        const tailT = Math.max(0, t - 0.28);
+        const tailX = lerp(cx, card.x, tailT);
+        const tailY = lerp(cy, card.y, tailT);
+
+        if (Math.hypot(headX - tailX, headY - tailY) < 1) continue;
+
+        const grad = ctx.createLinearGradient(tailX, tailY, headX, headY);
+        grad.addColorStop(0, 'rgba(16, 185, 129, 0)');
+        grad.addColorStop(1, `rgba(16, 185, 129, ${alpha})`);
+
+        ctx.save();
+        ctx.shadowColor = primaryGlow;
+        ctx.shadowBlur = 8;
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(headX, headY);
+        ctx.stroke();
+        ctx.restore();
+      }
+    });
+
+    // 5. Stepped Grid Lines (Pulses traveling along 50px box lines to all corners)
+    const steppedPaths = [
+      // Top-Left: steps out then up then corner
+      [
+        { x: cx, y: cy },
+        { x: cx - gridSize * 2, y: cy },
+        { x: cx - gridSize * 2, y: cy - gridSize * 2 },
+        { x: cx - gridSize * 6, y: cy - gridSize * 2 },
+        { x: cx - gridSize * 6, y: cy - gridSize * 5 },
+        { x: 0, y: 0 }
+      ],
+      // Top-Right: steps out then up then corner
+      [
+        { x: cx, y: cy },
+        { x: cx + gridSize * 2, y: cy },
+        { x: cx + gridSize * 2, y: cy - gridSize * 2 },
+        { x: cx + gridSize * 6, y: cy - gridSize * 2 },
+        { x: cx + gridSize * 6, y: cy - gridSize * 5 },
+        { x: width, y: 0 }
+      ],
+      // Bottom-Left: steps out then down then corner
+      [
+        { x: cx, y: cy },
+        { x: cx - gridSize * 2, y: cy },
+        { x: cx - gridSize * 2, y: cy + gridSize * 2 },
+        { x: cx - gridSize * 6, y: cy + gridSize * 2 },
+        { x: cx - gridSize * 6, y: cy + gridSize * 5 },
+        { x: 0, y: height }
+      ],
+      // Bottom-Right: steps out then down then corner
+      [
+        { x: cx, y: cy },
+        { x: cx + gridSize * 2, y: cy },
+        { x: cx + gridSize * 2, y: cy + gridSize * 2 },
+        { x: cx + gridSize * 6, y: cy + gridSize * 2 },
+        { x: cx + gridSize * 6, y: cy + gridSize * 5 },
+        { x: width, y: height }
+      ]
+    ];
+
+    function getPointOnPolyline(points, t) {
+      let totalLen = 0;
+      const lens = [];
+      for (let i = 0; i < points.length - 1; i++) {
+        const segLen = Math.hypot(points[i + 1].x - points[i].x, points[i + 1].y - points[i].y);
+        lens.push(segLen);
+        totalLen += segLen;
+      }
+      if (totalLen === 0) return points[0];
+
+      const targetDist = t * totalLen;
+      let accum = 0;
+      for (let i = 0; i < points.length - 1; i++) {
+        if (accum + lens[i] >= targetDist) {
+          const segT = (targetDist - accum) / lens[i];
+          return {
+            x: lerp(points[i].x, points[i + 1].x, segT),
+            y: lerp(points[i].y, points[i + 1].y, segT)
+          };
+        }
+        accum += lens[i];
+      }
+      return points[points.length - 1];
+    }
+
+    steppedPaths.forEach((pathPoints, pIdx) => {
+      for (let s = 0; s < 2; s++) {
+        const sOffset = (s * 0.5) + (pIdx * 0.12);
+        const t = (totalTime * 0.22 + sOffset) % 1.0;
+        const alpha = Math.sin(t * Math.PI) * (isDark ? 0.75 : 0.5);
+
+        if (alpha <= 0.02) continue;
+
+        const head = getPointOnPolyline(pathPoints, t);
+        const tail = getPointOnPolyline(pathPoints, Math.max(0, t - 0.2));
+
+        if (Math.hypot(head.x - tail.x, head.y - tail.y) < 1) continue;
+
+        ctx.save();
+        ctx.shadowColor = primaryGlow;
+        ctx.shadowBlur = 8;
+        ctx.lineWidth = 1.3;
+        ctx.strokeStyle = `rgba(16, 185, 129, ${alpha})`;
+        ctx.beginPath();
+        ctx.moveTo(tail.x, tail.y);
+        ctx.lineTo(head.x, head.y);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(head.x, head.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = highlightColor;
+        ctx.fill();
+        ctx.restore();
+      }
+    });
+
+    // 6. Central Pulsing Node (Origin core where green glowing lines start)
+    ctx.save();
+    const corePulse = (Math.sin(totalTime * 2.8) + 1) / 2;
+    const coreRadius = 3.5 + corePulse * 2.5;
+    const ringRadius = 10 + corePulse * 16;
+    const ringAlpha = (1 - corePulse) * (isDark ? 0.4 : 0.22);
+
+    const radialGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 80);
+    radialGrad.addColorStop(0, isDark ? 'rgba(16, 185, 129, 0.25)' : 'rgba(16, 185, 129, 0.14)');
+    radialGrad.addColorStop(0.5, isDark ? 'rgba(16, 185, 129, 0.07)' : 'rgba(16, 185, 129, 0.03)');
+    radialGrad.addColorStop(1, 'rgba(16, 185, 129, 0)');
+    ctx.fillStyle = radialGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 80, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Center emitting ring
+    ctx.strokeStyle = `rgba(16, 185, 129, ${ringAlpha})`;
+    ctx.lineWidth = 1;
+    ctx.shadowColor = primaryGlow;
+    ctx.shadowBlur = 6;
+    ctx.beginPath();
+    ctx.arc(cx, cy, ringRadius, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Center node dot
+    ctx.fillStyle = highlightColor;
+    ctx.shadowColor = primaryGlow;
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.arc(cx, cy, coreRadius, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+
+    animFrameId = requestAnimationFrame(render);
+  }
+
+  animFrameId = requestAnimationFrame(render);
 }
 
 // Transformium Athletes Horizontal Slider Logic
